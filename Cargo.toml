@@ -1,0 +1,6 @@
+[package]
+name = "bgapi"
+version = "0.0.0"
+authors = ["Arthur Crippa Búrigo <arthurcburigo@gmail.com>"]
+
+[dependencies]
