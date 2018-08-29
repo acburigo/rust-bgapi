@@ -1,9 +1,16 @@
 pub mod coex;
 pub mod dfu;
+pub mod error;
 pub mod flash;
 pub mod gatt;
 pub mod gatt_server;
 pub mod hardware;
+pub mod le_connection;
+pub mod le_gap;
+pub mod sm;
+pub mod system;
+pub mod test;
+pub mod user;
 
 pub enum MessageType {
     CommandResponse = 0x20,
@@ -45,52 +52,52 @@ pub struct MessageHeader {
 // }
 
 enum Packet {
-    Command(CommandClass),
-    Response(ResponseClass),
-    Event(EventClass),
+    Command(Command),
+    Response(Response),
+    Event(Event),
 }
 
-enum CommandClass {
+enum Command {
     coex(coex::Command),
     dfu(dfu::Command),
     flash(flash::Command),
     gatt(gatt::Command),
     gatt_server(gatt_server::Command),
     hardware(hardware::Command),
-    le_connection,
-    le_gap,
-    sm,
-    system,
-    test,
-    user,
+    le_connection(le_connection::Command),
+    le_gap(le_gap::Command),
+    sm(sm::Command),
+    system(system::Command),
+    test(test::Command),
+    user(user::Command),
 }
 
-enum ResponseClass {
+enum Response {
     coex(coex::Response),
     dfu(dfu::Response),
     flash(flash::Response),
     gatt(gatt::Response),
     gatt_server(gatt_server::Response),
     hardware(hardware::Response),
-    le_connection,
-    le_gap,
-    sm,
-    system,
-    test,
-    user,
+    le_connection(le_connection::Response),
+    le_gap(le_gap::Response),
+    sm(sm::Response),
+    system(system::Response),
+    test(test::Response),
+    user(user::Response),
 }
 
-enum EventClass {
+enum Event {
     Dfu(dfu::Event),
     gatt(gatt::Event),
     gatt_server(gatt_server::Event),
     hardware(hardware::Event),
-    le_connection,
-    le_gap,
-    sm,
-    system,
-    test,
-    user,
+    le_connection(le_connection::Event),
+    le_gap(le_gap::Event),
+    sm(sm::Event),
+    system(system::Event),
+    test(test::Event),
+    user(user::Event),
 }
 
 // pub struct Message {

@@ -9,9 +9,9 @@ pub enum Response {
 }
 
 pub enum Option {
-    enable = 256,
-    tx_abort = 1024,
-    high_priority = 2048,
+    enable = 256,         // Enable coexistence feature
+    tx_abort = 1024,      // Abort transmission if grant is denied
+    high_priority = 2048, // Enable priority signal
 }
 
 // fn cmd_coex_get_counters(reset: u8) -> [u8] {}

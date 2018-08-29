@@ -154,32 +154,32 @@ pub enum Event {
 }
 
 pub enum AttOpcode {
-    read_by_type_request = 8,
-    read_by_type_response = 9,
-    read_request = 10,
-    read_response = 11,
-    read_blob_request = 12,
-    read_blob_response = 13,
-    read_multiple_request = 14,
-    read_multiple_response = 15,
-    write_request = 18,
-    write_response = 19,
-    write_command = 82,
-    prepare_write_request = 22,
-    prepare_write_response = 23,
-    execute_write_request = 24,
-    execute_write_response = 25,
-    handle_value_notification = 27,
-    handle_value_indication = 29,
+    read_by_type_request = 8,       // Read by type request
+    read_by_type_response = 9,      // Read by type response
+    read_request = 10,              // Read request
+    read_response = 11,             // Read response
+    read_blob_request = 12,         // Read blob request
+    read_blob_response = 13,        // Read blob response
+    read_multiple_request = 14,     // Read multiple request
+    read_multiple_response = 15,    // Read multiple response
+    write_request = 18,             // Write request
+    write_response = 19,            // Write response
+    write_command = 82,             // Write command
+    prepare_write_request = 22,     // Prepare write request
+    prepare_write_response = 23,    // Prepare write response
+    execute_write_request = 24,     // Execute write request
+    execute_write_response = 25,    // Execute write response
+    handle_value_notification = 27, // Notification
+    handle_value_indication = 29,   // Indication
 }
 
 pub enum ClientConfigFlag {
-    disable = 0,
-    notification = 1,
-    indication = 2,
+    disable = 0,      // Disable notifications and indications
+    notification = 1, // Notification
+    indication = 2,   // Indication
 }
 
 pub enum execute_write_flag {
-    cancel = 0,
-    commit = 1,
+    cancel = 0, // Cancel all queued writes
+    commit = 1, // Commit all queued writes
 }

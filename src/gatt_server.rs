@@ -82,6 +82,6 @@ pub enum Event {
 }
 
 pub enum CharacteristicStatusFlag {
-    client_config = 1,
-    confirmation = 2,
+    client_config = 1, // Characteristic client configuration has been changed.
+    confirmation = 2,  // Characteristic confirmation has been received.
 }
