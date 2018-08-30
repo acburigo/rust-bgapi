@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     bonding_confirm {
         connection: u8,
@@ -63,6 +68,15 @@ pub enum Response {
     use_sc_oob { result: u16, oob_data: [u8; 32] },
 }
 
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
+}
+
 pub enum Event {
     bonded {
         connection: u8,
@@ -93,6 +107,12 @@ pub enum Event {
     passkey_request {
         connection: u8,
     },
+}
+
+impl Event {
+    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }
 
 pub enum BondingKey {

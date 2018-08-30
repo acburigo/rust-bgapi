@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     close {
         connection: u8,
@@ -30,6 +35,15 @@ pub enum Response {
     set_phy { result: u16 },
 }
 
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
+}
+
 pub enum Event {
     closed {
         reason: u16,
@@ -60,6 +74,12 @@ pub enum Event {
         status: u8,
         rssi: i8,
     },
+}
+
+impl Event {
+    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }
 
 pub enum Security {

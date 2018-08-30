@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     dtm_end,
     dtm_rx {
@@ -18,8 +23,23 @@ pub enum Response {
     dtm_tx { result: u16 },
 }
 
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
+}
+
 pub enum Event {
     dtm_completed { result: u16, number_of_packets: u16 },
+}
+
+impl Event {
+    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }
 
 pub enum PacketType {

@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     get_bt_address,
     get_counters { reset: u8 },
@@ -42,6 +47,15 @@ pub enum Response {
     },
 }
 
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
+}
+
 pub enum Event {
     awake,
     boot {
@@ -63,4 +77,10 @@ pub enum Event {
     hardware_error {
         status: u16,
     },
+}
+
+impl Event {
+    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }

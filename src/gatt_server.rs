@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     find_attribute {
         start: u16,
@@ -48,6 +53,15 @@ pub enum Response {
     write_attribute_value { result: u16 },
 }
 
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
+}
+
 pub enum Event {
     attribute_value {
         connection: u8,
@@ -79,6 +93,12 @@ pub enum Event {
         offset: u16,
         value: Box<[u8]>,
     },
+}
+
+impl Event {
+    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }
 
 pub enum CharacteristicStatusFlag {

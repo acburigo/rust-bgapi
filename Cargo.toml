@@ -6,3 +6,4 @@ license = "MIT"
 description = "Libraty for creating and parsing BGAPI packets."
 
 [dependencies]
+bytes = "0.4"

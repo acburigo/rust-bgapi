@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     bt5_set_adv_data {
         handle: u8,
@@ -99,6 +104,15 @@ pub enum Response {
     stop_advertising { result: u16 },
 }
 
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
+}
+
 pub enum Event {
     adv_timeout {
         handle: u8,
@@ -117,6 +131,12 @@ pub enum Event {
         bonding: u8,
         data: Box<[u8]>,
     },
+}
+
+impl Event {
+    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }
 
 pub enum AddressType {

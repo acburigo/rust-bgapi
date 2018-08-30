@@ -1,3 +1,8 @@
+use std::io::Cursor;
+use std::io::{Error, ErrorKind};
+
+use MessageHeader;
+
 pub enum Command {
     get_counters { reset: u8 },
     set_options { mask: u32, options: u32 },
@@ -6,6 +11,15 @@ pub enum Command {
 pub enum Response {
     get_counters { result: u16, counters: Box<[u8]> },
     set_options { result: u16 },
+}
+
+impl Response {
+    pub fn from_binary(
+        cursor: &mut Cursor<&[u8]>,
+        header: &MessageHeader,
+    ) -> Result<Response, Error> {
+        Err(Error::from(ErrorKind::Other))
+    }
 }
 
 pub enum Option {
