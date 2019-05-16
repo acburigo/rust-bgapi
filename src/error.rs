@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 pub enum Error {
     // Errors related to hardware
     ps_store_full = 0x0501,    // Flash reserved for PS store is full

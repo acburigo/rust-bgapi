@@ -1,64 +1,122 @@
-use std::io::Cursor;
+use message::{MessageHeader, MessagePayload};
+use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
-use MessageHeader;
-
-pub enum Command {
-    get_bt_address,
-    get_counters { reset: u8 },
-    get_random_data { length: u8 },
-    halt { halt: u8 },
-    hello,
-    reset { dfu: u8 },
-    set_bt_address { address: [u8; 6] },
-    set_device_name { dtype: u8, name: Box<[u8]> },
-    set_tx_power { power: i16 },
+pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
+    match header {
+        _ => Err(Error::from(ErrorKind::InvalidData)),
+    }
 }
 
-pub enum Response {
-    get_bt_address {
+pub mod cmd {
+    use bytes::{Buf, BufMut};
+    use parser::{FromBytes, ToBytes};
+    use std::io::{Cursor, Read};
+
+    #[allow(non_camel_case_types)]
+    pub struct get_bt_address {}
+
+    #[allow(non_camel_case_types)]
+    pub struct get_counters {
+        reset: u8,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct get_random_data {
+        length: u8,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct halt {
+        halt: u8,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct hello {}
+
+    #[allow(non_camel_case_types)]
+    pub struct reset {
+        dfu: u8,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct set_bt_address {
         address: [u8; 6],
-    },
-    get_counters {
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct set_device_name {
+        dtype: u8,
+        name: Box<[u8]>,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct set_tx_power {
+        power: i16,
+    }
+}
+
+pub mod rsp {
+    use bytes::{Buf, BufMut};
+    use parser::{FromBytes, ToBytes};
+    use std::io::{Cursor, Read};
+
+    #[allow(non_camel_case_types)]
+    pub struct get_bt_address {
+        address: [u8; 6],
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct get_counters {
         result: u16,
         tx_packets: u16,
         rx_packets: u16,
         crc_errors: u16,
         failures: u16,
-    },
-    get_random_data {
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct get_random_data {
         result: u16,
         data: Box<[u8]>,
-    },
-    halt {
-        result: u16,
-    },
-    hello {
-        result: u16,
-    },
-    set_bt_address {
-        result: u16,
-    },
-    set_device_name {
-        result: u16,
-    },
-    set_tx_power {
-        set_power: i16,
-    },
-}
+    }
 
-impl Response {
-    pub fn from_binary(
-        cursor: &mut Cursor<&[u8]>,
-        header: &MessageHeader,
-    ) -> Result<Response, Error> {
-        Err(Error::from(ErrorKind::Other))
+    #[allow(non_camel_case_types)]
+    pub struct halt {
+        result: u16,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct hello {
+        result: u16,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct set_bt_address {
+        result: u16,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct set_device_name {
+        result: u16,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct set_tx_power {
+        set_power: i16,
     }
 }
 
-pub enum Event {
-    awake,
-    boot {
+pub mod evt {
+    use bytes::{Buf, BufMut};
+    use parser::{FromBytes, ToBytes};
+    use std::io::{Cursor, Read};
+
+    #[allow(non_camel_case_types)]
+    pub struct awake {}
+
+    #[allow(non_camel_case_types)]
+    pub struct boot {
         major: u16,
         minor: u16,
         patch: u16,
@@ -66,21 +124,21 @@ pub enum Event {
         bootloader: u32,
         hw: u16,
         hash: u32,
-    },
-    error {
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct error {
         reason: u16,
         data: Box<[u8]>,
-    },
-    external_signal {
-        extsignals: u32,
-    },
-    hardware_error {
-        status: u16,
-    },
-}
+    }
 
-impl Event {
-    pub fn from_binary(cursor: &mut Cursor<&[u8]>, header: &MessageHeader) -> Result<Event, Error> {
-        Err(Error::from(ErrorKind::Other))
+    #[allow(non_camel_case_types)]
+    pub struct external_signal {
+        extsignals: u32,
+    }
+
+    #[allow(non_camel_case_types)]
+    pub struct hardware_error {
+        status: u16,
     }
 }
