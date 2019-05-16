@@ -6,7 +6,7 @@ use gatt_server;
 use hardware;
 use le_connection;
 use le_gap;
-use message::{Message, MessageClass, MessageHeader, MessagePayload};
+use message::{Message, MessageHeader};
 use sm;
 use std::io::{Error, ErrorKind};
 use system;

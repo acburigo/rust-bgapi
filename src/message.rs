@@ -207,6 +207,13 @@ pub enum MessagePayload {
     cmd_test_dtm_tx(test::cmd::dtm_tx),
     rsp_test_dtm_tx(test::rsp::dtm_tx),
     evt_test_dtm_completed(test::evt::dtm_completed),
+
+    // ...
+
+    // user
+    cmd_user_message_to_target(user::cmd::message_to_target),
+    rsp_user_message_to_target(user::rsp::message_to_target),
+    evt_user_message_to_host(user::evt::message_to_host),
 }
 
 impl ToBytes for MessagePayload {
@@ -334,7 +341,7 @@ impl ToBytes for MessagePayload {
             MessagePayload::evt_le_connection_phy_status(x) => x.to_bytes(),
             MessagePayload::evt_le_connection_rssi(x) => x.to_bytes(),
 
-            // ,,,
+            // ...
 
             // test
             MessagePayload::cmd_test_dtm_end(x) => x.to_bytes(),
@@ -344,6 +351,13 @@ impl ToBytes for MessagePayload {
             MessagePayload::cmd_test_dtm_tx(x) => x.to_bytes(),
             MessagePayload::rsp_test_dtm_tx(x) => x.to_bytes(),
             MessagePayload::evt_test_dtm_completed(x) => x.to_bytes(),
+
+            // ...
+
+            // user
+            MessagePayload::cmd_user_message_to_target(x) => x.to_bytes(),
+            MessagePayload::rsp_user_message_to_target(x) => x.to_bytes(),
+            MessagePayload::evt_user_message_to_host(x) => x.to_bytes(),
 
             _ => Vec::new(),
         }
