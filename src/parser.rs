@@ -14,7 +14,7 @@ use test;
 use user;
 
 pub trait Stream {
-    fn next(&self) -> Result<u8, Error>;
+    fn next(&mut self) -> Result<u8, Error>;
 }
 
 pub trait ToBytes {
@@ -25,7 +25,7 @@ pub trait FromBytes {
     fn from_bytes(&[u8]) -> Self;
 }
 
-pub fn parse_next_message(stream: &Stream) -> Result<Message, Error> {
+pub fn parse_next_message(stream: &mut Stream) -> Result<Message, Error> {
     let mut buffer = Vec::new();
 
     while buffer.len() < MessageHeader::size() {
