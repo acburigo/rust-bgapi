@@ -28,11 +28,6 @@ mod tests {
     }
 
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-
-    #[test]
     fn message_header_from_bytes() {
         use message::MessageHeader;
         use parser::FromBytes;
