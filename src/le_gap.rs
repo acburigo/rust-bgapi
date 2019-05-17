@@ -251,6 +251,7 @@ pub mod cmd {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct bt5_set_adv_data {
         handle: u8,
         scan_rsp: u8,
@@ -285,6 +286,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct clear_advertise_configuration {
         handle: u8,
         configurations: u32,
@@ -310,6 +312,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct connect {
         address: [u8; 6],
         address_type: u8,
@@ -342,6 +345,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct end_procedure {}
 
     impl FromBytes for end_procedure {
@@ -357,6 +361,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_channel_map {
         handle: u8,
         channel_map: u8,
@@ -382,6 +387,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_configuration {
         handle: u8,
         configurations: u32,
@@ -407,6 +413,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_phy {
         handle: u8,
         primary_phy: u8,
@@ -435,6 +442,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_report_scan_request {
         handle: u8,
         report_scan_req: u8,
@@ -460,6 +468,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_timing {
         handle: u8,
         interval_min: u32,
@@ -494,6 +503,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_tx_power {
         handle: u8,
         power: i16,
@@ -519,6 +529,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_conn_parameters {
         min_interval: u16,
         max_interval: u16,
@@ -550,6 +561,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_data_channel_classification {
         channel_map: [u8; 5],
     }
@@ -574,6 +586,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_timing {
         phys: u8,
         scan_interval: u16,
@@ -602,6 +615,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_type {
         phys: u8,
         scan_type: u8,
@@ -627,6 +641,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_privacy_mode {
         privacy: u8,
         interval: u8,
@@ -652,6 +667,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct start_advertising {
         handle: u8,
         discover: u8,
@@ -680,6 +696,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct start_discovery {
         scanning_phy: u8,
         mode: u8,
@@ -705,6 +722,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct stop_advertising {
         handle: u8,
     }
@@ -733,6 +751,7 @@ pub mod rsp {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct bt5_set_adv_data {
         result: u16,
     }
@@ -755,6 +774,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct clear_advertise_configuration {
         result: u16,
     }
@@ -777,6 +797,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct connect {
         result: u16,
         connection: u8,
@@ -802,6 +823,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct end_procedure {
         result: u16,
     }
@@ -824,6 +846,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_channel_map {
         result: u16,
     }
@@ -846,6 +869,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_configuration {
         result: u16,
     }
@@ -868,6 +892,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_phy {
         result: u16,
     }
@@ -890,6 +915,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_report_scan_request {
         result: u16,
     }
@@ -912,6 +938,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_timing {
         result: u16,
     }
@@ -934,6 +961,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_tx_power {
         result: u16,
     }
@@ -956,6 +984,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_conn_parameters {
         result: u16,
     }
@@ -978,6 +1007,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_data_channel_classification {
         result: u16,
     }
@@ -1000,6 +1030,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_timing {
         result: u16,
     }
@@ -1022,6 +1053,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_type {
         result: u16,
     }
@@ -1044,6 +1076,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_privacy_mode {
         result: u16,
     }
@@ -1066,6 +1099,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct start_advertising {
         result: u16,
     }
@@ -1088,6 +1122,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct start_discovery {
         result: u16,
     }
@@ -1110,6 +1145,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct stop_advertising {
         result: u16,
     }
@@ -1138,6 +1174,7 @@ pub mod evt {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct adv_timeout {
         handle: u8,
     }
@@ -1160,6 +1197,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct scan_request {
         handle: u8,
         address: [u8; 6],
@@ -1198,6 +1236,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct scan_response {
         rssi: i8,
         packet_type: u8,

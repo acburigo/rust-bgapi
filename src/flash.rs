@@ -50,6 +50,7 @@ pub mod cmd {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase {
         key: u16,
     }
@@ -72,6 +73,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase_all {}
 
     impl FromBytes for ps_erase_all {
@@ -87,6 +89,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_load {
         key: u16,
     }
@@ -109,6 +112,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_save {
         key: u16,
         value: Vec<u8>,
@@ -142,6 +146,7 @@ pub mod rsp {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase {
         result: u16,
     }
@@ -164,6 +169,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase_all {
         result: u16,
     }
@@ -186,6 +192,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_load {
         result: u16,
         value: Vec<u8>,
@@ -213,6 +220,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct ps_save {
         result: u16,
     }

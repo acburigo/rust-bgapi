@@ -139,6 +139,7 @@ pub mod cmd {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct find_attribute {
         start: u16,
         atype: Vec<u8>,
@@ -166,6 +167,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_type {
         attribute: u16,
     }
@@ -188,6 +190,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_value {
         attribute: u16,
         offset: u16,
@@ -213,6 +216,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_notification {
         connection: u8,
         characteristic: u16,
@@ -247,6 +251,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_user_read_response {
         connection: u8,
         characteristic: u16,
@@ -285,6 +290,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_user_write_response {
         connection: u8,
         characteristic: u16,
@@ -313,6 +319,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_capabilities {
         caps: u32,
         reserved: u32,
@@ -338,6 +345,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_attribute_value {
         attribute: u16,
         offset: u16,
@@ -378,6 +386,7 @@ pub mod rsp {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct find_attribute {
         result: u16,
         attribute: u16,
@@ -403,6 +412,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_type {
         result: u16,
         atype: Vec<u8>,
@@ -430,6 +440,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_value {
         result: u16,
         value: Vec<u8>,
@@ -457,6 +468,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_notification {
         result: u16,
         sent_len: u16,
@@ -482,6 +494,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_user_read_response {
         result: u16,
         sent_len: u16,
@@ -507,6 +520,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_user_write_response {
         result: u16,
     }
@@ -529,6 +543,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_capabilities {
         result: u16,
     }
@@ -551,6 +566,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_attribute_value {
         result: u16,
     }
@@ -580,6 +596,7 @@ pub mod evt {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct attribute_value {
         connection: u8,
         attribute: u16,
@@ -622,6 +639,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct characteristic_status {
         connection: u8,
         characteristic: u16,
@@ -653,6 +671,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct execute_write_completed {
         connection: u8,
         result: u16,
@@ -678,6 +697,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct user_read_request {
         connection: u8,
         characteristic: u16,
@@ -709,6 +729,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct user_write_request {
         connection: u8,
         characteristic: u16,

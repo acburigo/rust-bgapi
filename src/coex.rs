@@ -39,6 +39,7 @@ pub mod cmd {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
         reset: u8,
     }
@@ -61,6 +62,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_options {
         mask: u32,
         options: u32,
@@ -93,6 +95,7 @@ pub mod rsp {
     use parser::{FromBytes, ToBytes};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
         result: u16,
         counters: Box<[u8]>,
@@ -118,6 +121,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_options {
         result: u16,
     }

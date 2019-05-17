@@ -72,6 +72,7 @@ pub mod cmd {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_end {}
 
     impl FromBytes for dtm_end {
@@ -87,6 +88,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_rx {
         channel: u8,
         phy: u8,
@@ -112,6 +114,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_tx {
         packet_type: u8,
         length: u8,
@@ -149,6 +152,7 @@ pub mod rsp {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_end {
         result: u16,
     }
@@ -171,6 +175,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_rx {
         result: u16,
     }
@@ -193,6 +198,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_tx {
         result: u16,
     }
@@ -221,6 +227,7 @@ pub mod evt {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct dtm_completed {
         result: u16,
         number_of_packets: u16,

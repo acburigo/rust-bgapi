@@ -24,6 +24,22 @@ mod tests {
     }
 
     #[test]
+    fn message_header_from_bytes() {
+        use message::MessageHeader;
+        use parser::FromBytes;
+        let data = [0x20, 0x02, 0x01, 0x00];
+        let header = MessageHeader::from_bytes(&data);
+        let expected_header = MessageHeader {
+            message_type: 0x20,
+            payload_length: 0x02,
+            message_class: 0x01,
+            message_id: 0x00,
+        };
+
+        assert_eq!(header == expected_header, true);
+    }
+
+    #[test]
     fn message_header_to_bytes() {
         use message::MessageHeader;
         use parser::ToBytes;

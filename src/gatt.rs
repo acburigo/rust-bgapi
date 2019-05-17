@@ -290,6 +290,7 @@ pub mod cmd {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics {
         connection: u8,
         service: u32,
@@ -315,6 +316,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics_by_uuid {
         connection: u8,
         service: u32,
@@ -347,6 +349,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_descriptors {
         connection: u8,
         characteristic: u16,
@@ -372,6 +375,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services {
         connection: u8,
     }
@@ -394,6 +398,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services_by_uuid {
         connection: u8,
         uuid: [u8; 16],
@@ -419,6 +424,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct execute_characteristic_value_write {
         connection: u8,
         flags: u8,
@@ -444,6 +450,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct find_included_services {
         connection: u8,
         service: u32,
@@ -469,6 +476,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_reliable_write {
         connection: u8,
         characteristic: u16,
@@ -507,6 +515,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_write {
         connection: u8,
         characteristic: u16,
@@ -545,6 +554,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value {
         connection: u8,
         characteristic: u16,
@@ -570,6 +580,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_by_uuid {
         connection: u8,
         service: u32,
@@ -602,6 +613,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_from_offset {
         connection: u8,
         characteristic: u16,
@@ -633,6 +645,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_descriptor_value {
         connection: u8,
         descriptor: u16,
@@ -658,6 +671,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_multiple_characteristic_values {
         connection: u8,
         characteristic_list: Vec<u16>,
@@ -690,6 +704,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_confirmation {
         connection: u8,
     }
@@ -712,6 +727,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_characteristic_notification {
         connection: u8,
         characteristic: u16,
@@ -740,6 +756,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_max_mtu {
         max_mtu: u16,
     }
@@ -762,6 +779,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value {
         connection: u8,
         characteristic: u16,
@@ -796,6 +814,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value_without_response {
         connection: u8,
         characteristic: u16,
@@ -830,6 +849,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_descriptor_value {
         connection: u8,
         descriptor: u16,
@@ -870,6 +890,7 @@ pub mod rsp {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics {
         result: u16,
     }
@@ -892,6 +913,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics_by_uuid {
         result: u16,
     }
@@ -914,6 +936,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_descriptors {
         result: u16,
     }
@@ -936,6 +959,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services {
         result: u16,
     }
@@ -958,6 +982,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services_by_uuid {
         result: u16,
     }
@@ -980,6 +1005,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct execute_characteristic_value_write {
         result: u16,
     }
@@ -1002,6 +1028,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct find_included_services {
         result: u16,
     }
@@ -1024,6 +1051,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_reliable_write {
         result: u16,
         sent_len: u16,
@@ -1049,6 +1077,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_write {
         result: u16,
         sent_len: u16,
@@ -1074,6 +1103,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value {
         result: u16,
     }
@@ -1096,6 +1126,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_by_uuid {
         result: u16,
     }
@@ -1118,6 +1149,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_from_offset {
         result: u16,
     }
@@ -1140,6 +1172,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_descriptor_value {
         result: u16,
     }
@@ -1162,6 +1195,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct read_multiple_characteristic_values {
         result: u16,
     }
@@ -1184,6 +1218,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_confirmation {
         result: u16,
     }
@@ -1206,6 +1241,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_characteristic_notification {
         result: u16,
     }
@@ -1228,6 +1264,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_max_mtu {
         result: u16,
         max_mtu: u16,
@@ -1253,6 +1290,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value {
         result: u16,
     }
@@ -1275,6 +1313,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value_without_response {
         result: u16,
         sent_len: u16,
@@ -1300,6 +1339,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct write_descriptor_value {
         result: u16,
     }
@@ -1329,6 +1369,7 @@ pub mod evt {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct characteristic {
         connection: u8,
         characteristic: u16,
@@ -1365,6 +1406,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct characteristic_value {
         connection: u8,
         characteristic: u16,
@@ -1407,6 +1449,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct descriptor {
         connection: u8,
         descriptor: u16,
@@ -1439,6 +1482,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct descriptor_value {
         connection: u8,
         descriptor: u16,
@@ -1477,6 +1521,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct mtu_exchanged {
         connection: u8,
         mtu: u16,
@@ -1502,6 +1547,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct procedure_completed {
         connection: u8,
         result: u16,
@@ -1527,6 +1573,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct service {
         connection: u8,
         service: u32,

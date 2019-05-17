@@ -131,6 +131,7 @@ pub mod cmd {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_bt_address {}
 
     impl FromBytes for get_bt_address {
@@ -146,6 +147,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
         reset: u8,
     }
@@ -168,6 +170,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_random_data {
         length: u8,
     }
@@ -190,6 +193,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct halt {
         halt: u8,
     }
@@ -212,6 +216,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct hello {}
 
     impl FromBytes for hello {
@@ -227,6 +232,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct reset {
         dfu: u8,
     }
@@ -249,6 +255,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_bt_address {
         address: [u8; 6],
     }
@@ -273,6 +280,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_device_name {
         dtype: u8,
         name: Vec<u8>,
@@ -300,6 +308,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_tx_power {
         power: i16,
     }
@@ -328,6 +337,7 @@ pub mod rsp {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_bt_address {
         address: [u8; 6],
     }
@@ -352,6 +362,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
         result: u16,
         tx_packets: u16,
@@ -386,6 +397,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_random_data {
         result: u16,
         data: Vec<u8>,
@@ -413,6 +425,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct halt {
         result: u16,
     }
@@ -435,6 +448,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct hello {
         result: u16,
     }
@@ -457,6 +471,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_bt_address {
         result: u16,
     }
@@ -479,6 +494,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_device_name {
         result: u16,
     }
@@ -501,6 +517,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_tx_power {
         set_power: i16,
     }
@@ -529,6 +546,7 @@ pub mod evt {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct awake {}
 
     impl FromBytes for awake {
@@ -544,6 +562,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct boot {
         major: u16,
         minor: u16,
@@ -584,6 +603,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct error {
         reason: u16,
         data: Vec<u8>,
@@ -611,6 +631,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct external_signal {
         extsignals: u32,
     }
@@ -633,6 +654,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct hardware_error {
         status: u16,
     }

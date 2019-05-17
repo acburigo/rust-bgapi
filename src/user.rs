@@ -31,6 +31,7 @@ pub mod cmd {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct message_to_target {
         data: Vec<u8>,
     }
@@ -59,6 +60,7 @@ pub mod rsp {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct message_to_target {
         result: u16,
         data: Vec<u8>,
@@ -91,6 +93,7 @@ pub mod evt {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct message_to_host {
         data: Vec<u8>,
     }

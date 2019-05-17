@@ -13,6 +13,7 @@ use system;
 use test;
 use user;
 
+#[derive(PartialEq, PartialOrd)]
 pub struct Message {
     pub header: MessageHeader,
     pub payload: MessagePayload,
@@ -51,6 +52,7 @@ pub enum MessageClass {
     user = 0xff,
 }
 
+#[derive(PartialEq, PartialOrd)]
 pub struct MessageHeader {
     pub message_type: u8,
     pub payload_length: u8,
@@ -59,6 +61,7 @@ pub struct MessageHeader {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(PartialEq, PartialOrd)]
 pub enum MessagePayload {
     // coex
     cmd_coex_get_counters(coex::cmd::get_counters),

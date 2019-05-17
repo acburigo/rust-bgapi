@@ -57,6 +57,7 @@ pub mod cmd {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct flash_set_address {
         address: u32,
     }
@@ -79,6 +80,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload {
         data: Vec<u8>,
     }
@@ -98,6 +100,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload_finish {}
 
     impl FromBytes for flash_upload_finish {
@@ -113,6 +116,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct reset {
         dfu: u8,
     }
@@ -141,6 +145,7 @@ pub mod rsp {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct flash_set_address {
         result: u16,
     }
@@ -163,6 +168,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload {
         result: u16,
     }
@@ -185,6 +191,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload_finish {
         result: u16,
     }
@@ -213,6 +220,7 @@ pub mod evt {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct boot {
         version: u32,
     }
@@ -235,6 +243,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct boot_failure {
         reason: u16,
     }

@@ -41,6 +41,7 @@ pub mod cmd {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_lazy_soft_timer {
         time: u32,
         slack: u32,
@@ -72,6 +73,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_soft_timer {
         time: u32,
         handle: u8,
@@ -106,6 +108,7 @@ pub mod rsp {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_lazy_soft_timer {
         result: u16,
     }
@@ -128,6 +131,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_soft_timer {
         result: u16,
     }
@@ -156,6 +160,7 @@ pub mod evt {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct soft_timer {
         handle: u8,
     }

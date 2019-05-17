@@ -112,6 +112,7 @@ pub mod cmd {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct close {
         connection: u8,
     }
@@ -134,6 +135,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct disable_slave_latency {
         connection: u8,
         disable: u8,
@@ -159,6 +161,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_rssi {
         connection: u8,
     }
@@ -181,6 +184,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_parameters {
         connection: u8,
         min_interval: u16,
@@ -215,6 +219,7 @@ pub mod cmd {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_phy {
         connection: u8,
         phy: u8,
@@ -246,6 +251,7 @@ pub mod rsp {
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct close {
         result: u16,
     }
@@ -268,6 +274,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct disable_slave_latency {
         result: u16,
     }
@@ -290,6 +297,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct get_rssi {
         result: u16,
     }
@@ -312,6 +320,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_parameters {
         result: u16,
     }
@@ -334,6 +343,7 @@ pub mod rsp {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct set_phy {
         result: u16,
     }
@@ -362,6 +372,7 @@ pub mod evt {
     use std::io::{Cursor, Read};
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct closed {
         reason: u16,
         connection: u8,
@@ -387,6 +398,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct opened {
         address: [u8; 6],
         address_type: u8,
@@ -428,6 +440,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct parameters {
         connection: u8,
         interval: u16,
@@ -465,6 +478,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct phy_status {
         connection: u8,
         phy: u8,
@@ -490,6 +504,7 @@ pub mod evt {
     }
 
     #[allow(non_camel_case_types)]
+    #[derive(PartialEq, PartialOrd)]
     pub struct rssi {
         connection: u8,
         status: u8,
