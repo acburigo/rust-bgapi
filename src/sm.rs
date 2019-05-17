@@ -243,8 +243,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bonding_confirm {
-        connection: u8,
-        confirm: u8,
+        pub connection: u8,
+        pub confirm: u8,
     }
 
     impl FromBytes for bonding_confirm {
@@ -269,8 +269,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct configure {
-        flags: u8,
-        io_capabilities: u8,
+        pub flags: u8,
+        pub io_capabilities: u8,
     }
 
     impl FromBytes for configure {
@@ -295,7 +295,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct delete_bonding {
-        bonding: u8,
+        pub bonding: u8,
     }
 
     impl FromBytes for delete_bonding {
@@ -334,8 +334,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct enter_passkey {
-        connection: u8,
-        passkey: i32,
+        pub connection: u8,
+        pub passkey: i32,
     }
 
     impl FromBytes for enter_passkey {
@@ -360,7 +360,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct increase_security {
-        connection: u8,
+        pub connection: u8,
     }
 
     impl FromBytes for increase_security {
@@ -399,8 +399,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct passkey_confirm {
-        connection: u8,
-        confirm: u8,
+        pub connection: u8,
+        pub confirm: u8,
     }
 
     impl FromBytes for passkey_confirm {
@@ -425,7 +425,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_bondable_mode {
-        bondable: u8,
+        pub bondable: u8,
     }
 
     impl FromBytes for set_bondable_mode {
@@ -464,7 +464,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_oob_data {
-        oob_data: Vec<u8>,
+        pub oob_data: Vec<u8>,
     }
 
     impl FromBytes for set_oob_data {
@@ -487,7 +487,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_passkey {
-        passkey: i32,
+        pub passkey: i32,
     }
 
     impl FromBytes for set_passkey {
@@ -510,7 +510,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_sc_remote_oob_data {
-        oob_data: Vec<u8>,
+        pub oob_data: Vec<u8>,
     }
 
     impl FromBytes for set_sc_remote_oob_data {
@@ -533,8 +533,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct store_bonding_configuration {
-        max_bonding_count: u8,
-        policy_flags: u8,
+        pub max_bonding_count: u8,
+        pub policy_flags: u8,
     }
 
     impl FromBytes for store_bonding_configuration {
@@ -559,7 +559,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct use_sc_oob {
-        enable: u8,
+        pub enable: u8,
     }
 
     impl FromBytes for use_sc_oob {
@@ -588,7 +588,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bonding_confirm {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for bonding_confirm {
@@ -611,7 +611,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct configure {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for configure {
@@ -634,7 +634,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct delete_bonding {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for delete_bonding {
@@ -657,7 +657,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct delete_bondings {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for delete_bondings {
@@ -680,7 +680,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct enter_passkey {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for enter_passkey {
@@ -703,7 +703,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct increase_security {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for increase_security {
@@ -726,7 +726,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct list_all_bondings {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for list_all_bondings {
@@ -749,7 +749,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct passkey_confirm {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for passkey_confirm {
@@ -772,7 +772,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_bondable_mode {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_bondable_mode {
@@ -795,7 +795,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_debug_mode {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_debug_mode {
@@ -818,7 +818,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_oob_data {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_oob_data {
@@ -841,7 +841,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_passkey {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_passkey {
@@ -864,7 +864,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_sc_remote_oob_data {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_sc_remote_oob_data {
@@ -887,7 +887,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct store_bonding_configuration {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for store_bonding_configuration {
@@ -910,8 +910,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct use_sc_oob {
-        result: u16,
-        oob_data: [u8; 32],
+        pub result: u16,
+        pub oob_data: [u8; 32],
     }
 
     impl FromBytes for use_sc_oob {
@@ -944,8 +944,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bonded {
-        connection: u8,
-        bonding: u8,
+        pub connection: u8,
+        pub bonding: u8,
     }
 
     impl FromBytes for bonded {
@@ -970,8 +970,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bonding_failed {
-        connection: u8,
-        reason: u16,
+        pub connection: u8,
+        pub reason: u16,
     }
 
     impl FromBytes for bonding_failed {
@@ -996,8 +996,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct confirm_bonding {
-        connection: u8,
-        bonding_handle: i8,
+        pub connection: u8,
+        pub bonding_handle: i8,
     }
 
     impl FromBytes for confirm_bonding {
@@ -1022,8 +1022,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct confirm_passkey {
-        connection: u8,
-        passkey: u32,
+        pub connection: u8,
+        pub passkey: u32,
     }
 
     impl FromBytes for confirm_passkey {
@@ -1064,9 +1064,9 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct list_bonding_entry {
-        bonding: u8,
-        address: [u8; 6],
-        address_type: u8,
+        pub bonding: u8,
+        pub address: [u8; 6],
+        pub address_type: u8,
     }
 
     impl FromBytes for list_bonding_entry {
@@ -1099,8 +1099,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct passkey_display {
-        connection: u8,
-        passkey: u32,
+        pub connection: u8,
+        pub passkey: u32,
     }
 
     impl FromBytes for passkey_display {
@@ -1125,7 +1125,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct passkey_request {
-        connection: u8,
+        pub connection: u8,
     }
 
     impl FromBytes for passkey_request {

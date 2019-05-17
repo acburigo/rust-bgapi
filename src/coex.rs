@@ -41,7 +41,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
-        reset: u8,
+        pub reset: u8,
     }
 
     impl FromBytes for get_counters {
@@ -64,8 +64,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_options {
-        mask: u32,
-        options: u32,
+        pub mask: u32,
+        pub options: u32,
     }
 
     impl FromBytes for set_options {
@@ -97,8 +97,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
-        result: u16,
-        counters: Box<[u8]>,
+        pub result: u16,
+        pub counters: Box<[u8]>,
     }
 
     impl FromBytes for get_counters {
@@ -123,7 +123,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_options {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_options {

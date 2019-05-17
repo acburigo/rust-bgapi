@@ -52,7 +52,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase {
-        key: u16,
+        pub key: u16,
     }
 
     impl FromBytes for ps_erase {
@@ -91,7 +91,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_load {
-        key: u16,
+        pub key: u16,
     }
 
     impl FromBytes for ps_load {
@@ -114,8 +114,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_save {
-        key: u16,
-        value: Vec<u8>,
+        pub key: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for ps_save {
@@ -148,7 +148,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for ps_erase {
@@ -171,7 +171,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_erase_all {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for ps_erase_all {
@@ -194,8 +194,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_load {
-        result: u16,
-        value: Vec<u8>,
+        pub result: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for ps_load {
@@ -222,7 +222,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct ps_save {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for ps_save {

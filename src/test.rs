@@ -90,8 +90,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_rx {
-        channel: u8,
-        phy: u8,
+        pub channel: u8,
+        pub phy: u8,
     }
 
     impl FromBytes for dtm_rx {
@@ -116,10 +116,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_tx {
-        packet_type: u8,
-        length: u8,
-        channel: u8,
-        phy: u8,
+        pub packet_type: u8,
+        pub length: u8,
+        pub channel: u8,
+        pub phy: u8,
     }
 
     impl FromBytes for dtm_tx {
@@ -154,7 +154,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_end {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for dtm_end {
@@ -177,7 +177,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_rx {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for dtm_rx {
@@ -200,7 +200,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_tx {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for dtm_tx {
@@ -229,8 +229,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_completed {
-        result: u16,
-        number_of_packets: u16,
+        pub result: u16,
+        pub number_of_packets: u16,
     }
 
     impl FromBytes for dtm_completed {

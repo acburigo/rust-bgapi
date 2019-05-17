@@ -253,9 +253,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bt5_set_adv_data {
-        handle: u8,
-        scan_rsp: u8,
-        adv_data: Vec<u8>,
+        pub handle: u8,
+        pub scan_rsp: u8,
+        pub adv_data: Vec<u8>,
     }
 
     impl FromBytes for bt5_set_adv_data {
@@ -288,8 +288,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct clear_advertise_configuration {
-        handle: u8,
-        configurations: u32,
+        pub handle: u8,
+        pub configurations: u32,
     }
 
     impl FromBytes for clear_advertise_configuration {
@@ -314,9 +314,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct connect {
-        address: [u8; 6],
-        address_type: u8,
-        initiating_phy: u8,
+        pub address: [u8; 6],
+        pub address_type: u8,
+        pub initiating_phy: u8,
     }
 
     impl FromBytes for connect {
@@ -363,8 +363,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_channel_map {
-        handle: u8,
-        channel_map: u8,
+        pub handle: u8,
+        pub channel_map: u8,
     }
 
     impl FromBytes for set_advertise_channel_map {
@@ -389,8 +389,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_configuration {
-        handle: u8,
-        configurations: u32,
+        pub handle: u8,
+        pub configurations: u32,
     }
 
     impl FromBytes for set_advertise_configuration {
@@ -415,9 +415,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_phy {
-        handle: u8,
-        primary_phy: u8,
-        secondary_phy: u8,
+        pub handle: u8,
+        pub primary_phy: u8,
+        pub secondary_phy: u8,
     }
 
     impl FromBytes for set_advertise_phy {
@@ -444,8 +444,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_report_scan_request {
-        handle: u8,
-        report_scan_req: u8,
+        pub handle: u8,
+        pub report_scan_req: u8,
     }
 
     impl FromBytes for set_advertise_report_scan_request {
@@ -470,11 +470,11 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_timing {
-        handle: u8,
-        interval_min: u32,
-        interval_max: u32,
-        duration: u16,
-        maxevents: u8,
+        pub handle: u8,
+        pub interval_min: u32,
+        pub interval_max: u32,
+        pub duration: u16,
+        pub maxevents: u8,
     }
 
     impl FromBytes for set_advertise_timing {
@@ -505,8 +505,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_tx_power {
-        handle: u8,
-        power: i16,
+        pub handle: u8,
+        pub power: i16,
     }
 
     impl FromBytes for set_advertise_tx_power {
@@ -531,10 +531,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_conn_parameters {
-        min_interval: u16,
-        max_interval: u16,
-        latency: u16,
-        timeout: u16,
+        pub min_interval: u16,
+        pub max_interval: u16,
+        pub latency: u16,
+        pub timeout: u16,
     }
 
     impl FromBytes for set_conn_parameters {
@@ -563,7 +563,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_data_channel_classification {
-        channel_map: [u8; 5],
+        pub channel_map: [u8; 5],
     }
 
     impl FromBytes for set_data_channel_classification {
@@ -588,9 +588,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_timing {
-        phys: u8,
-        scan_interval: u16,
-        scan_window: u16,
+        pub phys: u8,
+        pub scan_interval: u16,
+        pub scan_window: u16,
     }
 
     impl FromBytes for set_discovery_timing {
@@ -617,8 +617,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_type {
-        phys: u8,
-        scan_type: u8,
+        pub phys: u8,
+        pub scan_type: u8,
     }
 
     impl FromBytes for set_discovery_type {
@@ -643,8 +643,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_privacy_mode {
-        privacy: u8,
-        interval: u8,
+        pub privacy: u8,
+        pub interval: u8,
     }
 
     impl FromBytes for set_privacy_mode {
@@ -669,9 +669,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_advertising {
-        handle: u8,
-        discover: u8,
-        connect: u8,
+        pub handle: u8,
+        pub discover: u8,
+        pub connect: u8,
     }
 
     impl FromBytes for start_advertising {
@@ -698,8 +698,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_discovery {
-        scanning_phy: u8,
-        mode: u8,
+        pub scanning_phy: u8,
+        pub mode: u8,
     }
 
     impl FromBytes for start_discovery {
@@ -724,7 +724,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct stop_advertising {
-        handle: u8,
+        pub handle: u8,
     }
 
     impl FromBytes for stop_advertising {
@@ -753,7 +753,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bt5_set_adv_data {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for bt5_set_adv_data {
@@ -776,7 +776,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct clear_advertise_configuration {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for clear_advertise_configuration {
@@ -799,8 +799,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct connect {
-        result: u16,
-        connection: u8,
+        pub result: u16,
+        pub connection: u8,
     }
 
     impl FromBytes for connect {
@@ -825,7 +825,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct end_procedure {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for end_procedure {
@@ -848,7 +848,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_channel_map {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_advertise_channel_map {
@@ -871,7 +871,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_configuration {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_advertise_configuration {
@@ -894,7 +894,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_phy {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_advertise_phy {
@@ -917,7 +917,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_report_scan_request {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_advertise_report_scan_request {
@@ -940,7 +940,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_timing {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_advertise_timing {
@@ -963,7 +963,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_tx_power {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_advertise_tx_power {
@@ -986,7 +986,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_conn_parameters {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_conn_parameters {
@@ -1009,7 +1009,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_data_channel_classification {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_data_channel_classification {
@@ -1032,7 +1032,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_timing {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_discovery_timing {
@@ -1055,7 +1055,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_type {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_discovery_type {
@@ -1078,7 +1078,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_privacy_mode {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_privacy_mode {
@@ -1101,7 +1101,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_advertising {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for start_advertising {
@@ -1124,7 +1124,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_discovery {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for start_discovery {
@@ -1147,7 +1147,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct stop_advertising {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for stop_advertising {
@@ -1176,7 +1176,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct adv_timeout {
-        handle: u8,
+        pub handle: u8,
     }
 
     impl FromBytes for adv_timeout {
@@ -1199,10 +1199,10 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct scan_request {
-        handle: u8,
-        address: [u8; 6],
-        address_type: u8,
-        bonding: u8,
+        pub handle: u8,
+        pub address: [u8; 6],
+        pub address_type: u8,
+        pub bonding: u8,
     }
 
     impl FromBytes for scan_request {
@@ -1238,12 +1238,12 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct scan_response {
-        rssi: i8,
-        packet_type: u8,
-        address: [u8; 6],
-        address_type: u8,
-        bonding: u8,
-        data: Vec<u8>,
+        pub rssi: i8,
+        pub packet_type: u8,
+        pub address: [u8; 6],
+        pub address_type: u8,
+        pub bonding: u8,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for scan_response {

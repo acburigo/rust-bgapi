@@ -114,7 +114,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct close {
-        connection: u8,
+        pub connection: u8,
     }
 
     impl FromBytes for close {
@@ -137,8 +137,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct disable_slave_latency {
-        connection: u8,
-        disable: u8,
+        pub connection: u8,
+        pub disable: u8,
     }
 
     impl FromBytes for disable_slave_latency {
@@ -163,7 +163,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_rssi {
-        connection: u8,
+        pub connection: u8,
     }
 
     impl FromBytes for get_rssi {
@@ -186,11 +186,11 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_parameters {
-        connection: u8,
-        min_interval: u16,
-        max_interval: u16,
-        latency: u16,
-        timeout: u16,
+        pub connection: u8,
+        pub min_interval: u16,
+        pub max_interval: u16,
+        pub latency: u16,
+        pub timeout: u16,
     }
 
     impl FromBytes for set_parameters {
@@ -221,8 +221,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_phy {
-        connection: u8,
-        phy: u8,
+        pub connection: u8,
+        pub phy: u8,
     }
 
     impl FromBytes for set_phy {
@@ -253,7 +253,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct close {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for close {
@@ -276,7 +276,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct disable_slave_latency {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for disable_slave_latency {
@@ -299,7 +299,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_rssi {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for get_rssi {
@@ -322,7 +322,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_parameters {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_parameters {
@@ -345,7 +345,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_phy {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_phy {
@@ -374,8 +374,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct closed {
-        reason: u16,
-        connection: u8,
+        pub reason: u16,
+        pub connection: u8,
     }
 
     impl FromBytes for closed {
@@ -400,12 +400,12 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct opened {
-        address: [u8; 6],
-        address_type: u8,
-        master: u8,
-        connection: u8,
-        bonding: u8,
-        advertiser: u8,
+        pub address: [u8; 6],
+        pub address_type: u8,
+        pub master: u8,
+        pub connection: u8,
+        pub bonding: u8,
+        pub advertiser: u8,
     }
 
     impl FromBytes for opened {
@@ -442,12 +442,12 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct parameters {
-        connection: u8,
-        interval: u16,
-        latency: u16,
-        timeout: u16,
-        security_mode: u8,
-        txsize: u16,
+        pub connection: u8,
+        pub interval: u16,
+        pub latency: u16,
+        pub timeout: u16,
+        pub security_mode: u8,
+        pub txsize: u16,
     }
 
     impl FromBytes for parameters {
@@ -480,8 +480,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct phy_status {
-        connection: u8,
-        phy: u8,
+        pub connection: u8,
+        pub phy: u8,
     }
 
     impl FromBytes for phy_status {
@@ -506,9 +506,9 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct rssi {
-        connection: u8,
-        status: u8,
-        rssi: i8,
+        pub connection: u8,
+        pub status: u8,
+        pub rssi: i8,
     }
 
     impl FromBytes for rssi {

@@ -141,8 +141,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct find_attribute {
-        start: u16,
-        atype: Vec<u8>,
+        pub start: u16,
+        pub atype: Vec<u8>,
     }
 
     impl FromBytes for find_attribute {
@@ -169,7 +169,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_type {
-        attribute: u16,
+        pub attribute: u16,
     }
 
     impl FromBytes for read_attribute_type {
@@ -192,8 +192,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_value {
-        attribute: u16,
-        offset: u16,
+        pub attribute: u16,
+        pub offset: u16,
     }
 
     impl FromBytes for read_attribute_value {
@@ -218,9 +218,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_notification {
-        connection: u8,
-        characteristic: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for send_characteristic_notification {
@@ -253,10 +253,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_user_read_response {
-        connection: u8,
-        characteristic: u16,
-        att_errorcode: u8,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub att_errorcode: u8,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for send_user_read_response {
@@ -292,9 +292,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_user_write_response {
-        connection: u8,
-        characteristic: u16,
-        att_errorcode: u8,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub att_errorcode: u8,
     }
 
     impl FromBytes for send_user_write_response {
@@ -321,8 +321,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_capabilities {
-        caps: u32,
-        reserved: u32,
+        pub caps: u32,
+        pub reserved: u32,
     }
 
     impl FromBytes for set_capabilities {
@@ -347,9 +347,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_attribute_value {
-        attribute: u16,
-        offset: u16,
-        value: Vec<u8>,
+        pub attribute: u16,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for write_attribute_value {
@@ -388,8 +388,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct find_attribute {
-        result: u16,
-        attribute: u16,
+        pub result: u16,
+        pub attribute: u16,
     }
 
     impl FromBytes for find_attribute {
@@ -414,8 +414,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_type {
-        result: u16,
-        atype: Vec<u8>,
+        pub result: u16,
+        pub atype: Vec<u8>,
     }
 
     impl FromBytes for read_attribute_type {
@@ -442,8 +442,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_attribute_value {
-        result: u16,
-        value: Vec<u8>,
+        pub result: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for read_attribute_value {
@@ -470,8 +470,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_notification {
-        result: u16,
-        sent_len: u16,
+        pub result: u16,
+        pub sent_len: u16,
     }
 
     impl FromBytes for send_characteristic_notification {
@@ -496,8 +496,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_user_read_response {
-        result: u16,
-        sent_len: u16,
+        pub result: u16,
+        pub sent_len: u16,
     }
 
     impl FromBytes for send_user_read_response {
@@ -522,7 +522,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_user_write_response {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for send_user_write_response {
@@ -545,7 +545,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_capabilities {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_capabilities {
@@ -568,7 +568,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_attribute_value {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for write_attribute_value {
@@ -598,11 +598,11 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct attribute_value {
-        connection: u8,
-        attribute: u16,
-        att_opcode: u8,
-        offset: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub attribute: u16,
+        pub att_opcode: u8,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for attribute_value {
@@ -641,10 +641,10 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct characteristic_status {
-        connection: u8,
-        characteristic: u16,
-        status_flags: u8,
-        client_config_flags: u16,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub status_flags: u8,
+        pub client_config_flags: u16,
     }
 
     impl FromBytes for characteristic_status {
@@ -673,8 +673,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct execute_write_completed {
-        connection: u8,
-        result: u16,
+        pub connection: u8,
+        pub result: u16,
     }
 
     impl FromBytes for execute_write_completed {
@@ -699,10 +699,10 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct user_read_request {
-        connection: u8,
-        characteristic: u16,
-        att_opcode: u8,
-        offset: u16,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub att_opcode: u8,
+        pub offset: u16,
     }
 
     impl FromBytes for user_read_request {
@@ -731,11 +731,11 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct user_write_request {
-        connection: u8,
-        characteristic: u16,
-        att_opcode: u8,
-        offset: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub att_opcode: u8,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for user_write_request {

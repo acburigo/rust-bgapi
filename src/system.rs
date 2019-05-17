@@ -149,7 +149,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
-        reset: u8,
+        pub reset: u8,
     }
 
     impl FromBytes for get_counters {
@@ -172,7 +172,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_random_data {
-        length: u8,
+        pub length: u8,
     }
 
     impl FromBytes for get_random_data {
@@ -195,7 +195,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct halt {
-        halt: u8,
+        pub halt: u8,
     }
 
     impl FromBytes for halt {
@@ -234,7 +234,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct reset {
-        dfu: u8,
+        pub dfu: u8,
     }
 
     impl FromBytes for reset {
@@ -257,7 +257,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_bt_address {
-        address: [u8; 6],
+        pub address: [u8; 6],
     }
 
     impl FromBytes for set_bt_address {
@@ -282,8 +282,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_device_name {
-        dtype: u8,
-        name: Vec<u8>,
+        pub dtype: u8,
+        pub name: Vec<u8>,
     }
 
     impl FromBytes for set_device_name {
@@ -310,7 +310,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_tx_power {
-        power: i16,
+        pub power: i16,
     }
 
     impl FromBytes for set_tx_power {
@@ -339,7 +339,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_bt_address {
-        address: [u8; 6],
+        pub address: [u8; 6],
     }
 
     impl FromBytes for get_bt_address {
@@ -364,11 +364,11 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_counters {
-        result: u16,
-        tx_packets: u16,
-        rx_packets: u16,
-        crc_errors: u16,
-        failures: u16,
+        pub result: u16,
+        pub tx_packets: u16,
+        pub rx_packets: u16,
+        pub crc_errors: u16,
+        pub failures: u16,
     }
 
     impl FromBytes for get_counters {
@@ -399,8 +399,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct get_random_data {
-        result: u16,
-        data: Vec<u8>,
+        pub result: u16,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for get_random_data {
@@ -427,7 +427,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct halt {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for halt {
@@ -450,7 +450,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct hello {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for hello {
@@ -473,7 +473,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_bt_address {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_bt_address {
@@ -496,7 +496,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_device_name {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_device_name {
@@ -519,7 +519,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_tx_power {
-        set_power: i16,
+        pub set_power: i16,
     }
 
     impl FromBytes for set_tx_power {
@@ -564,13 +564,13 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct boot {
-        major: u16,
-        minor: u16,
-        patch: u16,
-        build: u16,
-        bootloader: u32,
-        hw: u16,
-        hash: u32,
+        pub major: u16,
+        pub minor: u16,
+        pub patch: u16,
+        pub build: u16,
+        pub bootloader: u32,
+        pub hw: u16,
+        pub hash: u32,
     }
 
     impl FromBytes for boot {
@@ -605,8 +605,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct error {
-        reason: u16,
-        data: Vec<u8>,
+        pub reason: u16,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for error {
@@ -633,7 +633,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct external_signal {
-        extsignals: u32,
+        pub extsignals: u32,
     }
 
     impl FromBytes for external_signal {
@@ -656,7 +656,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct hardware_error {
-        status: u16,
+        pub status: u16,
     }
 
     impl FromBytes for hardware_error {

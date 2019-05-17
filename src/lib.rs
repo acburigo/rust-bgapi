@@ -55,6 +55,16 @@ mod tests {
     }
 
     #[test]
+    fn rsp_system_hello_from_bytes() {
+        use parser::FromBytes;
+        use system::rsp::hello;
+        let data = [0x00, 0x00];
+        let actual = hello::from_bytes(&data);
+        let expected = hello { result: 0x00 };
+        assert_eq!(actual == expected, true);
+    }
+
+    #[test]
     fn message_payload_to_bytes() {
         use message::MessagePayload;
         use parser::ToBytes;

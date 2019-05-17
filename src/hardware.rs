@@ -43,10 +43,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_lazy_soft_timer {
-        time: u32,
-        slack: u32,
-        handle: u8,
-        single_shot: u8,
+        pub time: u32,
+        pub slack: u32,
+        pub handle: u8,
+        pub single_shot: u8,
     }
 
     impl FromBytes for set_lazy_soft_timer {
@@ -75,9 +75,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_soft_timer {
-        time: u32,
-        handle: u8,
-        single_shot: u8,
+        pub time: u32,
+        pub handle: u8,
+        pub single_shot: u8,
     }
 
     impl FromBytes for set_soft_timer {
@@ -110,7 +110,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_lazy_soft_timer {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_lazy_soft_timer {
@@ -133,7 +133,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_soft_timer {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_soft_timer {
@@ -162,7 +162,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct soft_timer {
-        handle: u8,
+        pub handle: u8,
     }
 
     impl FromBytes for soft_timer {

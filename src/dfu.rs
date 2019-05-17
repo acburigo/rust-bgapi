@@ -59,7 +59,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct flash_set_address {
-        address: u32,
+        pub address: u32,
     }
 
     impl FromBytes for flash_set_address {
@@ -82,7 +82,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload {
-        data: Vec<u8>,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for flash_upload {
@@ -118,7 +118,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct reset {
-        dfu: u8,
+        pub dfu: u8,
     }
 
     impl FromBytes for reset {
@@ -147,7 +147,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct flash_set_address {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for flash_set_address {
@@ -170,7 +170,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for flash_upload {
@@ -193,7 +193,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct flash_upload_finish {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for flash_upload_finish {
@@ -222,7 +222,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct boot {
-        version: u32,
+        pub version: u32,
     }
 
     impl FromBytes for boot {
@@ -245,7 +245,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct boot_failure {
-        reason: u16,
+        pub reason: u16,
     }
 
     impl FromBytes for boot_failure {

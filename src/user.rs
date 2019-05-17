@@ -33,7 +33,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct message_to_target {
-        data: Vec<u8>,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for message_to_target {
@@ -62,8 +62,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct message_to_target {
-        result: u16,
-        data: Vec<u8>,
+        pub result: u16,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for message_to_target {
@@ -95,7 +95,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct message_to_host {
-        data: Vec<u8>,
+        pub data: Vec<u8>,
     }
 
     impl FromBytes for message_to_host {

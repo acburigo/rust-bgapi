@@ -292,8 +292,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics {
-        connection: u8,
-        service: u32,
+        pub connection: u8,
+        pub service: u32,
     }
 
     impl FromBytes for discover_characteristics {
@@ -318,9 +318,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics_by_uuid {
-        connection: u8,
-        service: u32,
-        uuid: [u8; 16],
+        pub connection: u8,
+        pub service: u32,
+        pub uuid: [u8; 16],
     }
 
     impl FromBytes for discover_characteristics_by_uuid {
@@ -351,8 +351,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_descriptors {
-        connection: u8,
-        characteristic: u16,
+        pub connection: u8,
+        pub characteristic: u16,
     }
 
     impl FromBytes for discover_descriptors {
@@ -377,7 +377,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services {
-        connection: u8,
+        pub connection: u8,
     }
 
     impl FromBytes for discover_primary_services {
@@ -400,8 +400,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services_by_uuid {
-        connection: u8,
-        uuid: [u8; 16],
+        pub connection: u8,
+        pub uuid: [u8; 16],
     }
 
     impl FromBytes for discover_primary_services_by_uuid {
@@ -426,8 +426,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct execute_characteristic_value_write {
-        connection: u8,
-        flags: u8,
+        pub connection: u8,
+        pub flags: u8,
     }
 
     impl FromBytes for execute_characteristic_value_write {
@@ -452,8 +452,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct find_included_services {
-        connection: u8,
-        service: u32,
+        pub connection: u8,
+        pub service: u32,
     }
 
     impl FromBytes for find_included_services {
@@ -478,10 +478,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_reliable_write {
-        connection: u8,
-        characteristic: u16,
-        offset: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for prepare_characteristic_value_reliable_write {
@@ -517,10 +517,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_write {
-        connection: u8,
-        characteristic: u16,
-        offset: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for prepare_characteristic_value_write {
@@ -556,8 +556,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value {
-        connection: u8,
-        characteristic: u16,
+        pub connection: u8,
+        pub characteristic: u16,
     }
 
     impl FromBytes for read_characteristic_value {
@@ -582,9 +582,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_by_uuid {
-        connection: u8,
-        service: u32,
-        uuid: [u8; 16],
+        pub connection: u8,
+        pub service: u32,
+        pub uuid: [u8; 16],
     }
 
     impl FromBytes for read_characteristic_value_by_uuid {
@@ -615,10 +615,10 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_from_offset {
-        connection: u8,
-        characteristic: u16,
-        offset: u16,
-        maxlen: u16,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub offset: u16,
+        pub maxlen: u16,
     }
 
     impl FromBytes for read_characteristic_value_from_offset {
@@ -647,8 +647,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_descriptor_value {
-        connection: u8,
-        descriptor: u16,
+        pub connection: u8,
+        pub descriptor: u16,
     }
 
     impl FromBytes for read_descriptor_value {
@@ -673,8 +673,8 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_multiple_characteristic_values {
-        connection: u8,
-        characteristic_list: Vec<u16>,
+        pub connection: u8,
+        pub characteristic_list: Vec<u16>,
     }
 
     impl FromBytes for read_multiple_characteristic_values {
@@ -706,7 +706,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_confirmation {
-        connection: u8,
+        pub connection: u8,
     }
 
     impl FromBytes for send_characteristic_confirmation {
@@ -729,9 +729,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_characteristic_notification {
-        connection: u8,
-        characteristic: u16,
-        flags: u8,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub flags: u8,
     }
 
     impl FromBytes for set_characteristic_notification {
@@ -758,7 +758,7 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_max_mtu {
-        max_mtu: u16,
+        pub max_mtu: u16,
     }
 
     impl FromBytes for set_max_mtu {
@@ -781,9 +781,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value {
-        connection: u8,
-        characteristic: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for write_characteristic_value {
@@ -816,9 +816,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value_without_response {
-        connection: u8,
-        characteristic: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for write_characteristic_value_without_response {
@@ -851,9 +851,9 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_descriptor_value {
-        connection: u8,
-        descriptor: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub descriptor: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for write_descriptor_value {
@@ -892,7 +892,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for discover_characteristics {
@@ -915,7 +915,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_characteristics_by_uuid {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for discover_characteristics_by_uuid {
@@ -938,7 +938,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_descriptors {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for discover_descriptors {
@@ -961,7 +961,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for discover_primary_services {
@@ -984,7 +984,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct discover_primary_services_by_uuid {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for discover_primary_services_by_uuid {
@@ -1007,7 +1007,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct execute_characteristic_value_write {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for execute_characteristic_value_write {
@@ -1030,7 +1030,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct find_included_services {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for find_included_services {
@@ -1053,8 +1053,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_reliable_write {
-        result: u16,
-        sent_len: u16,
+        pub result: u16,
+        pub sent_len: u16,
     }
 
     impl FromBytes for prepare_characteristic_value_reliable_write {
@@ -1079,8 +1079,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct prepare_characteristic_value_write {
-        result: u16,
-        sent_len: u16,
+        pub result: u16,
+        pub sent_len: u16,
     }
 
     impl FromBytes for prepare_characteristic_value_write {
@@ -1105,7 +1105,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for read_characteristic_value {
@@ -1128,7 +1128,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_by_uuid {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for read_characteristic_value_by_uuid {
@@ -1151,7 +1151,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_characteristic_value_from_offset {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for read_characteristic_value_from_offset {
@@ -1174,7 +1174,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_descriptor_value {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for read_descriptor_value {
@@ -1197,7 +1197,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct read_multiple_characteristic_values {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for read_multiple_characteristic_values {
@@ -1220,7 +1220,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct send_characteristic_confirmation {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for send_characteristic_confirmation {
@@ -1243,7 +1243,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_characteristic_notification {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for set_characteristic_notification {
@@ -1266,8 +1266,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_max_mtu {
-        result: u16,
-        max_mtu: u16,
+        pub result: u16,
+        pub max_mtu: u16,
     }
 
     impl FromBytes for set_max_mtu {
@@ -1292,7 +1292,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for write_characteristic_value {
@@ -1315,8 +1315,8 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_characteristic_value_without_response {
-        result: u16,
-        sent_len: u16,
+        pub result: u16,
+        pub sent_len: u16,
     }
 
     impl FromBytes for write_characteristic_value_without_response {
@@ -1341,7 +1341,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct write_descriptor_value {
-        result: u16,
+        pub result: u16,
     }
 
     impl FromBytes for write_descriptor_value {
@@ -1371,10 +1371,10 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct characteristic {
-        connection: u8,
-        characteristic: u16,
-        properties: u8,
-        uuid: [u8; 16],
+        pub connection: u8,
+        pub characteristic: u16,
+        pub properties: u8,
+        pub uuid: [u8; 16],
     }
 
     impl FromBytes for characteristic {
@@ -1408,11 +1408,11 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct characteristic_value {
-        connection: u8,
-        characteristic: u16,
-        att_opcode: u8,
-        offset: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub characteristic: u16,
+        pub att_opcode: u8,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for characteristic_value {
@@ -1451,9 +1451,9 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct descriptor {
-        connection: u8,
-        descriptor: u16,
-        uuid: [u8; 16],
+        pub connection: u8,
+        pub descriptor: u16,
+        pub uuid: [u8; 16],
     }
 
     impl FromBytes for descriptor {
@@ -1484,10 +1484,10 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct descriptor_value {
-        connection: u8,
-        descriptor: u16,
-        offset: u16,
-        value: Vec<u8>,
+        pub connection: u8,
+        pub descriptor: u16,
+        pub offset: u16,
+        pub value: Vec<u8>,
     }
 
     impl FromBytes for descriptor_value {
@@ -1523,8 +1523,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct mtu_exchanged {
-        connection: u8,
-        mtu: u16,
+        pub connection: u8,
+        pub mtu: u16,
     }
 
     impl FromBytes for mtu_exchanged {
@@ -1549,8 +1549,8 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct procedure_completed {
-        connection: u8,
-        result: u16,
+        pub connection: u8,
+        pub result: u16,
     }
 
     impl FromBytes for procedure_completed {
@@ -1575,9 +1575,9 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct service {
-        connection: u8,
-        service: u32,
-        uuid: [u8; 16],
+        pub connection: u8,
+        pub service: u32,
+        pub uuid: [u8; 16],
     }
 
     impl FromBytes for service {
