@@ -110,13 +110,13 @@ mod tests {
         let msg = Message {
             header: MessageHeader {
                 message_type: 0x20,
-                payload_length: 0x02,
+                payload_length: 0x00,
                 message_class: 0x01,
                 message_id: 0x00,
             },
             payload: MessagePayload::cmd_system_hello(system::cmd::hello {}),
         };
 
-        assert_eq!(msg.to_bytes(), vec![0x20, 0x02, 0x01, 0x00]);
+        assert_eq!(msg.to_bytes(), vec![0x20, 0x00, 0x01, 0x00]);
     }
 }
