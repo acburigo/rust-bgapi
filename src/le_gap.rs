@@ -1,76 +1,76 @@
-use message::{MessageHeader, MessagePayload};
+use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
     match header {
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x0c,
         } => Ok(MessagePayload::rsp_le_gap_bt5_set_adv_data(
             rsp::bt5_set_adv_data::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x13,
         } => Ok(MessagePayload::rsp_le_gap_clear_advertise_configuration(
             rsp::clear_advertise_configuration::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x03,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x1a,
         } => Ok(MessagePayload::rsp_le_gap_connect(
             rsp::connect::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x03,
         } => Ok(MessagePayload::rsp_le_gap_end_procedure(
             rsp::end_procedure::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x0f,
         } => Ok(MessagePayload::rsp_le_gap_set_advertise_channel_map(
             rsp::set_advertise_channel_map::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x12,
         } => Ok(MessagePayload::rsp_le_gap_set_advertise_configuration(
             rsp::set_advertise_configuration::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x11,
         } => Ok(MessagePayload::rsp_le_gap_set_advertise_phy(
             rsp::set_advertise_phy::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x10,
         } => Ok(
             MessagePayload::rsp_le_gap_set_advertise_report_scan_request(
@@ -79,117 +79,117 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
         ),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x0e,
         } => Ok(MessagePayload::rsp_le_gap_set_advertise_timing(
             rsp::set_advertise_timing::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x1b,
         } => Ok(MessagePayload::rsp_le_gap_set_advertise_tx_power(
             rsp::set_advertise_tx_power::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x05,
         } => Ok(MessagePayload::rsp_le_gap_set_conn_parameters(
             rsp::set_conn_parameters::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x19,
         } => Ok(MessagePayload::rsp_le_gap_set_data_channel_classification(
             rsp::set_data_channel_classification::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x16,
         } => Ok(MessagePayload::rsp_le_gap_set_discovery_timing(
             rsp::set_discovery_timing::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x17,
         } => Ok(MessagePayload::rsp_le_gap_set_discovery_type(
             rsp::set_discovery_type::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x0d,
         } => Ok(MessagePayload::rsp_le_gap_set_privacy_mode(
             rsp::set_privacy_mode::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x14,
         } => Ok(MessagePayload::rsp_le_gap_start_advertising(
             rsp::start_advertising::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x18,
         } => Ok(MessagePayload::rsp_le_gap_start_discovery(
             rsp::start_discovery::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: 0x02,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x15,
         } => Ok(MessagePayload::rsp_le_gap_stop_advertising(
             rsp::stop_advertising::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0xa0,
+            message_type: MessageType::event,
             payload_length: 0x01,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x01,
         } => Ok(MessagePayload::evt_le_gap_adv_timeout(
             evt::adv_timeout::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0xa0,
+            message_type: MessageType::event,
             payload_length: 0x09,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x02,
         } => Ok(MessagePayload::evt_le_gap_scan_request(
             evt::scan_request::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0xa0,
+            message_type: MessageType::event,
             payload_length: _,
-            message_class: 0x03,
+            message_class: MessageClass::le_gap,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_le_gap_scan_response(
             evt::scan_response::from_bytes(buffer),

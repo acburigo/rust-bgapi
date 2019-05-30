@@ -1,22 +1,22 @@
-use message::{MessageHeader, MessagePayload};
+use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
     match header {
         MessageHeader {
-            message_type: 0x20,
+            message_type: MessageType::command_response,
             payload_length: _,
-            message_class: 0xff,
+            message_class: MessageClass::user,
             message_id: 0x00,
         } => Ok(MessagePayload::rsp_user_message_to_target(
             rsp::message_to_target::from_bytes(buffer),
         )),
 
         MessageHeader {
-            message_type: 0xa0,
+            message_type: MessageType::event,
             payload_length: _,
-            message_class: 0xff,
+            message_class: MessageClass::user,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_user_message_to_host(
             evt::message_to_host::from_bytes(buffer),

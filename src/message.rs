@@ -1,3 +1,5 @@
+use num_derive::FromPrimitive;
+use num_traits::FromPrimitive;
 use bytes::BufMut;
 use coex;
 use dfu;
@@ -27,14 +29,18 @@ impl ToBytes for Message {
     }
 }
 
+#[derive(PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive)]
 #[repr(u8)]
 pub enum MessageType {
     command_response = 0x20,
     event = 0xa0,
 }
 
+#[derive(PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive)]
 #[repr(u8)]
 pub enum MessageClass {
     coex = 0x20,
@@ -54,9 +60,9 @@ pub enum MessageClass {
 
 #[derive(PartialEq, PartialOrd)]
 pub struct MessageHeader {
-    pub message_type: u8,
+    pub message_type: MessageType,
     pub payload_length: u8,
-    pub message_class: u8,
+    pub message_class: MessageClass,
     pub message_id: u8,
 }
 
@@ -579,9 +585,9 @@ impl MessageHeader {
 impl FromBytes for MessageHeader {
     fn from_bytes(data: &[u8]) -> MessageHeader {
         MessageHeader {
-            message_type: data[0],
+            message_type: FromPrimitive::from_u8(data[0]).unwrap(),
             payload_length: data[1],
-            message_class: data[2],
+            message_class: FromPrimitive::from_u8(data[2]).unwrap(),
             message_id: data[3],
         }
     }
@@ -590,9 +596,9 @@ impl FromBytes for MessageHeader {
 impl ToBytes for MessageHeader {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u8(self.message_type);
+        bytes.put_u8(self.message_type.clone() as u8);
         bytes.put_u8(self.payload_length);
-        bytes.put_u8(self.message_class);
+        bytes.put_u8(self.message_class.clone() as u8);
         bytes.put_u8(self.message_id);
         bytes
     }

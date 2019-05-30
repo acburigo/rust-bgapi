@@ -6,7 +6,7 @@ use gatt_server;
 use hardware;
 use le_connection;
 use le_gap;
-use message::{Message, MessageHeader};
+use message::{Message, MessageHeader, MessageClass};
 use sm;
 use std::io::{Error, ErrorKind};
 use system;
@@ -41,18 +41,18 @@ pub fn parse_next_message(stream: &mut Stream) -> Result<Message, Error> {
     }
 
     let payload = match header.message_class {
-        0x20 => coex::parse(&header, buffer.as_slice())?,
-        0x00 => dfu::parse(&header, buffer.as_slice())?,
-        0x0d => flash::parse(&header, buffer.as_slice())?,
-        0x09 => gatt::parse(&header, buffer.as_slice())?,
-        0x0a => gatt_server::parse(&header, buffer.as_slice())?,
-        0x0c => hardware::parse(&header, buffer.as_slice())?,
-        0x08 => le_connection::parse(&header, buffer.as_slice())?,
-        0x03 => le_gap::parse(&header, buffer.as_slice())?,
-        0x0f => sm::parse(&header, buffer.as_slice())?,
-        0x01 => system::parse(&header, buffer.as_slice())?,
-        0x0e => test::parse(&header, buffer.as_slice())?,
-        0xff => user::parse(&header, buffer.as_slice())?,
+        MessageClass::coex => coex::parse(&header, buffer.as_slice())?,
+        MessageClass::dfu => dfu::parse(&header, buffer.as_slice())?,
+        MessageClass::flash => flash::parse(&header, buffer.as_slice())?,
+        MessageClass::gatt => gatt::parse(&header, buffer.as_slice())?,
+        MessageClass::gatt_server => gatt_server::parse(&header, buffer.as_slice())?,
+        MessageClass::hardware => hardware::parse(&header, buffer.as_slice())?,
+        MessageClass::le_connection => le_connection::parse(&header, buffer.as_slice())?,
+        MessageClass::le_gap => le_gap::parse(&header, buffer.as_slice())?,
+        MessageClass::sm => sm::parse(&header, buffer.as_slice())?,
+        MessageClass::system => system::parse(&header, buffer.as_slice())?,
+        MessageClass::test => test::parse(&header, buffer.as_slice())?,
+        MessageClass::user => user::parse(&header, buffer.as_slice())?,
         _ => return Err(Error::from(ErrorKind::NotFound)),
     };
 
