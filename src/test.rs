@@ -1,4 +1,5 @@
-use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
+use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
+use num_derive::FromPrimitive;
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
@@ -45,6 +46,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum PacketType {
     pkt_prbs9 = 0,              // PRBS9 packet payload
     pkt_11110000 = 1,           // 11110000 packet payload
@@ -59,6 +61,7 @@ pub enum PacketType {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum Phy {
     phy_1m = 1,   // 1M PHY
     phy_2m = 2,   // 2M PHY
@@ -68,8 +71,10 @@ pub enum Phy {
 
 pub mod cmd {
     use bytes::{Buf, BufMut};
+    use num_traits::FromPrimitive;
     use parser::{FromBytes, ToBytes};
     use std::io::Cursor;
+    use test::{PacketType, Phy};
 
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
@@ -91,7 +96,7 @@ pub mod cmd {
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_rx {
         pub channel: u8,
-        pub phy: u8,
+        pub phy: Phy,
     }
 
     impl FromBytes for dtm_rx {
@@ -99,7 +104,7 @@ pub mod cmd {
             let mut cursor = Cursor::new(data);
             dtm_rx {
                 channel: cursor.get_u8(),
-                phy: cursor.get_u8(),
+                phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
             }
         }
     }
@@ -108,7 +113,7 @@ pub mod cmd {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
             bytes.put_u8(self.channel);
-            bytes.put_u8(self.phy);
+            bytes.put_u8(self.phy.clone() as u8);
             bytes
         }
     }
@@ -116,20 +121,20 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct dtm_tx {
-        pub packet_type: u8,
+        pub packet_type: PacketType,
         pub length: u8,
         pub channel: u8,
-        pub phy: u8,
+        pub phy: Phy,
     }
 
     impl FromBytes for dtm_tx {
         fn from_bytes(data: &[u8]) -> dtm_tx {
             let mut cursor = Cursor::new(data);
             dtm_tx {
-                packet_type: cursor.get_u8(),
+                packet_type: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
                 length: cursor.get_u8(),
                 channel: cursor.get_u8(),
-                phy: cursor.get_u8(),
+                phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
             }
         }
     }
@@ -137,10 +142,10 @@ pub mod cmd {
     impl ToBytes for dtm_tx {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u8(self.packet_type);
+            bytes.put_u8(self.packet_type.clone() as u8);
             bytes.put_u8(self.length);
             bytes.put_u8(self.channel);
-            bytes.put_u8(self.phy);
+            bytes.put_u8(self.phy.clone() as u8);
             bytes
         }
     }

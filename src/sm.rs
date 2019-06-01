@@ -1,4 +1,5 @@
-use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
+use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
+use num_derive::FromPrimitive;
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
@@ -216,6 +217,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive)]
 pub enum BondingKey {
     ltk = 1,         // LTK saved in master
     addr_public = 2, // Public Address
@@ -227,6 +229,7 @@ pub enum BondingKey {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive)]
 pub enum io_capability {
     displayonly = 0,     // Display Only
     displayyesno = 1,    // Display with Yes/No-buttons

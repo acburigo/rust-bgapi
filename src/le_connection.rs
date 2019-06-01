@@ -1,4 +1,5 @@
-use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
+use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
+use num_derive::FromPrimitive;
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
@@ -99,6 +100,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
+#[derive(PartialEq, PartialOrd, Clone, FromPrimitive)]
 pub enum Security {
     mode1_level1 = 0, // No security
     mode1_level2 = 1, // Unauthenticated pairing with encryption
@@ -368,6 +370,8 @@ pub mod rsp {
 
 pub mod evt {
     use bytes::{Buf, BufMut};
+    use le_connection::Security;
+    use num_traits::FromPrimitive;
     use parser::{FromBytes, ToBytes};
     use std::io::{Cursor, Read};
 
@@ -446,7 +450,7 @@ pub mod evt {
         pub interval: u16,
         pub latency: u16,
         pub timeout: u16,
-        pub security_mode: u8,
+        pub security_mode: Security,
         pub txsize: u16,
     }
 
@@ -458,7 +462,7 @@ pub mod evt {
                 interval: cursor.get_u16_le(),
                 latency: cursor.get_u16_le(),
                 timeout: cursor.get_u16_le(),
-                security_mode: cursor.get_u8(),
+                security_mode: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
                 txsize: cursor.get_u16_le(),
             }
         }
@@ -471,7 +475,7 @@ pub mod evt {
             bytes.put_u16_le(self.interval);
             bytes.put_u16_le(self.latency);
             bytes.put_u16_le(self.timeout);
-            bytes.put_u8(self.security_mode);
+            bytes.put_u8(self.security_mode.clone() as u8);
             bytes.put_u16_le(self.txsize);
             bytes
         }

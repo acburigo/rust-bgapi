@@ -1,5 +1,10 @@
+use num_derive::FromPrimitive;
+
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum Error {
+    success = 0x0000,
+
     // Errors related to hardware
     ps_store_full = 0x0501,    // Flash reserved for PS store is full
     ps_key_not_found = 0x0502, // PS key not found

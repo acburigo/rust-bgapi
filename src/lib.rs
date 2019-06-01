@@ -1,6 +1,6 @@
+extern crate bytes;
 extern crate num_derive;
 extern crate num_traits;
-extern crate bytes;
 
 pub mod coex;
 pub mod dfu;
@@ -31,7 +31,7 @@ mod tests {
 
     #[test]
     fn message_header_from_bytes() {
-        use message::{MessageHeader, MessageType, MessageClass};
+        use message::{MessageClass, MessageHeader, MessageType};
         use parser::FromBytes;
 
         let data = [0x20, 0x02, 0x01, 0x00];
@@ -48,7 +48,7 @@ mod tests {
 
     #[test]
     fn message_header_to_bytes() {
-        use message::{MessageHeader, MessageType, MessageClass};
+        use message::{MessageClass, MessageHeader, MessageType};
         use parser::ToBytes;
 
         let header = MessageHeader {
@@ -84,7 +84,7 @@ mod tests {
 
     #[test]
     fn message_rsp_system_hello_from_bytes() {
-        use message::{Message, MessageHeader, MessagePayload, MessageType, MessageClass};
+        use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
         use parser::parse_next_message;
         use system;
 
@@ -105,7 +105,7 @@ mod tests {
 
     #[test]
     fn message_cmd_system_hello_to_bytes() {
-        use message::{Message, MessageHeader, MessagePayload, MessageType, MessageClass};
+        use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
         use parser::ToBytes;
         use system;
 

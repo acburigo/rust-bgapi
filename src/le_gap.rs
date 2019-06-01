@@ -1,4 +1,6 @@
-use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
+use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
+use num_derive::FromPrimitive;
+
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
@@ -200,6 +202,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum AddressType {
     public = 0,          // Public address
     random = 1,          // Random address
@@ -208,12 +211,14 @@ pub enum AddressType {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum AdvAddressType {
     identity_address = 0, // Use public or static device address, or identity address if privacy mode is enabled
     non_resolvable = 1, // Use non resolvable address type, advertising mode must also be non-connectable
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum ConnectableMode {
     non_connectable = 0,           // Non-connectable non-scannable.
     directed_connectable = 1,      // Directed connectable (RESERVED, DO NOT USE)
@@ -223,6 +228,7 @@ pub enum ConnectableMode {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum DiscoverMode {
     limited = 0,     // Discover only limited discoverable devices
     generic = 1,     // Discover limited and generic discoverable devices
@@ -230,6 +236,7 @@ pub enum DiscoverMode {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum DiscoverableMode {
     non_discoverable = 0,     // Not discoverable
     limited_discoverable = 1, // Discoverable using both limited and general discovery procedures
@@ -239,6 +246,7 @@ pub enum DiscoverableMode {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum PhyType {
     phy_1m = 1,    // LE 1M PHY
     phy_2m = 2,    // LE 2M PHY
@@ -247,6 +255,8 @@ pub enum PhyType {
 
 pub mod cmd {
     use bytes::{Buf, BufMut};
+    use le_gap::{AddressType, ConnectableMode, DiscoverMode, DiscoverableMode, PhyType};
+    use num_traits::FromPrimitive;
     use parser::{FromBytes, ToBytes};
     use std::io::{Cursor, Read};
 
@@ -315,8 +325,8 @@ pub mod cmd {
     #[derive(PartialEq, PartialOrd)]
     pub struct connect {
         pub address: [u8; 6],
-        pub address_type: u8,
-        pub initiating_phy: u8,
+        pub address_type: AddressType,
+        pub initiating_phy: PhyType,
     }
 
     impl FromBytes for connect {
@@ -328,8 +338,8 @@ pub mod cmd {
                 .expect("Failed to read bytes.");
             connect {
                 address,
-                address_type: cursor.get_u8(),
-                initiating_phy: cursor.get_u8(),
+                address_type: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
+                initiating_phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
             }
         }
     }
@@ -338,8 +348,8 @@ pub mod cmd {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
             bytes.extend_from_slice(&self.address);
-            bytes.put_u8(self.address_type);
-            bytes.put_u8(self.initiating_phy);
+            bytes.put_u8(self.address_type.clone() as u8);
+            bytes.put_u8(self.initiating_phy.clone() as u8);
             bytes
         }
     }
@@ -416,8 +426,8 @@ pub mod cmd {
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_phy {
         pub handle: u8,
-        pub primary_phy: u8,
-        pub secondary_phy: u8,
+        pub primary_phy: PhyType,
+        pub secondary_phy: PhyType,
     }
 
     impl FromBytes for set_advertise_phy {
@@ -425,8 +435,8 @@ pub mod cmd {
             let mut cursor = Cursor::new(data);
             set_advertise_phy {
                 handle: cursor.get_u8(),
-                primary_phy: cursor.get_u8(),
-                secondary_phy: cursor.get_u8(),
+                primary_phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
+                secondary_phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
             }
         }
     }
@@ -435,8 +445,8 @@ pub mod cmd {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
             bytes.put_u8(self.handle);
-            bytes.put_u8(self.primary_phy);
-            bytes.put_u8(self.secondary_phy);
+            bytes.put_u8(self.primary_phy.clone() as u8);
+            bytes.put_u8(self.secondary_phy.clone() as u8);
             bytes
         }
     }
@@ -670,8 +680,8 @@ pub mod cmd {
     #[derive(PartialEq, PartialOrd)]
     pub struct start_advertising {
         pub handle: u8,
-        pub discover: u8,
-        pub connect: u8,
+        pub discover: DiscoverableMode,
+        pub connect: ConnectableMode,
     }
 
     impl FromBytes for start_advertising {
@@ -679,8 +689,8 @@ pub mod cmd {
             let mut cursor = Cursor::new(data);
             start_advertising {
                 handle: cursor.get_u8(),
-                discover: cursor.get_u8(),
-                connect: cursor.get_u8(),
+                discover: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
+                connect: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
             }
         }
     }
@@ -689,8 +699,8 @@ pub mod cmd {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
             bytes.put_u8(self.handle);
-            bytes.put_u8(self.discover);
-            bytes.put_u8(self.connect);
+            bytes.put_u8(self.discover.clone() as u8);
+            bytes.put_u8(self.connect.clone() as u8);
             bytes
         }
     }
@@ -698,16 +708,16 @@ pub mod cmd {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_discovery {
-        pub scanning_phy: u8,
-        pub mode: u8,
+        pub scanning_phy: PhyType,
+        pub mode: DiscoverMode,
     }
 
     impl FromBytes for start_discovery {
         fn from_bytes(data: &[u8]) -> start_discovery {
             let mut cursor = Cursor::new(data);
             start_discovery {
-                scanning_phy: cursor.get_u8(),
-                mode: cursor.get_u8(),
+                scanning_phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
+                mode: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
             }
         }
     }
@@ -715,8 +725,8 @@ pub mod cmd {
     impl ToBytes for start_discovery {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u8(self.scanning_phy);
-            bytes.put_u8(self.mode);
+            bytes.put_u8(self.scanning_phy.clone() as u8);
+            bytes.put_u8(self.mode.clone() as u8);
             bytes
         }
     }
@@ -747,20 +757,22 @@ pub mod cmd {
 
 pub mod rsp {
     use bytes::{Buf, BufMut};
+    use error::Error;
+    use num_traits::FromPrimitive;
     use parser::{FromBytes, ToBytes};
     use std::io::Cursor;
 
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct bt5_set_adv_data {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for bt5_set_adv_data {
         fn from_bytes(data: &[u8]) -> bt5_set_adv_data {
             let mut cursor = Cursor::new(data);
             bt5_set_adv_data {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -768,7 +780,7 @@ pub mod rsp {
     impl ToBytes for bt5_set_adv_data {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -776,14 +788,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct clear_advertise_configuration {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for clear_advertise_configuration {
         fn from_bytes(data: &[u8]) -> clear_advertise_configuration {
             let mut cursor = Cursor::new(data);
             clear_advertise_configuration {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -791,7 +803,7 @@ pub mod rsp {
     impl ToBytes for clear_advertise_configuration {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -799,7 +811,7 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct connect {
-        pub result: u16,
+        pub result: Error,
         pub connection: u8,
     }
 
@@ -807,7 +819,7 @@ pub mod rsp {
         fn from_bytes(data: &[u8]) -> connect {
             let mut cursor = Cursor::new(data);
             connect {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
                 connection: cursor.get_u8(),
             }
         }
@@ -816,7 +828,7 @@ pub mod rsp {
     impl ToBytes for connect {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes.put_u8(self.connection);
             bytes
         }
@@ -825,14 +837,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct end_procedure {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for end_procedure {
         fn from_bytes(data: &[u8]) -> end_procedure {
             let mut cursor = Cursor::new(data);
             end_procedure {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -840,7 +852,7 @@ pub mod rsp {
     impl ToBytes for end_procedure {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -848,14 +860,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_channel_map {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_advertise_channel_map {
         fn from_bytes(data: &[u8]) -> set_advertise_channel_map {
             let mut cursor = Cursor::new(data);
             set_advertise_channel_map {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -863,7 +875,7 @@ pub mod rsp {
     impl ToBytes for set_advertise_channel_map {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -871,14 +883,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_configuration {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_advertise_configuration {
         fn from_bytes(data: &[u8]) -> set_advertise_configuration {
             let mut cursor = Cursor::new(data);
             set_advertise_configuration {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -886,7 +898,7 @@ pub mod rsp {
     impl ToBytes for set_advertise_configuration {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -894,14 +906,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_phy {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_advertise_phy {
         fn from_bytes(data: &[u8]) -> set_advertise_phy {
             let mut cursor = Cursor::new(data);
             set_advertise_phy {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -909,7 +921,7 @@ pub mod rsp {
     impl ToBytes for set_advertise_phy {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -917,14 +929,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_report_scan_request {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_advertise_report_scan_request {
         fn from_bytes(data: &[u8]) -> set_advertise_report_scan_request {
             let mut cursor = Cursor::new(data);
             set_advertise_report_scan_request {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -932,7 +944,7 @@ pub mod rsp {
     impl ToBytes for set_advertise_report_scan_request {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -940,14 +952,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_timing {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_advertise_timing {
         fn from_bytes(data: &[u8]) -> set_advertise_timing {
             let mut cursor = Cursor::new(data);
             set_advertise_timing {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -955,7 +967,7 @@ pub mod rsp {
     impl ToBytes for set_advertise_timing {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -963,14 +975,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_advertise_tx_power {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_advertise_tx_power {
         fn from_bytes(data: &[u8]) -> set_advertise_tx_power {
             let mut cursor = Cursor::new(data);
             set_advertise_tx_power {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -978,7 +990,7 @@ pub mod rsp {
     impl ToBytes for set_advertise_tx_power {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -986,14 +998,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_conn_parameters {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_conn_parameters {
         fn from_bytes(data: &[u8]) -> set_conn_parameters {
             let mut cursor = Cursor::new(data);
             set_conn_parameters {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1001,7 +1013,7 @@ pub mod rsp {
     impl ToBytes for set_conn_parameters {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1009,14 +1021,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_data_channel_classification {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_data_channel_classification {
         fn from_bytes(data: &[u8]) -> set_data_channel_classification {
             let mut cursor = Cursor::new(data);
             set_data_channel_classification {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1024,7 +1036,7 @@ pub mod rsp {
     impl ToBytes for set_data_channel_classification {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1032,14 +1044,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_timing {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_discovery_timing {
         fn from_bytes(data: &[u8]) -> set_discovery_timing {
             let mut cursor = Cursor::new(data);
             set_discovery_timing {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1047,7 +1059,7 @@ pub mod rsp {
     impl ToBytes for set_discovery_timing {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1055,14 +1067,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_discovery_type {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_discovery_type {
         fn from_bytes(data: &[u8]) -> set_discovery_type {
             let mut cursor = Cursor::new(data);
             set_discovery_type {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1070,7 +1082,7 @@ pub mod rsp {
     impl ToBytes for set_discovery_type {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1078,14 +1090,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct set_privacy_mode {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for set_privacy_mode {
         fn from_bytes(data: &[u8]) -> set_privacy_mode {
             let mut cursor = Cursor::new(data);
             set_privacy_mode {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1093,7 +1105,7 @@ pub mod rsp {
     impl ToBytes for set_privacy_mode {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1101,14 +1113,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_advertising {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for start_advertising {
         fn from_bytes(data: &[u8]) -> start_advertising {
             let mut cursor = Cursor::new(data);
             start_advertising {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1116,7 +1128,7 @@ pub mod rsp {
     impl ToBytes for start_advertising {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1124,14 +1136,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct start_discovery {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for start_discovery {
         fn from_bytes(data: &[u8]) -> start_discovery {
             let mut cursor = Cursor::new(data);
             start_discovery {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1139,7 +1151,7 @@ pub mod rsp {
     impl ToBytes for start_discovery {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1147,14 +1159,14 @@ pub mod rsp {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct stop_advertising {
-        pub result: u16,
+        pub result: Error,
     }
 
     impl FromBytes for stop_advertising {
         fn from_bytes(data: &[u8]) -> stop_advertising {
             let mut cursor = Cursor::new(data);
             stop_advertising {
-                result: cursor.get_u16_le(),
+                result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             }
         }
     }
@@ -1162,7 +1174,7 @@ pub mod rsp {
     impl ToBytes for stop_advertising {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.result);
+            bytes.put_u16_le(self.result.clone() as u16);
             bytes
         }
     }
@@ -1170,6 +1182,8 @@ pub mod rsp {
 
 pub mod evt {
     use bytes::{Buf, BufMut};
+    use le_gap::AddressType;
+    use num_traits::FromPrimitive;
     use parser::{FromBytes, ToBytes};
     use std::io::{Cursor, Read};
 
@@ -1201,7 +1215,7 @@ pub mod evt {
     pub struct scan_request {
         pub handle: u8,
         pub address: [u8; 6],
-        pub address_type: u8,
+        pub address_type: AddressType,
         pub bonding: u8,
     }
 
@@ -1213,7 +1227,7 @@ pub mod evt {
             cursor
                 .read_exact(&mut address)
                 .expect("Failed to read bytes.");
-            let address_type = cursor.get_u8();
+            let address_type = FromPrimitive::from_u8(cursor.get_u8()).unwrap();
             let bonding = cursor.get_u8();
             scan_request {
                 handle,
@@ -1229,7 +1243,7 @@ pub mod evt {
             let mut bytes = Vec::new();
             bytes.put_u8(self.handle);
             bytes.extend_from_slice(&self.address);
-            bytes.put_u8(self.address_type);
+            bytes.put_u8(self.address_type.clone() as u8);
             bytes.put_u8(self.bonding);
             bytes
         }
@@ -1241,7 +1255,7 @@ pub mod evt {
         pub rssi: i8,
         pub packet_type: u8,
         pub address: [u8; 6],
-        pub address_type: u8,
+        pub address_type: AddressType,
         pub bonding: u8,
         pub data: Vec<u8>,
     }
@@ -1255,7 +1269,7 @@ pub mod evt {
             cursor
                 .read_exact(&mut address)
                 .expect("Failed to read bytes.");
-            let address_type = cursor.get_u8();
+            let address_type = FromPrimitive::from_u8(cursor.get_u8()).unwrap();
             let bonding = cursor.get_u8();
             let mut data = Vec::new();
             cursor
@@ -1278,7 +1292,7 @@ pub mod evt {
             bytes.put_i8(self.rssi);
             bytes.put_u8(self.packet_type);
             bytes.extend_from_slice(&self.address);
-            bytes.put_u8(self.address_type);
+            bytes.put_u8(self.address_type.clone() as u8);
             bytes.put_u8(self.bonding);
             bytes.extend(self.data.iter());
             bytes

@@ -1,5 +1,3 @@
-use num_derive::FromPrimitive;
-use num_traits::FromPrimitive;
 use bytes::BufMut;
 use coex;
 use dfu;
@@ -9,6 +7,8 @@ use gatt_server;
 use hardware;
 use le_connection;
 use le_gap;
+use num_derive::FromPrimitive;
+use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use sm;
 use system;

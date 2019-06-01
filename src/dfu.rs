@@ -1,4 +1,4 @@
-use message::{MessageHeader, MessagePayload, MessageType, MessageClass};
+use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
