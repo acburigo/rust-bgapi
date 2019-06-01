@@ -370,6 +370,7 @@ pub mod rsp {
 
 pub mod evt {
     use bytes::{Buf, BufMut};
+    use error::Error;
     use le_connection::Security;
     use num_traits::FromPrimitive;
     use parser::{FromBytes, ToBytes};
@@ -378,7 +379,7 @@ pub mod evt {
     #[allow(non_camel_case_types)]
     #[derive(PartialEq, PartialOrd)]
     pub struct closed {
-        pub reason: u16,
+        pub reason: Error,
         pub connection: u8,
     }
 
@@ -386,7 +387,7 @@ pub mod evt {
         fn from_bytes(data: &[u8]) -> closed {
             let mut cursor = Cursor::new(data);
             closed {
-                reason: cursor.get_u16_le(),
+                reason: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
                 connection: cursor.get_u8(),
             }
         }
@@ -395,7 +396,7 @@ pub mod evt {
     impl ToBytes for closed {
         fn to_bytes(&self) -> Vec<u8> {
             let mut bytes = Vec::new();
-            bytes.put_u16_le(self.reason);
+            bytes.put_u16_le(self.reason.clone() as u16);
             bytes.put_u8(self.connection);
             bytes
         }
