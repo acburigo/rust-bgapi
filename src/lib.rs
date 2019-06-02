@@ -121,4 +121,11 @@ mod tests {
 
         assert_eq!(msg.to_bytes(), vec![0x20, 0x00, 0x01, 0x00]);
     }
+
+    #[test]
+    fn new_message_cmd_system_hello_to_bytes() {
+        use parser::ToBytes;
+        use system::cmd::hello;
+        assert_eq!(hello::new().to_bytes(), vec![0x20, 0x00, 0x01, 0x00]);
+    }
 }

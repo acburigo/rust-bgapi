@@ -1,4 +1,5 @@
 use bytes::{Buf, BufMut};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
@@ -7,6 +8,23 @@ use std::io::{Cursor, Read};
 pub struct discover_characteristics {
     pub connection: u8,
     pub service: u32,
+}
+
+impl discover_characteristics {
+    pub fn new(connection: u8, service: u32) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05,
+            message_class: MessageClass::gatt,
+            message_id: 0x03,
+        };
+        let payload = discover_characteristics {
+            connection,
+            service,
+        };
+        let payload = MessagePayload::cmd_gatt_discover_characteristics(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for discover_characteristics {
@@ -34,6 +52,24 @@ pub struct discover_characteristics_by_uuid {
     pub connection: u8,
     pub service: u32,
     pub uuid: [u8; 16],
+}
+
+impl discover_characteristics_by_uuid {
+    pub fn new(connection: u8, service: u32, uuid: [u8; 16]) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05 + (uuid.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x04,
+        };
+        let payload = discover_characteristics_by_uuid {
+            connection,
+            service,
+            uuid,
+        };
+        let payload = MessagePayload::cmd_gatt_discover_characteristics_by_uuid(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for discover_characteristics_by_uuid {
@@ -68,6 +104,23 @@ pub struct discover_descriptors {
     pub characteristic: u16,
 }
 
+impl discover_descriptors {
+    pub fn new(connection: u8, characteristic: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::gatt,
+            message_id: 0x06,
+        };
+        let payload = discover_descriptors {
+            connection,
+            characteristic,
+        };
+        let payload = MessagePayload::cmd_gatt_discover_descriptors(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for discover_descriptors {
     fn from_bytes(data: &[u8]) -> discover_descriptors {
         let mut cursor = Cursor::new(data);
@@ -93,6 +146,20 @@ pub struct discover_primary_services {
     pub connection: u8,
 }
 
+impl discover_primary_services {
+    pub fn new(connection: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::gatt,
+            message_id: 0x01,
+        };
+        let payload = discover_primary_services { connection };
+        let payload = MessagePayload::cmd_gatt_discover_primary_services(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for discover_primary_services {
     fn from_bytes(data: &[u8]) -> discover_primary_services {
         let mut cursor = Cursor::new(data);
@@ -115,6 +182,20 @@ impl ToBytes for discover_primary_services {
 pub struct discover_primary_services_by_uuid {
     pub connection: u8,
     pub uuid: [u8; 16],
+}
+
+impl discover_primary_services_by_uuid {
+    pub fn new(connection: u8, uuid: [u8; 16]) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01 + (uuid.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x02,
+        };
+        let payload = discover_primary_services_by_uuid { connection, uuid };
+        let payload = MessagePayload::cmd_gatt_discover_primary_services_by_uuid(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for discover_primary_services_by_uuid {
@@ -143,6 +224,20 @@ pub struct execute_characteristic_value_write {
     pub flags: u8,
 }
 
+impl execute_characteristic_value_write {
+    pub fn new(connection: u8, flags: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::gatt,
+            message_id: 0x0c,
+        };
+        let payload = execute_characteristic_value_write { connection, flags };
+        let payload = MessagePayload::cmd_gatt_execute_characteristic_value_write(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for execute_characteristic_value_write {
     fn from_bytes(data: &[u8]) -> execute_characteristic_value_write {
         let mut cursor = Cursor::new(data);
@@ -167,6 +262,23 @@ impl ToBytes for execute_characteristic_value_write {
 pub struct find_included_services {
     pub connection: u8,
     pub service: u32,
+}
+
+impl find_included_services {
+    pub fn new(connection: u8, service: u32) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05,
+            message_class: MessageClass::gatt,
+            message_id: 0x10,
+        };
+        let payload = find_included_services {
+            connection,
+            service,
+        };
+        let payload = MessagePayload::cmd_gatt_find_included_services(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for find_included_services {
@@ -195,6 +307,25 @@ pub struct prepare_characteristic_value_reliable_write {
     pub characteristic: u16,
     pub offset: u16,
     pub value: Vec<u8>,
+}
+
+impl prepare_characteristic_value_reliable_write {
+    pub fn new(connection: u8, characteristic: u16, offset: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05 + (value.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x13,
+        };
+        let payload = prepare_characteristic_value_reliable_write {
+            connection,
+            characteristic,
+            offset,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_prepare_characteristic_value_reliable_write(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for prepare_characteristic_value_reliable_write {
@@ -236,6 +367,25 @@ pub struct prepare_characteristic_value_write {
     pub value: Vec<u8>,
 }
 
+impl prepare_characteristic_value_write {
+    pub fn new(connection: u8, characteristic: u16, offset: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05 + (value.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x0b,
+        };
+        let payload = prepare_characteristic_value_write {
+            connection,
+            characteristic,
+            offset,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_prepare_characteristic_value_write(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for prepare_characteristic_value_write {
     fn from_bytes(data: &[u8]) -> prepare_characteristic_value_write {
         let mut cursor = Cursor::new(data);
@@ -273,6 +423,23 @@ pub struct read_characteristic_value {
     pub characteristic: u16,
 }
 
+impl read_characteristic_value {
+    pub fn new(connection: u8, characteristic: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::gatt,
+            message_id: 0x07,
+        };
+        let payload = read_characteristic_value {
+            connection,
+            characteristic,
+        };
+        let payload = MessagePayload::cmd_gatt_read_characteristic_value(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for read_characteristic_value {
     fn from_bytes(data: &[u8]) -> read_characteristic_value {
         let mut cursor = Cursor::new(data);
@@ -298,6 +465,24 @@ pub struct read_characteristic_value_by_uuid {
     pub connection: u8,
     pub service: u32,
     pub uuid: [u8; 16],
+}
+
+impl read_characteristic_value_by_uuid {
+    pub fn new(connection: u8, service: u32, uuid: [u8; 16]) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05 + (uuid.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x08,
+        };
+        let payload = read_characteristic_value_by_uuid {
+            connection,
+            service,
+            uuid,
+        };
+        let payload = MessagePayload::cmd_gatt_read_characteristic_value_by_uuid(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for read_characteristic_value_by_uuid {
@@ -334,6 +519,25 @@ pub struct read_characteristic_value_from_offset {
     pub maxlen: u16,
 }
 
+impl read_characteristic_value_from_offset {
+    pub fn new(connection: u8, characteristic: u16, offset: u16, maxlen: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x07,
+            message_class: MessageClass::gatt,
+            message_id: 0x12,
+        };
+        let payload = read_characteristic_value_from_offset {
+            connection,
+            characteristic,
+            offset,
+            maxlen,
+        };
+        let payload = MessagePayload::cmd_gatt_read_characteristic_value_from_offset(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for read_characteristic_value_from_offset {
     fn from_bytes(data: &[u8]) -> read_characteristic_value_from_offset {
         let mut cursor = Cursor::new(data);
@@ -364,6 +568,23 @@ pub struct read_descriptor_value {
     pub descriptor: u16,
 }
 
+impl read_descriptor_value {
+    pub fn new(connection: u8, descriptor: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::gatt,
+            message_id: 0x0e,
+        };
+        let payload = read_descriptor_value {
+            connection,
+            descriptor,
+        };
+        let payload = MessagePayload::cmd_gatt_read_descriptor_value(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for read_descriptor_value {
     fn from_bytes(data: &[u8]) -> read_descriptor_value {
         let mut cursor = Cursor::new(data);
@@ -388,6 +609,23 @@ impl ToBytes for read_descriptor_value {
 pub struct read_multiple_characteristic_values {
     pub connection: u8,
     pub characteristic_list: Vec<u16>,
+}
+
+impl read_multiple_characteristic_values {
+    pub fn new(connection: u8, characteristic_list: Vec<u16>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01 + (2 * characteristic_list.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x11,
+        };
+        let payload = read_multiple_characteristic_values {
+            connection,
+            characteristic_list,
+        };
+        let payload = MessagePayload::cmd_gatt_read_multiple_characteristic_values(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for read_multiple_characteristic_values {
@@ -422,6 +660,20 @@ pub struct send_characteristic_confirmation {
     pub connection: u8,
 }
 
+impl send_characteristic_confirmation {
+    pub fn new(connection: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::gatt,
+            message_id: 0x0d,
+        };
+        let payload = send_characteristic_confirmation { connection };
+        let payload = MessagePayload::cmd_gatt_send_characteristic_confirmation(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for send_characteristic_confirmation {
     fn from_bytes(data: &[u8]) -> send_characteristic_confirmation {
         let mut cursor = Cursor::new(data);
@@ -445,6 +697,24 @@ pub struct set_characteristic_notification {
     pub connection: u8,
     pub characteristic: u16,
     pub flags: u8,
+}
+
+impl set_characteristic_notification {
+    pub fn new(connection: u8, characteristic: u16, flags: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04,
+            message_class: MessageClass::gatt,
+            message_id: 0x05,
+        };
+        let payload = set_characteristic_notification {
+            connection,
+            characteristic,
+            flags,
+        };
+        let payload = MessagePayload::cmd_gatt_set_characteristic_notification(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_characteristic_notification {
@@ -474,6 +744,20 @@ pub struct set_max_mtu {
     pub max_mtu: u16,
 }
 
+impl set_max_mtu {
+    pub fn new(max_mtu: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::gatt,
+            message_id: 0x00,
+        };
+        let payload = set_max_mtu { max_mtu };
+        let payload = MessagePayload::cmd_gatt_set_max_mtu(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_max_mtu {
     fn from_bytes(data: &[u8]) -> set_max_mtu {
         let mut cursor = Cursor::new(data);
@@ -497,6 +781,24 @@ pub struct write_characteristic_value {
     pub connection: u8,
     pub characteristic: u16,
     pub value: Vec<u8>,
+}
+
+impl write_characteristic_value {
+    pub fn new(connection: u8, characteristic: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03 + (value.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x09,
+        };
+        let payload = write_characteristic_value {
+            connection,
+            characteristic,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_write_characteristic_value(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for write_characteristic_value {
@@ -534,6 +836,24 @@ pub struct write_characteristic_value_without_response {
     pub value: Vec<u8>,
 }
 
+impl write_characteristic_value_without_response {
+    pub fn new(connection: u8, characteristic: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03 + (value.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x0a,
+        };
+        let payload = write_characteristic_value_without_response {
+            connection,
+            characteristic,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_write_characteristic_value_without_response(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for write_characteristic_value_without_response {
     fn from_bytes(data: &[u8]) -> write_characteristic_value_without_response {
         let mut cursor = Cursor::new(data);
@@ -567,6 +887,24 @@ pub struct write_descriptor_value {
     pub connection: u8,
     pub descriptor: u16,
     pub value: Vec<u8>,
+}
+
+impl write_descriptor_value {
+    pub fn new(connection: u8, descriptor: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03 + (value.len() as u8),
+            message_class: MessageClass::gatt,
+            message_id: 0x0f,
+        };
+        let payload = write_descriptor_value {
+            connection,
+            descriptor,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_write_descriptor_value(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for write_descriptor_value {

@@ -1,5 +1,6 @@
 use bytes::{Buf, BufMut};
 use le_gap::{AddressType, ConnectableMode, DiscoverMode, DiscoverableMode, PhyType};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};

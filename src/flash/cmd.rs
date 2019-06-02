@@ -1,4 +1,5 @@
 use bytes::{Buf, BufMut};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
@@ -6,6 +7,20 @@ use std::io::{Cursor, Read};
 #[derive(PartialEq, PartialOrd)]
 pub struct ps_erase {
     pub key: u16,
+}
+
+impl ps_erase {
+    pub fn new(key: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::flash,
+            message_id: 0x04,
+        };
+        let payload = ps_erase { key };
+        let payload = MessagePayload::cmd_flash_ps_erase(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for ps_erase {
@@ -29,6 +44,20 @@ impl ToBytes for ps_erase {
 #[derive(PartialEq, PartialOrd)]
 pub struct ps_erase_all {}
 
+impl ps_erase_all {
+    pub fn new() -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x00,
+            message_class: MessageClass::flash,
+            message_id: 0x01,
+        };
+        let payload = ps_erase_all {};
+        let payload = MessagePayload::cmd_flash_ps_erase_all(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for ps_erase_all {
     fn from_bytes(_: &[u8]) -> ps_erase_all {
         ps_erase_all {}
@@ -45,6 +74,20 @@ impl ToBytes for ps_erase_all {
 #[derive(PartialEq, PartialOrd)]
 pub struct ps_load {
     pub key: u16,
+}
+
+impl ps_load {
+    pub fn new(key: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::flash,
+            message_id: 0x03,
+        };
+        let payload = ps_load { key };
+        let payload = MessagePayload::cmd_flash_ps_load(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for ps_load {
@@ -69,6 +112,20 @@ impl ToBytes for ps_load {
 pub struct ps_save {
     pub key: u16,
     pub value: Vec<u8>,
+}
+
+impl ps_save {
+    pub fn new(key: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02 + (value.len() as u8),
+            message_class: MessageClass::flash,
+            message_id: 0x02,
+        };
+        let payload = ps_save { key, value };
+        let payload = MessagePayload::cmd_flash_ps_save(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for ps_save {

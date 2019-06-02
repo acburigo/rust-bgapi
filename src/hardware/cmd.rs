@@ -1,4 +1,5 @@
 use bytes::{Buf, BufMut};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::{FromBytes, ToBytes};
 use std::io::Cursor;
 
@@ -9,6 +10,25 @@ pub struct set_lazy_soft_timer {
     pub slack: u32,
     pub handle: u8,
     pub single_shot: u8,
+}
+
+impl set_lazy_soft_timer {
+    pub fn new(time: u32, slack: u32, handle: u8, single_shot: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x0a,
+            message_class: MessageClass::hardware,
+            message_id: 0x0c,
+        };
+        let payload = set_lazy_soft_timer {
+            time,
+            slack,
+            handle,
+            single_shot,
+        };
+        let payload = MessagePayload::cmd_hardware_set_lazy_soft_timer(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_lazy_soft_timer {
@@ -40,6 +60,24 @@ pub struct set_soft_timer {
     pub time: u32,
     pub handle: u8,
     pub single_shot: u8,
+}
+
+impl set_soft_timer {
+    pub fn new(time: u32, handle: u8, single_shot: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x06,
+            message_class: MessageClass::hardware,
+            message_id: 0x00,
+        };
+        let payload = set_soft_timer {
+            time,
+            handle,
+            single_shot,
+        };
+        let payload = MessagePayload::cmd_hardware_set_soft_timer(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_soft_timer {

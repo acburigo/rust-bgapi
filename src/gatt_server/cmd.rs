@@ -1,4 +1,5 @@
 use bytes::{Buf, BufMut};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
@@ -7,6 +8,23 @@ use std::io::{Cursor, Read};
 pub struct find_attribute {
     pub start: u16,
     pub atype: Vec<u8>,
+}
+
+impl find_attribute {
+    pub fn new(start: u16, atype: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02 + (atype.len() as u8),
+            message_class: MessageClass::gatt_server,
+            message_id: 0x06,
+        };
+        let payload = find_attribute {
+            start,
+            atype,
+        };
+        let payload = MessagePayload::cmd_gatt_server_find_attribute(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for find_attribute {
@@ -36,6 +54,22 @@ pub struct read_attribute_type {
     pub attribute: u16,
 }
 
+impl read_attribute_type {
+    pub fn new(attribute: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::gatt_server,
+            message_id: 0x01,
+        };
+        let payload = read_attribute_type {
+            attribute,
+        };
+        let payload = MessagePayload::cmd_gatt_server_read_attribute_type(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for read_attribute_type {
     fn from_bytes(data: &[u8]) -> read_attribute_type {
         let mut cursor = Cursor::new(data);
@@ -58,6 +92,23 @@ impl ToBytes for read_attribute_type {
 pub struct read_attribute_value {
     pub attribute: u16,
     pub offset: u16,
+}
+
+impl read_attribute_value {
+    pub fn new(attribute: u16, offset: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04,
+            message_class: MessageClass::gatt_server,
+            message_id: 0x00,
+        };
+        let payload = read_attribute_value {
+            attribute,
+            offset,
+        };
+        let payload = MessagePayload::cmd_gatt_server_read_attribute_value(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for read_attribute_value {
@@ -85,6 +136,24 @@ pub struct send_characteristic_notification {
     pub connection: u8,
     pub characteristic: u16,
     pub value: Vec<u8>,
+}
+
+impl send_characteristic_notification {
+    pub fn new(connection: u8, characteristic: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03 + (value.len() as u8),
+            message_class: MessageClass::gatt_server,
+            message_id: 0x05,
+        };
+        let payload = send_characteristic_notification {
+            connection,
+            characteristic,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_server_send_characteristic_notification(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for send_characteristic_notification {
@@ -121,6 +190,25 @@ pub struct send_user_read_response {
     pub characteristic: u16,
     pub att_errorcode: u8,
     pub value: Vec<u8>,
+}
+
+impl send_user_read_response {
+    pub fn new(connection: u8, characteristic: u16, att_errorcode: u8, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04 + (value.len() as u8),
+            message_class: MessageClass::gatt_server,
+            message_id: 0x03,
+        };
+        let payload = send_user_read_response {
+            connection,
+            characteristic,
+            att_errorcode,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_server_send_user_read_response(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for send_user_read_response {
@@ -161,6 +249,24 @@ pub struct send_user_write_response {
     pub att_errorcode: u8,
 }
 
+impl send_user_write_response {
+    pub fn new(connection: u8, characteristic: u16, att_errorcode: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04,
+            message_class: MessageClass::gatt_server,
+            message_id: 0x04,
+        };
+        let payload = send_user_write_response {
+            connection,
+            characteristic,
+            att_errorcode,
+        };
+        let payload = MessagePayload::cmd_gatt_server_send_user_write_response(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for send_user_write_response {
     fn from_bytes(data: &[u8]) -> send_user_write_response {
         let mut cursor = Cursor::new(data);
@@ -189,6 +295,23 @@ pub struct set_capabilities {
     pub reserved: u32,
 }
 
+impl set_capabilities {
+    pub fn new(caps: u32, reserved: u32) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x08,
+            message_class: MessageClass::gatt_server,
+            message_id: 0x08,
+        };
+        let payload = set_capabilities {
+            caps,
+            reserved,
+        };
+        let payload = MessagePayload::cmd_gatt_server_set_capabilities(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_capabilities {
     fn from_bytes(data: &[u8]) -> set_capabilities {
         let mut cursor = Cursor::new(data);
@@ -214,6 +337,24 @@ pub struct write_attribute_value {
     pub attribute: u16,
     pub offset: u16,
     pub value: Vec<u8>,
+}
+
+impl write_attribute_value {
+    pub fn new(attribute: u16, offset: u16, value: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04 + (value.len() as u8),
+            message_class: MessageClass::gatt_server,
+            message_id: 0x02,
+        };
+        let payload = write_attribute_value {
+            attribute,
+            offset,
+            value,
+        };
+        let payload = MessagePayload::cmd_gatt_server_write_attribute_value(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for write_attribute_value {

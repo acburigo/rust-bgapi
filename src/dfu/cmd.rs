@@ -1,4 +1,5 @@
 use bytes::{Buf, BufMut};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::{FromBytes, ToBytes};
 use std::io::Cursor;
 
@@ -6,6 +7,20 @@ use std::io::Cursor;
 #[derive(PartialEq, PartialOrd)]
 pub struct flash_set_address {
     pub address: u32,
+}
+
+impl flash_set_address {
+    pub fn new(address: u32) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04,
+            message_class: MessageClass::dfu,
+            message_id: 0x01,
+        };
+        let payload = flash_set_address { address };
+        let payload = MessagePayload::cmd_dfu_flash_set_address(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for flash_set_address {
@@ -31,6 +46,20 @@ pub struct flash_upload {
     pub data: Vec<u8>,
 }
 
+impl flash_upload {
+    pub fn new(data: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: data.len() as u8,
+            message_class: MessageClass::dfu,
+            message_id: 0x02,
+        };
+        let payload = flash_upload { data };
+        let payload = MessagePayload::cmd_dfu_flash_upload(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for flash_upload {
     fn from_bytes(data: &[u8]) -> flash_upload {
         flash_upload {
@@ -49,6 +78,20 @@ impl ToBytes for flash_upload {
 #[derive(PartialEq, PartialOrd)]
 pub struct flash_upload_finish {}
 
+impl flash_upload_finish {
+    pub fn new() -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x00,
+            message_class: MessageClass::dfu,
+            message_id: 0x03,
+        };
+        let payload = flash_upload_finish {};
+        let payload = MessagePayload::cmd_dfu_flash_upload_finish(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for flash_upload_finish {
     fn from_bytes(_: &[u8]) -> flash_upload_finish {
         flash_upload_finish {}
@@ -65,6 +108,20 @@ impl ToBytes for flash_upload_finish {
 #[derive(PartialEq, PartialOrd)]
 pub struct reset {
     pub dfu: u8,
+}
+
+impl reset {
+    pub fn new(dfu: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::dfu,
+            message_id: 0x00,
+        };
+        let payload = reset { dfu };
+        let payload = MessagePayload::cmd_dfu_reset(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for reset {

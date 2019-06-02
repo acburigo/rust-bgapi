@@ -1,4 +1,5 @@
 use bytes::{Buf, BufMut};
+use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
@@ -90,6 +91,20 @@ impl ToBytes for halt {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct hello {}
+
+impl hello {
+    pub fn new() -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x00,
+            message_class: MessageClass::system,
+            message_id: 0x00,
+        };
+        let payload = hello {};
+        let payload = MessagePayload::cmd_system_hello(payload);
+        Message { header, payload }
+    }
+}
 
 impl FromBytes for hello {
     fn from_bytes(_: &[u8]) -> hello {
