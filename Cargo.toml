@@ -1,9 +1,9 @@
 [package]
 name = "bgapi"
-version = "0.0.0"
+version = "0.0.1"
 authors = ["Arthur Crippa Búrigo <arthurcburigo@gmail.com>"]
 license = "MIT"
-description = "Libraty for creating and parsing BGAPI packets."
+description = "Library for creating and parsing BGAPI packets."
 
 [dependencies]
 bytes = "0.4"
