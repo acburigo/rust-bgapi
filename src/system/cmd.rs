@@ -7,6 +7,20 @@ use std::io::{Cursor, Read};
 #[derive(PartialEq, PartialOrd)]
 pub struct get_bt_address {}
 
+impl get_bt_address {
+    pub fn new() -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x00,
+            message_class: MessageClass::system,
+            message_id: 0x03,
+        };
+        let payload = get_bt_address {};
+        let payload = MessagePayload::cmd_system_get_bt_address(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for get_bt_address {
     fn from_bytes(_: &[u8]) -> get_bt_address {
         get_bt_address {}
@@ -23,6 +37,22 @@ impl ToBytes for get_bt_address {
 #[derive(PartialEq, PartialOrd)]
 pub struct get_counters {
     pub reset: u8,
+}
+
+impl get_counters {
+    pub fn new(reset: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::system,
+            message_id: 0x0f,
+        };
+        let payload = get_counters {
+            reset,
+        };
+        let payload = MessagePayload::cmd_system_get_counters(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for get_counters {
@@ -48,6 +78,22 @@ pub struct get_random_data {
     pub length: u8,
 }
 
+impl get_random_data {
+    pub fn new(length: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::system,
+            message_id: 0x0b,
+        };
+        let payload = get_random_data {
+            length,
+        };
+        let payload = MessagePayload::cmd_system_get_random_data(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for get_random_data {
     fn from_bytes(data: &[u8]) -> get_random_data {
         let mut cursor = Cursor::new(data);
@@ -69,6 +115,22 @@ impl ToBytes for get_random_data {
 #[derive(PartialEq, PartialOrd)]
 pub struct halt {
     pub halt: u8,
+}
+
+impl halt {
+    pub fn new(halt: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::system,
+            message_id: 0x0c,
+        };
+        let payload = halt {
+            halt,
+        };
+        let payload = MessagePayload::cmd_system_halt(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for halt {
@@ -124,6 +186,22 @@ pub struct reset {
     pub dfu: u8,
 }
 
+impl reset {
+    pub fn new(dfu: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::system,
+            message_id: 0x01,
+        };
+        let payload = reset {
+            dfu,
+        };
+        let payload = MessagePayload::cmd_system_reset(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for reset {
     fn from_bytes(data: &[u8]) -> reset {
         let mut cursor = Cursor::new(data);
@@ -145,6 +223,22 @@ impl ToBytes for reset {
 #[derive(PartialEq, PartialOrd)]
 pub struct set_bt_address {
     pub address: [u8; 6],
+}
+
+impl set_bt_address {
+    pub fn new(address: [u8; 6]) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: address.len() as u8,
+            message_class: MessageClass::system,
+            message_id: 0x04,
+        };
+        let payload = set_bt_address {
+            address,
+        };
+        let payload = MessagePayload::cmd_system_set_bt_address(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_bt_address {
@@ -173,6 +267,23 @@ pub struct set_device_name {
     pub name: Vec<u8>,
 }
 
+impl set_device_name {
+    pub fn new(dtype: u8, name: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01 + (name.len() as u8),
+            message_class: MessageClass::system,
+            message_id: 0x0d,
+        };
+        let payload = set_device_name {
+            dtype,
+            name,
+        };
+        let payload = MessagePayload::cmd_system_set_device_name(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_device_name {
     fn from_bytes(data: &[u8]) -> set_device_name {
         let mut cursor = Cursor::new(data);
@@ -198,6 +309,22 @@ impl ToBytes for set_device_name {
 #[derive(PartialEq, PartialOrd)]
 pub struct set_tx_power {
     pub power: i16,
+}
+
+impl set_tx_power {
+    pub fn new(power: i16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::system,
+            message_id: 0x0a,
+        };
+        let payload = set_tx_power {
+            power,
+        };
+        let payload = MessagePayload::cmd_system_set_tx_power(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_tx_power {

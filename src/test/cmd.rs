@@ -9,6 +9,20 @@ use test::{PacketType, Phy};
 #[derive(PartialEq, PartialOrd)]
 pub struct dtm_end {}
 
+impl dtm_end {
+    pub fn new() -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x00,
+            message_class: MessageClass::test,
+            message_id: 0x02,
+        };
+        let payload = dtm_end {};
+        let payload = MessagePayload::cmd_test_dtm_end(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for dtm_end {
     fn from_bytes(_: &[u8]) -> dtm_end {
         dtm_end {}
@@ -26,6 +40,23 @@ impl ToBytes for dtm_end {
 pub struct dtm_rx {
     pub channel: u8,
     pub phy: Phy,
+}
+
+impl dtm_rx {
+    pub fn new(channel: u8, phy: Phy) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::test,
+            message_id: 0x01,
+        };
+        let payload = dtm_rx {
+            channel,
+            phy,
+        };
+        let payload = MessagePayload::cmd_test_dtm_rx(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for dtm_rx {
@@ -54,6 +85,25 @@ pub struct dtm_tx {
     pub length: u8,
     pub channel: u8,
     pub phy: Phy,
+}
+
+impl dtm_tx {
+    pub fn new(packet_type: PacketType, length: u8, channel: u8, phy: Phy) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x04,
+            message_class: MessageClass::test,
+            message_id: 0x00,
+        };
+        let payload = dtm_tx {
+            packet_type,
+            length,
+            channel,
+            phy,
+        };
+        let payload = MessagePayload::cmd_test_dtm_tx(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for dtm_tx {

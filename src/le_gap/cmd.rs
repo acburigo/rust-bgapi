@@ -13,6 +13,24 @@ pub struct bt5_set_adv_data {
     pub adv_data: Vec<u8>,
 }
 
+impl bt5_set_adv_data {
+    pub fn new(handle: u8, scan_rsp: u8, adv_data: Vec<u8>) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::le_gap,
+            message_id: 0x0c,
+        };
+        let payload = bt5_set_adv_data {
+            handle,
+            scan_rsp,
+            adv_data,
+        };
+        let payload = MessagePayload::cmd_le_gap_bt5_set_adv_data(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for bt5_set_adv_data {
     fn from_bytes(data: &[u8]) -> bt5_set_adv_data {
         let mut cursor = Cursor::new(data);
@@ -47,6 +65,23 @@ pub struct clear_advertise_configuration {
     pub configurations: u32,
 }
 
+impl clear_advertise_configuration {
+    pub fn new(handle: u8, configurations: u32) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05,
+            message_class: MessageClass::le_gap,
+            message_id: 0x13,
+        };
+        let payload = clear_advertise_configuration {
+            handle,
+            configurations,
+        };
+        let payload = MessagePayload::cmd_le_gap_clear_advertise_configuration(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for clear_advertise_configuration {
     fn from_bytes(data: &[u8]) -> clear_advertise_configuration {
         let mut cursor = Cursor::new(data);
@@ -72,6 +107,24 @@ pub struct connect {
     pub address: [u8; 6],
     pub address_type: AddressType,
     pub initiating_phy: PhyType,
+}
+
+impl connect {
+    pub fn new(address: [u8; 6], address_type: AddressType, initiating_phy: PhyType) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x08,
+            message_class: MessageClass::le_gap,
+            message_id: 0x1a,
+        };
+        let payload = connect {
+            address,
+            address_type,
+            initiating_phy,
+        };
+        let payload = MessagePayload::cmd_le_gap_connect(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for connect {
@@ -103,6 +156,20 @@ impl ToBytes for connect {
 #[derive(PartialEq, PartialOrd)]
 pub struct end_procedure {}
 
+impl end_procedure {
+    pub fn new() -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x00,
+            message_class: MessageClass::le_gap,
+            message_id: 0x03,
+        };
+        let payload = end_procedure {};
+        let payload = MessagePayload::cmd_le_gap_end_procedure(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for end_procedure {
     fn from_bytes(_: &[u8]) -> end_procedure {
         end_procedure {}
@@ -120,6 +187,23 @@ impl ToBytes for end_procedure {
 pub struct set_advertise_channel_map {
     pub handle: u8,
     pub channel_map: u8,
+}
+
+impl set_advertise_channel_map {
+    pub fn new(handle: u8, channel_map: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::le_gap,
+            message_id: 0x0f,
+        };
+        let payload = set_advertise_channel_map {
+            handle,
+            channel_map,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_advertise_channel_map(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_advertise_channel_map {
@@ -148,6 +232,23 @@ pub struct set_advertise_configuration {
     pub configurations: u32,
 }
 
+impl set_advertise_configuration {
+    pub fn new(handle: u8, configurations: u32) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05,
+            message_class: MessageClass::le_gap,
+            message_id: 0x12,
+        };
+        let payload = set_advertise_configuration {
+            handle,
+            configurations,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_advertise_configuration(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_advertise_configuration {
     fn from_bytes(data: &[u8]) -> set_advertise_configuration {
         let mut cursor = Cursor::new(data);
@@ -173,6 +274,24 @@ pub struct set_advertise_phy {
     pub handle: u8,
     pub primary_phy: PhyType,
     pub secondary_phy: PhyType,
+}
+
+impl set_advertise_phy {
+    pub fn new(handle: u8, primary_phy: PhyType, secondary_phy: PhyType) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::le_gap,
+            message_id: 0x11,
+        };
+        let payload = set_advertise_phy {
+            handle,
+            primary_phy,
+            secondary_phy,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_advertise_phy(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_advertise_phy {
@@ -203,6 +322,23 @@ pub struct set_advertise_report_scan_request {
     pub report_scan_req: u8,
 }
 
+impl set_advertise_report_scan_request {
+    pub fn new(handle: u8, report_scan_req: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::le_gap,
+            message_id: 0x10,
+        };
+        let payload = set_advertise_report_scan_request {
+            handle,
+            report_scan_req,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_advertise_report_scan_request(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_advertise_report_scan_request {
     fn from_bytes(data: &[u8]) -> set_advertise_report_scan_request {
         let mut cursor = Cursor::new(data);
@@ -230,6 +366,26 @@ pub struct set_advertise_timing {
     pub interval_max: u32,
     pub duration: u16,
     pub maxevents: u8,
+}
+
+impl set_advertise_timing {
+    pub fn new(handle: u8, interval_min: u32, interval_max: u32, duration: u16, maxevents: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x0c,
+            message_class: MessageClass::le_gap,
+            message_id: 0x0e,
+        };
+        let payload = set_advertise_timing {
+            handle,
+            interval_min,
+            interval_max,
+            duration,
+            maxevents,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_advertise_timing(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_advertise_timing {
@@ -264,6 +420,23 @@ pub struct set_advertise_tx_power {
     pub power: i16,
 }
 
+impl set_advertise_tx_power {
+    pub fn new(handle: u8, power: i16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::le_gap,
+            message_id: 0x1b,
+        };
+        let payload = set_advertise_tx_power {
+            handle,
+            power,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_advertise_tx_power(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_advertise_tx_power {
     fn from_bytes(data: &[u8]) -> set_advertise_tx_power {
         let mut cursor = Cursor::new(data);
@@ -290,6 +463,25 @@ pub struct set_conn_parameters {
     pub max_interval: u16,
     pub latency: u16,
     pub timeout: u16,
+}
+
+impl set_conn_parameters {
+    pub fn new(min_interval: u16, max_interval: u16, latency: u16, timeout: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x08,
+            message_class: MessageClass::le_gap,
+            message_id: 0x05,
+        };
+        let payload = set_conn_parameters {
+            min_interval,
+            max_interval,
+            latency,
+            timeout,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_conn_parameters(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_conn_parameters {
@@ -321,6 +513,22 @@ pub struct set_data_channel_classification {
     pub channel_map: [u8; 5],
 }
 
+impl set_data_channel_classification {
+    pub fn new(channel_map: [u8; 5]) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: channel_map.len() as u8,
+            message_class: MessageClass::le_gap,
+            message_id: 0x19,
+        };
+        let payload = set_data_channel_classification {
+            channel_map,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_data_channel_classification(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_data_channel_classification {
     fn from_bytes(data: &[u8]) -> set_data_channel_classification {
         let mut cursor = Cursor::new(data);
@@ -346,6 +554,24 @@ pub struct set_discovery_timing {
     pub phys: u8,
     pub scan_interval: u16,
     pub scan_window: u16,
+}
+
+impl set_discovery_timing {
+    pub fn new(phys: u8, scan_interval: u16, scan_window: u16) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x05,
+            message_class: MessageClass::le_gap,
+            message_id: 0x16,
+        };
+        let payload = set_discovery_timing {
+            phys,
+            scan_interval,
+            scan_window,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_discovery_timing(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_discovery_timing {
@@ -376,6 +602,23 @@ pub struct set_discovery_type {
     pub scan_type: u8,
 }
 
+impl set_discovery_type {
+    pub fn new(phys: u8, scan_type: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::le_gap,
+            message_id: 0x17,
+        };
+        let payload = set_discovery_type {
+            phys,
+            scan_type,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_discovery_type(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for set_discovery_type {
     fn from_bytes(data: &[u8]) -> set_discovery_type {
         let mut cursor = Cursor::new(data);
@@ -400,6 +643,23 @@ impl ToBytes for set_discovery_type {
 pub struct set_privacy_mode {
     pub privacy: u8,
     pub interval: u8,
+}
+
+impl set_privacy_mode {
+    pub fn new(privacy: u8, interval: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::le_gap,
+            message_id: 0x0d,
+        };
+        let payload = set_privacy_mode {
+            privacy,
+            interval,
+        };
+        let payload = MessagePayload::cmd_le_gap_set_privacy_mode(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for set_privacy_mode {
@@ -427,6 +687,24 @@ pub struct start_advertising {
     pub handle: u8,
     pub discover: DiscoverableMode,
     pub connect: ConnectableMode,
+}
+
+impl start_advertising {
+    pub fn new(handle: u8, discover: DiscoverableMode, connect: ConnectableMode) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x03,
+            message_class: MessageClass::le_gap,
+            message_id: 0x14,
+        };
+        let payload = start_advertising {
+            handle,
+            discover,
+            connect,
+        };
+        let payload = MessagePayload::cmd_le_gap_start_advertising(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for start_advertising {
@@ -457,6 +735,23 @@ pub struct start_discovery {
     pub mode: DiscoverMode,
 }
 
+impl start_discovery {
+    pub fn new(scanning_phy: PhyType, mode: DiscoverMode) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x02,
+            message_class: MessageClass::le_gap,
+            message_id: 0x18,
+        };
+        let payload = start_discovery {
+            scanning_phy,
+            mode,
+        };
+        let payload = MessagePayload::cmd_le_gap_start_discovery(payload);
+        Message { header, payload }
+    }
+}
+
 impl FromBytes for start_discovery {
     fn from_bytes(data: &[u8]) -> start_discovery {
         let mut cursor = Cursor::new(data);
@@ -480,6 +775,22 @@ impl ToBytes for start_discovery {
 #[derive(PartialEq, PartialOrd)]
 pub struct stop_advertising {
     pub handle: u8,
+}
+
+impl stop_advertising {
+    pub fn new(handle: u8) -> Message {
+        let header = MessageHeader {
+            message_type: MessageType::command_response,
+            payload_length: 0x01,
+            message_class: MessageClass::le_gap,
+            message_id: 0x15,
+        };
+        let payload = stop_advertising {
+            handle,
+        };
+        let payload = MessagePayload::cmd_le_gap_stop_advertising(payload);
+        Message { header, payload }
+    }
 }
 
 impl FromBytes for stop_advertising {
