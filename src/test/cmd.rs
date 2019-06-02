@@ -50,10 +50,7 @@ impl dtm_rx {
             message_class: MessageClass::test,
             message_id: 0x01,
         };
-        let payload = dtm_rx {
-            channel,
-            phy,
-        };
+        let payload = dtm_rx { channel, phy };
         let payload = MessagePayload::cmd_test_dtm_rx(payload);
         Message { header, payload }
     }

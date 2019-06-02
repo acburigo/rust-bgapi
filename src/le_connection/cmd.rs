@@ -17,9 +17,7 @@ impl close {
             message_class: MessageClass::le_connection,
             message_id: 0x04,
         };
-        let payload = close {
-            connection,
-        };
+        let payload = close { connection };
         let payload = MessagePayload::cmd_le_connection_close(payload);
         Message { header, payload }
     }
@@ -99,9 +97,7 @@ impl get_rssi {
             message_class: MessageClass::le_connection,
             message_id: 0x01,
         };
-        let payload = get_rssi {
-            connection,
-        };
+        let payload = get_rssi { connection };
         let payload = MessagePayload::cmd_le_connection_get_rssi(payload);
         Message { header, payload }
     }
@@ -135,7 +131,13 @@ pub struct set_parameters {
 }
 
 impl set_parameters {
-    pub fn new(connection: u8, min_interval: u16, max_interval: u16, latency: u16, timeout: u16) -> Message {
+    pub fn new(
+        connection: u8,
+        min_interval: u16,
+        max_interval: u16,
+        latency: u16,
+        timeout: u16,
+    ) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x09,
@@ -194,10 +196,7 @@ impl set_phy {
             message_class: MessageClass::le_connection,
             message_id: 0x03,
         };
-        let payload = set_phy {
-            connection,
-            phy,
-        };
+        let payload = set_phy { connection, phy };
         let payload = MessagePayload::cmd_le_connection_set_phy(payload);
         Message { header, payload }
     }

@@ -18,10 +18,7 @@ impl find_attribute {
             message_class: MessageClass::gatt_server,
             message_id: 0x06,
         };
-        let payload = find_attribute {
-            start,
-            atype,
-        };
+        let payload = find_attribute { start, atype };
         let payload = MessagePayload::cmd_gatt_server_find_attribute(payload);
         Message { header, payload }
     }
@@ -62,9 +59,7 @@ impl read_attribute_type {
             message_class: MessageClass::gatt_server,
             message_id: 0x01,
         };
-        let payload = read_attribute_type {
-            attribute,
-        };
+        let payload = read_attribute_type { attribute };
         let payload = MessagePayload::cmd_gatt_server_read_attribute_type(payload);
         Message { header, payload }
     }
@@ -102,10 +97,7 @@ impl read_attribute_value {
             message_class: MessageClass::gatt_server,
             message_id: 0x00,
         };
-        let payload = read_attribute_value {
-            attribute,
-            offset,
-        };
+        let payload = read_attribute_value { attribute, offset };
         let payload = MessagePayload::cmd_gatt_server_read_attribute_value(payload);
         Message { header, payload }
     }
@@ -303,10 +295,7 @@ impl set_capabilities {
             message_class: MessageClass::gatt_server,
             message_id: 0x08,
         };
-        let payload = set_capabilities {
-            caps,
-            reserved,
-        };
+        let payload = set_capabilities { caps, reserved };
         let payload = MessagePayload::cmd_gatt_server_set_capabilities(payload);
         Message { header, payload }
     }

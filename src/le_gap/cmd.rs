@@ -369,7 +369,13 @@ pub struct set_advertise_timing {
 }
 
 impl set_advertise_timing {
-    pub fn new(handle: u8, interval_min: u32, interval_max: u32, duration: u16, maxevents: u8) -> Message {
+    pub fn new(
+        handle: u8,
+        interval_min: u32,
+        interval_max: u32,
+        duration: u16,
+        maxevents: u8,
+    ) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x0c,
@@ -428,10 +434,7 @@ impl set_advertise_tx_power {
             message_class: MessageClass::le_gap,
             message_id: 0x1b,
         };
-        let payload = set_advertise_tx_power {
-            handle,
-            power,
-        };
+        let payload = set_advertise_tx_power { handle, power };
         let payload = MessagePayload::cmd_le_gap_set_advertise_tx_power(payload);
         Message { header, payload }
     }
@@ -521,9 +524,7 @@ impl set_data_channel_classification {
             message_class: MessageClass::le_gap,
             message_id: 0x19,
         };
-        let payload = set_data_channel_classification {
-            channel_map,
-        };
+        let payload = set_data_channel_classification { channel_map };
         let payload = MessagePayload::cmd_le_gap_set_data_channel_classification(payload);
         Message { header, payload }
     }
@@ -610,10 +611,7 @@ impl set_discovery_type {
             message_class: MessageClass::le_gap,
             message_id: 0x17,
         };
-        let payload = set_discovery_type {
-            phys,
-            scan_type,
-        };
+        let payload = set_discovery_type { phys, scan_type };
         let payload = MessagePayload::cmd_le_gap_set_discovery_type(payload);
         Message { header, payload }
     }
@@ -653,10 +651,7 @@ impl set_privacy_mode {
             message_class: MessageClass::le_gap,
             message_id: 0x0d,
         };
-        let payload = set_privacy_mode {
-            privacy,
-            interval,
-        };
+        let payload = set_privacy_mode { privacy, interval };
         let payload = MessagePayload::cmd_le_gap_set_privacy_mode(payload);
         Message { header, payload }
     }
@@ -743,10 +738,7 @@ impl start_discovery {
             message_class: MessageClass::le_gap,
             message_id: 0x18,
         };
-        let payload = start_discovery {
-            scanning_phy,
-            mode,
-        };
+        let payload = start_discovery { scanning_phy, mode };
         let payload = MessagePayload::cmd_le_gap_start_discovery(payload);
         Message { header, payload }
     }
@@ -785,9 +777,7 @@ impl stop_advertising {
             message_class: MessageClass::le_gap,
             message_id: 0x15,
         };
-        let payload = stop_advertising {
-            handle,
-        };
+        let payload = stop_advertising { handle };
         let payload = MessagePayload::cmd_le_gap_stop_advertising(payload);
         Message { header, payload }
     }

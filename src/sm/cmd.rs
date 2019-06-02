@@ -103,9 +103,7 @@ impl delete_bonding {
             message_class: MessageClass::sm,
             message_id: 0x06,
         };
-        let payload = delete_bonding {
-            bonding,
-        };
+        let payload = delete_bonding { bonding };
         let payload = MessagePayload::cmd_sm_delete_bonding(payload);
         Message { header, payload }
     }
@@ -215,9 +213,7 @@ impl increase_security {
             message_class: MessageClass::sm,
             message_id: 0x04,
         };
-        let payload = increase_security {
-            connection,
-        };
+        let payload = increase_security { connection };
         let payload = MessagePayload::cmd_sm_increase_security(payload);
         Message { header, payload }
     }
@@ -327,9 +323,7 @@ impl set_bondable_mode {
             message_class: MessageClass::sm,
             message_id: 0x00,
         };
-        let payload = set_bondable_mode {
-            bondable,
-        };
+        let payload = set_bondable_mode { bondable };
         let payload = MessagePayload::cmd_sm_set_bondable_mode(payload);
         Message { header, payload }
     }
@@ -396,9 +390,7 @@ impl set_oob_data {
             message_class: MessageClass::sm,
             message_id: 0x0a,
         };
-        let payload = set_oob_data {
-            oob_data,
-        };
+        let payload = set_oob_data { oob_data };
         let payload = MessagePayload::cmd_sm_set_oob_data(payload);
         Message { header, payload }
     }
@@ -435,9 +427,7 @@ impl set_passkey {
             message_class: MessageClass::sm,
             message_id: 0x10,
         };
-        let payload = set_passkey {
-            passkey,
-        };
+        let payload = set_passkey { passkey };
         let payload = MessagePayload::cmd_sm_set_passkey(payload);
         Message { header, payload }
     }
@@ -474,9 +464,7 @@ impl set_sc_remote_oob_data {
             message_class: MessageClass::sm,
             message_id: 0x12,
         };
-        let payload = set_sc_remote_oob_data {
-            oob_data,
-        };
+        let payload = set_sc_remote_oob_data { oob_data };
         let payload = MessagePayload::cmd_sm_set_sc_remote_oob_data(payload);
         Message { header, payload }
     }
@@ -556,9 +544,7 @@ impl use_sc_oob {
             message_class: MessageClass::sm,
             message_id: 0x11,
         };
-        let payload = use_sc_oob {
-            enable,
-        };
+        let payload = use_sc_oob { enable };
         let payload = MessagePayload::cmd_sm_use_sc_oob(payload);
         Message { header, payload }
     }

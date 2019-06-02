@@ -47,9 +47,7 @@ impl get_counters {
             message_class: MessageClass::system,
             message_id: 0x0f,
         };
-        let payload = get_counters {
-            reset,
-        };
+        let payload = get_counters { reset };
         let payload = MessagePayload::cmd_system_get_counters(payload);
         Message { header, payload }
     }
@@ -86,9 +84,7 @@ impl get_random_data {
             message_class: MessageClass::system,
             message_id: 0x0b,
         };
-        let payload = get_random_data {
-            length,
-        };
+        let payload = get_random_data { length };
         let payload = MessagePayload::cmd_system_get_random_data(payload);
         Message { header, payload }
     }
@@ -125,9 +121,7 @@ impl halt {
             message_class: MessageClass::system,
             message_id: 0x0c,
         };
-        let payload = halt {
-            halt,
-        };
+        let payload = halt { halt };
         let payload = MessagePayload::cmd_system_halt(payload);
         Message { header, payload }
     }
@@ -194,9 +188,7 @@ impl reset {
             message_class: MessageClass::system,
             message_id: 0x01,
         };
-        let payload = reset {
-            dfu,
-        };
+        let payload = reset { dfu };
         let payload = MessagePayload::cmd_system_reset(payload);
         Message { header, payload }
     }
@@ -233,9 +225,7 @@ impl set_bt_address {
             message_class: MessageClass::system,
             message_id: 0x04,
         };
-        let payload = set_bt_address {
-            address,
-        };
+        let payload = set_bt_address { address };
         let payload = MessagePayload::cmd_system_set_bt_address(payload);
         Message { header, payload }
     }
@@ -275,10 +265,7 @@ impl set_device_name {
             message_class: MessageClass::system,
             message_id: 0x0d,
         };
-        let payload = set_device_name {
-            dtype,
-            name,
-        };
+        let payload = set_device_name { dtype, name };
         let payload = MessagePayload::cmd_system_set_device_name(payload);
         Message { header, payload }
     }
@@ -319,9 +306,7 @@ impl set_tx_power {
             message_class: MessageClass::system,
             message_id: 0x0a,
         };
-        let payload = set_tx_power {
-            power,
-        };
+        let payload = set_tx_power { power };
         let payload = MessagePayload::cmd_system_set_tx_power(payload);
         Message { header, payload }
     }

@@ -16,9 +16,7 @@ impl message_to_target {
             message_class: MessageClass::user,
             message_id: 0x00,
         };
-        let payload = message_to_target {
-            data,
-        };
+        let payload = message_to_target { data };
         let payload = MessagePayload::cmd_user_message_to_target(payload);
         Message { header, payload }
     }
