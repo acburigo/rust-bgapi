@@ -1,6 +1,7 @@
 extern crate bytes;
 extern crate num_derive;
 extern crate num_traits;
+extern crate spmc;
 
 pub mod coex;
 pub mod dfu;
@@ -21,11 +22,15 @@ pub mod user;
 #[cfg(test)]
 mod tests {
     use parser;
-    use std::io::Error;
+    use spmc::Receiver;
+    use std::io::{Error, ErrorKind};
 
-    impl parser::Stream for Vec<u8> {
-        fn next(&mut self) -> Result<u8, Error> {
-            Ok(self.remove(0))
+    impl parser::Stream for Receiver<u8> {
+        fn next(&self) -> Result<u8, Error> {
+            match self.recv() {
+                Ok(x) => Ok(x),
+                Err(_) => Err(Error::from(ErrorKind::InvalidInput)),
+            }
         }
     }
 
@@ -88,8 +93,12 @@ mod tests {
         use parser::parse_next_message;
         use system;
 
-        let mut stream: Vec<u8> = vec![0x20, 0x02, 0x01, 0x00, 0x00, 0x00];
-        let actual = parse_next_message(&mut stream).unwrap();
+        let (tx, rx) = spmc::channel();
+        let bytes = [0x20, 0x02, 0x01, 0x00, 0x00, 0x00];
+        for x in &bytes {
+            tx.send(*x).unwrap();
+        }
+        let actual = parse_next_message(&rx).expect("Failed parsing message.");
         let expected = Message {
             header: MessageHeader {
                 message_type: MessageType::command_response,
