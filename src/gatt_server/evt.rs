@@ -1,4 +1,6 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
@@ -81,7 +83,7 @@ impl ToBytes for characteristic_status {
 #[derive(PartialEq, PartialOrd)]
 pub struct execute_write_completed {
     pub connection: u8,
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for execute_write_completed {
@@ -89,7 +91,7 @@ impl FromBytes for execute_write_completed {
         let mut cursor = Cursor::new(data);
         execute_write_completed {
             connection: cursor.get_u8(),
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -98,7 +100,7 @@ impl ToBytes for execute_write_completed {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
