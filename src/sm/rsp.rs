@@ -1,18 +1,20 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct bonding_confirm {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for bonding_confirm {
     fn from_bytes(data: &[u8]) -> bonding_confirm {
         let mut cursor = Cursor::new(data);
         bonding_confirm {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -20,7 +22,7 @@ impl FromBytes for bonding_confirm {
 impl ToBytes for bonding_confirm {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -28,14 +30,14 @@ impl ToBytes for bonding_confirm {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct configure {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for configure {
     fn from_bytes(data: &[u8]) -> configure {
         let mut cursor = Cursor::new(data);
         configure {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -43,7 +45,7 @@ impl FromBytes for configure {
 impl ToBytes for configure {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -51,14 +53,14 @@ impl ToBytes for configure {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct delete_bonding {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for delete_bonding {
     fn from_bytes(data: &[u8]) -> delete_bonding {
         let mut cursor = Cursor::new(data);
         delete_bonding {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -66,7 +68,7 @@ impl FromBytes for delete_bonding {
 impl ToBytes for delete_bonding {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -74,14 +76,14 @@ impl ToBytes for delete_bonding {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct delete_bondings {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for delete_bondings {
     fn from_bytes(data: &[u8]) -> delete_bondings {
         let mut cursor = Cursor::new(data);
         delete_bondings {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -89,7 +91,7 @@ impl FromBytes for delete_bondings {
 impl ToBytes for delete_bondings {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -97,14 +99,14 @@ impl ToBytes for delete_bondings {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct enter_passkey {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for enter_passkey {
     fn from_bytes(data: &[u8]) -> enter_passkey {
         let mut cursor = Cursor::new(data);
         enter_passkey {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -112,7 +114,7 @@ impl FromBytes for enter_passkey {
 impl ToBytes for enter_passkey {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -120,14 +122,14 @@ impl ToBytes for enter_passkey {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct increase_security {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for increase_security {
     fn from_bytes(data: &[u8]) -> increase_security {
         let mut cursor = Cursor::new(data);
         increase_security {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -135,7 +137,7 @@ impl FromBytes for increase_security {
 impl ToBytes for increase_security {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -143,14 +145,14 @@ impl ToBytes for increase_security {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct list_all_bondings {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for list_all_bondings {
     fn from_bytes(data: &[u8]) -> list_all_bondings {
         let mut cursor = Cursor::new(data);
         list_all_bondings {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -158,7 +160,7 @@ impl FromBytes for list_all_bondings {
 impl ToBytes for list_all_bondings {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -166,14 +168,14 @@ impl ToBytes for list_all_bondings {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct passkey_confirm {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for passkey_confirm {
     fn from_bytes(data: &[u8]) -> passkey_confirm {
         let mut cursor = Cursor::new(data);
         passkey_confirm {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -181,7 +183,7 @@ impl FromBytes for passkey_confirm {
 impl ToBytes for passkey_confirm {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -189,14 +191,14 @@ impl ToBytes for passkey_confirm {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_bondable_mode {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_bondable_mode {
     fn from_bytes(data: &[u8]) -> set_bondable_mode {
         let mut cursor = Cursor::new(data);
         set_bondable_mode {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -204,7 +206,7 @@ impl FromBytes for set_bondable_mode {
 impl ToBytes for set_bondable_mode {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -212,14 +214,14 @@ impl ToBytes for set_bondable_mode {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_debug_mode {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_debug_mode {
     fn from_bytes(data: &[u8]) -> set_debug_mode {
         let mut cursor = Cursor::new(data);
         set_debug_mode {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -227,7 +229,7 @@ impl FromBytes for set_debug_mode {
 impl ToBytes for set_debug_mode {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -235,14 +237,14 @@ impl ToBytes for set_debug_mode {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_oob_data {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_oob_data {
     fn from_bytes(data: &[u8]) -> set_oob_data {
         let mut cursor = Cursor::new(data);
         set_oob_data {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -250,7 +252,7 @@ impl FromBytes for set_oob_data {
 impl ToBytes for set_oob_data {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -258,14 +260,14 @@ impl ToBytes for set_oob_data {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_passkey {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_passkey {
     fn from_bytes(data: &[u8]) -> set_passkey {
         let mut cursor = Cursor::new(data);
         set_passkey {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -273,7 +275,7 @@ impl FromBytes for set_passkey {
 impl ToBytes for set_passkey {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -281,14 +283,14 @@ impl ToBytes for set_passkey {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_sc_remote_oob_data {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_sc_remote_oob_data {
     fn from_bytes(data: &[u8]) -> set_sc_remote_oob_data {
         let mut cursor = Cursor::new(data);
         set_sc_remote_oob_data {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -296,7 +298,7 @@ impl FromBytes for set_sc_remote_oob_data {
 impl ToBytes for set_sc_remote_oob_data {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -304,14 +306,14 @@ impl ToBytes for set_sc_remote_oob_data {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct store_bonding_configuration {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for store_bonding_configuration {
     fn from_bytes(data: &[u8]) -> store_bonding_configuration {
         let mut cursor = Cursor::new(data);
         store_bonding_configuration {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -319,7 +321,7 @@ impl FromBytes for store_bonding_configuration {
 impl ToBytes for store_bonding_configuration {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -327,14 +329,14 @@ impl ToBytes for store_bonding_configuration {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct use_sc_oob {
-    pub result: u16,
+    pub result: Error,
     pub oob_data: [u8; 32],
 }
 
 impl FromBytes for use_sc_oob {
     fn from_bytes(data: &[u8]) -> use_sc_oob {
         let mut cursor = Cursor::new(data);
-        let result = cursor.get_u16_le();
+        let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut oob_data: [u8; 32] = Default::default();
         cursor
             .read_exact(&mut oob_data)
@@ -346,7 +348,7 @@ impl FromBytes for use_sc_oob {
 impl ToBytes for use_sc_oob {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend_from_slice(&self.oob_data);
         bytes
     }

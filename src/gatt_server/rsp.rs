@@ -1,11 +1,13 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct find_attribute {
-    pub result: u16,
+    pub result: Error,
     pub attribute: u16,
 }
 
@@ -13,7 +15,7 @@ impl FromBytes for find_attribute {
     fn from_bytes(data: &[u8]) -> find_attribute {
         let mut cursor = Cursor::new(data);
         find_attribute {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             attribute: cursor.get_u16_le(),
         }
     }
@@ -22,7 +24,7 @@ impl FromBytes for find_attribute {
 impl ToBytes for find_attribute {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.attribute);
         bytes
     }
@@ -31,14 +33,14 @@ impl ToBytes for find_attribute {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct read_attribute_type {
-    pub result: u16,
+    pub result: Error,
     pub atype: Vec<u8>,
 }
 
 impl FromBytes for read_attribute_type {
     fn from_bytes(data: &[u8]) -> read_attribute_type {
         let mut cursor = Cursor::new(data);
-        let result = cursor.get_u16_le();
+        let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut atype = Vec::new();
         cursor
             .read_to_end(&mut atype)
@@ -50,7 +52,7 @@ impl FromBytes for read_attribute_type {
 impl ToBytes for read_attribute_type {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend(self.atype.iter());
         bytes
     }
@@ -59,14 +61,14 @@ impl ToBytes for read_attribute_type {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct read_attribute_value {
-    pub result: u16,
+    pub result: Error,
     pub value: Vec<u8>,
 }
 
 impl FromBytes for read_attribute_value {
     fn from_bytes(data: &[u8]) -> read_attribute_value {
         let mut cursor = Cursor::new(data);
-        let result = cursor.get_u16_le();
+        let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut value = Vec::new();
         cursor
             .read_to_end(&mut value)
@@ -78,7 +80,7 @@ impl FromBytes for read_attribute_value {
 impl ToBytes for read_attribute_value {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -87,7 +89,7 @@ impl ToBytes for read_attribute_value {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct send_characteristic_notification {
-    pub result: u16,
+    pub result: Error,
     pub sent_len: u16,
 }
 
@@ -95,7 +97,7 @@ impl FromBytes for send_characteristic_notification {
     fn from_bytes(data: &[u8]) -> send_characteristic_notification {
         let mut cursor = Cursor::new(data);
         send_characteristic_notification {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             sent_len: cursor.get_u16_le(),
         }
     }
@@ -104,7 +106,7 @@ impl FromBytes for send_characteristic_notification {
 impl ToBytes for send_characteristic_notification {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.sent_len);
         bytes
     }
@@ -113,7 +115,7 @@ impl ToBytes for send_characteristic_notification {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct send_user_read_response {
-    pub result: u16,
+    pub result: Error,
     pub sent_len: u16,
 }
 
@@ -121,7 +123,7 @@ impl FromBytes for send_user_read_response {
     fn from_bytes(data: &[u8]) -> send_user_read_response {
         let mut cursor = Cursor::new(data);
         send_user_read_response {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             sent_len: cursor.get_u16_le(),
         }
     }
@@ -130,7 +132,7 @@ impl FromBytes for send_user_read_response {
 impl ToBytes for send_user_read_response {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.sent_len);
         bytes
     }
@@ -139,14 +141,14 @@ impl ToBytes for send_user_read_response {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct send_user_write_response {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for send_user_write_response {
     fn from_bytes(data: &[u8]) -> send_user_write_response {
         let mut cursor = Cursor::new(data);
         send_user_write_response {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -154,7 +156,7 @@ impl FromBytes for send_user_write_response {
 impl ToBytes for send_user_write_response {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -162,14 +164,14 @@ impl ToBytes for send_user_write_response {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_capabilities {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_capabilities {
     fn from_bytes(data: &[u8]) -> set_capabilities {
         let mut cursor = Cursor::new(data);
         set_capabilities {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -177,7 +179,7 @@ impl FromBytes for set_capabilities {
 impl ToBytes for set_capabilities {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -185,14 +187,14 @@ impl ToBytes for set_capabilities {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct write_attribute_value {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for write_attribute_value {
     fn from_bytes(data: &[u8]) -> write_attribute_value {
         let mut cursor = Cursor::new(data);
         write_attribute_value {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -200,7 +202,7 @@ impl FromBytes for write_attribute_value {
 impl ToBytes for write_attribute_value {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }

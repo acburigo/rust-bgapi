@@ -1,18 +1,20 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_lazy_soft_timer {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_lazy_soft_timer {
     fn from_bytes(data: &[u8]) -> set_lazy_soft_timer {
         let mut cursor = Cursor::new(data);
         set_lazy_soft_timer {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -20,7 +22,7 @@ impl FromBytes for set_lazy_soft_timer {
 impl ToBytes for set_lazy_soft_timer {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -28,14 +30,14 @@ impl ToBytes for set_lazy_soft_timer {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_soft_timer {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_soft_timer {
     fn from_bytes(data: &[u8]) -> set_soft_timer {
         let mut cursor = Cursor::new(data);
         set_soft_timer {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -43,7 +45,7 @@ impl FromBytes for set_soft_timer {
 impl ToBytes for set_soft_timer {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }

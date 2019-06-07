@@ -1,4 +1,6 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use parser::{FromBytes, ToBytes};
 use std::io::{Cursor, Read};
 
@@ -30,7 +32,7 @@ impl ToBytes for get_bt_address {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct get_counters {
-    pub result: u16,
+    pub result: Error,
     pub tx_packets: u16,
     pub rx_packets: u16,
     pub crc_errors: u16,
@@ -41,7 +43,7 @@ impl FromBytes for get_counters {
     fn from_bytes(data: &[u8]) -> get_counters {
         let mut cursor = Cursor::new(data);
         get_counters {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
             tx_packets: cursor.get_u16_le(),
             rx_packets: cursor.get_u16_le(),
             crc_errors: cursor.get_u16_le(),
@@ -53,7 +55,7 @@ impl FromBytes for get_counters {
 impl ToBytes for get_counters {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.tx_packets);
         bytes.put_u16_le(self.rx_packets);
         bytes.put_u16_le(self.crc_errors);
@@ -65,14 +67,14 @@ impl ToBytes for get_counters {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct get_random_data {
-    pub result: u16,
+    pub result: Error,
     pub data: Vec<u8>,
 }
 
 impl FromBytes for get_random_data {
     fn from_bytes(data: &[u8]) -> get_random_data {
         let mut cursor = Cursor::new(data);
-        let result = cursor.get_u16_le();
+        let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut data = Vec::new();
         cursor
             .read_to_end(&mut data)
@@ -84,7 +86,7 @@ impl FromBytes for get_random_data {
 impl ToBytes for get_random_data {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend(self.data.iter());
         bytes
     }
@@ -93,14 +95,14 @@ impl ToBytes for get_random_data {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct halt {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for halt {
     fn from_bytes(data: &[u8]) -> halt {
         let mut cursor = Cursor::new(data);
         halt {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -108,7 +110,7 @@ impl FromBytes for halt {
 impl ToBytes for halt {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -116,14 +118,14 @@ impl ToBytes for halt {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct hello {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for hello {
     fn from_bytes(data: &[u8]) -> hello {
         let mut cursor = Cursor::new(data);
         hello {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -131,7 +133,7 @@ impl FromBytes for hello {
 impl ToBytes for hello {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -139,14 +141,14 @@ impl ToBytes for hello {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_bt_address {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_bt_address {
     fn from_bytes(data: &[u8]) -> set_bt_address {
         let mut cursor = Cursor::new(data);
         set_bt_address {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -154,7 +156,7 @@ impl FromBytes for set_bt_address {
 impl ToBytes for set_bt_address {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }
@@ -162,14 +164,14 @@ impl ToBytes for set_bt_address {
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct set_device_name {
-    pub result: u16,
+    pub result: Error,
 }
 
 impl FromBytes for set_device_name {
     fn from_bytes(data: &[u8]) -> set_device_name {
         let mut cursor = Cursor::new(data);
         set_device_name {
-            result: cursor.get_u16_le(),
+            result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -177,7 +179,7 @@ impl FromBytes for set_device_name {
 impl ToBytes for set_device_name {
     fn to_bytes(&self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.result);
+        bytes.put_u16_le(self.result.clone() as u16);
         bytes
     }
 }

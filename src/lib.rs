@@ -68,12 +68,15 @@ mod tests {
 
     #[test]
     fn rsp_system_hello_from_bytes() {
+        use error;
         use parser::FromBytes;
         use system::rsp::hello;
 
         let data = [0x00, 0x00];
         let actual = hello::from_bytes(&data);
-        let expected = hello { result: 0x00 };
+        let expected = hello {
+            result: error::Error::success,
+        };
         assert_eq!(actual == expected, true);
     }
 
@@ -89,6 +92,7 @@ mod tests {
 
     #[test]
     fn message_rsp_system_hello_from_bytes() {
+        use error;
         use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
         use parser::parse_next_message;
         use system;
@@ -106,7 +110,9 @@ mod tests {
                 message_class: MessageClass::system,
                 message_id: 0x00,
             },
-            payload: MessagePayload::rsp_system_hello(system::rsp::hello { result: 0x00 }),
+            payload: MessagePayload::rsp_system_hello(system::rsp::hello {
+                result: error::Error::success,
+            }),
         };
 
         assert_eq!(actual == expected, true);
