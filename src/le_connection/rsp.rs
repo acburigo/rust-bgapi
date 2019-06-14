@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for close {
     }
 }
 
-impl ToBytes for close {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for close {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -42,8 +41,8 @@ impl From<&[u8]> for disable_slave_latency {
     }
 }
 
-impl ToBytes for disable_slave_latency {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for disable_slave_latency {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -65,8 +64,8 @@ impl From<&[u8]> for get_rssi {
     }
 }
 
-impl ToBytes for get_rssi {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for get_rssi {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -88,8 +87,8 @@ impl From<&[u8]> for set_parameters {
     }
 }
 
-impl ToBytes for set_parameters {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_parameters {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -111,8 +110,8 @@ impl From<&[u8]> for set_phy {
     }
 }
 
-impl ToBytes for set_phy {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_phy {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

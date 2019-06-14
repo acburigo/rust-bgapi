@@ -53,7 +53,6 @@ mod tests {
     #[test]
     fn message_header_to_bytes() {
         use message::{MessageClass, MessageHeader, MessageType};
-        use parser::ToBytes;
 
         let header = MessageHeader {
             message_type: MessageType::command_response,
@@ -61,8 +60,9 @@ mod tests {
             message_class: MessageClass::system,
             message_id: 0x00,
         };
+        let header: Vec<u8> = header.into();
 
-        assert_eq!(header.to_bytes(), vec![0x20, 0x02, 0x01, 0x00]);
+        assert_eq!(header, vec![0x20, 0x02, 0x01, 0x00]);
     }
 
     #[test]
@@ -81,11 +81,11 @@ mod tests {
     #[test]
     fn payload_cmd_system_hello_to_bytes() {
         use message::MessagePayload::cmd_system_hello;
-        use parser::ToBytes;
         use system;
 
         let payload = cmd_system_hello(system::cmd::hello {});
-        assert_eq!(payload.to_bytes(), vec![]);
+        let payload: Vec<u8> = payload.into();
+        assert_eq!(payload, vec![]);
     }
 
     #[test]
@@ -119,7 +119,6 @@ mod tests {
     #[test]
     fn message_cmd_system_hello_to_bytes() {
         use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-        use parser::ToBytes;
         use system;
 
         let msg = Message {
@@ -131,14 +130,15 @@ mod tests {
             },
             payload: MessagePayload::cmd_system_hello(system::cmd::hello {}),
         };
+        let msg: Vec<u8> = msg.into();
 
-        assert_eq!(msg.to_bytes(), vec![0x20, 0x00, 0x01, 0x00]);
+        assert_eq!(msg, vec![0x20, 0x00, 0x01, 0x00]);
     }
 
     #[test]
     fn new_message_cmd_system_hello_to_bytes() {
-        use parser::ToBytes;
         use system::cmd::hello;
-        assert_eq!(hello::new().to_bytes(), vec![0x20, 0x00, 0x01, 0x00]);
+        let cmd: Vec<u8> = hello::new().into();
+        assert_eq!(cmd, vec![0x20, 0x00, 0x01, 0x00]);
     }
 }

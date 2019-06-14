@@ -1,6 +1,5 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -32,8 +31,8 @@ impl From<&[u8]> for get_counters {
     }
 }
 
-impl ToBytes for get_counters {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for get_counters {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.reset);
         bytes
@@ -71,8 +70,8 @@ impl From<&[u8]> for set_options {
     }
 }
 
-impl ToBytes for set_options {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_options {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.mask);
         bytes.put_u32_le(self.options);

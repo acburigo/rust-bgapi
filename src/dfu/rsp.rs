@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for flash_set_address {
     }
 }
 
-impl ToBytes for flash_set_address {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for flash_set_address {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -42,8 +41,8 @@ impl From<&[u8]> for flash_upload {
     }
 }
 
-impl ToBytes for flash_upload {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for flash_upload {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -65,8 +64,8 @@ impl From<&[u8]> for flash_upload_finish {
     }
 }
 
-impl ToBytes for flash_upload_finish {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for flash_upload_finish {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

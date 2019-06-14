@@ -1,5 +1,4 @@
 use bytes::{Buf, BufMut};
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for bonded {
     }
 }
 
-impl ToBytes for bonded {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for bonded {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u8(self.bonding);
@@ -45,8 +44,8 @@ impl From<&[u8]> for bonding_failed {
     }
 }
 
-impl ToBytes for bonding_failed {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for bonding_failed {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.reason);
@@ -71,8 +70,8 @@ impl From<&[u8]> for confirm_bonding {
     }
 }
 
-impl ToBytes for confirm_bonding {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for confirm_bonding {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_i8(self.bonding_handle);
@@ -97,8 +96,8 @@ impl From<&[u8]> for confirm_passkey {
     }
 }
 
-impl ToBytes for confirm_passkey {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for confirm_passkey {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.passkey);
@@ -116,8 +115,8 @@ impl From<&[u8]> for list_all_bondings_complete {
     }
 }
 
-impl ToBytes for list_all_bondings_complete {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for list_all_bondings_complete {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -147,8 +146,8 @@ impl From<&[u8]> for list_bonding_entry {
     }
 }
 
-impl ToBytes for list_bonding_entry {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for list_bonding_entry {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.bonding);
         bytes.extend_from_slice(&self.address);
@@ -174,8 +173,8 @@ impl From<&[u8]> for passkey_display {
     }
 }
 
-impl ToBytes for passkey_display {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for passkey_display {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.passkey);
@@ -198,8 +197,8 @@ impl From<&[u8]> for passkey_request {
     }
 }
 
-impl ToBytes for passkey_request {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for passkey_request {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes

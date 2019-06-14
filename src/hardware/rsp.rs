@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for set_lazy_soft_timer {
     }
 }
 
-impl ToBytes for set_lazy_soft_timer {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_lazy_soft_timer {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -42,8 +41,8 @@ impl From<&[u8]> for set_soft_timer {
     }
 }
 
-impl ToBytes for set_soft_timer {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_soft_timer {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

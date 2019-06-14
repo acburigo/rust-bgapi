@@ -1,6 +1,5 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -27,8 +26,8 @@ impl From<&[u8]> for get_bt_address {
     }
 }
 
-impl ToBytes for get_bt_address {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for get_bt_address {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -62,8 +61,8 @@ impl From<&[u8]> for get_counters {
     }
 }
 
-impl ToBytes for get_counters {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for get_counters {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.reset);
         bytes
@@ -99,8 +98,8 @@ impl From<&[u8]> for get_random_data {
     }
 }
 
-impl ToBytes for get_random_data {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for get_random_data {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.length);
         bytes
@@ -136,8 +135,8 @@ impl From<&[u8]> for halt {
     }
 }
 
-impl ToBytes for halt {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for halt {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.halt);
         bytes
@@ -168,8 +167,8 @@ impl From<&[u8]> for hello {
     }
 }
 
-impl ToBytes for hello {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for hello {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -203,8 +202,8 @@ impl From<&[u8]> for reset {
     }
 }
 
-impl ToBytes for reset {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for reset {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.dfu);
         bytes
@@ -242,8 +241,8 @@ impl From<&[u8]> for set_bt_address {
     }
 }
 
-impl ToBytes for set_bt_address {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_bt_address {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.extend_from_slice(&self.address);
         bytes
@@ -283,8 +282,8 @@ impl From<&[u8]> for set_device_name {
     }
 }
 
-impl ToBytes for set_device_name {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_device_name {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.dtype);
         bytes.extend(self.name.iter());
@@ -321,8 +320,8 @@ impl From<&[u8]> for set_tx_power {
     }
 }
 
-impl ToBytes for set_tx_power {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_tx_power {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_i16_le(self.power);
         bytes

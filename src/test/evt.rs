@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -21,8 +20,8 @@ impl From<&[u8]> for dtm_completed {
     }
 }
 
-impl ToBytes for dtm_completed {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for dtm_completed {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.number_of_packets);

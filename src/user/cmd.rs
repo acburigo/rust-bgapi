@@ -1,5 +1,4 @@
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -33,8 +32,8 @@ impl From<&[u8]> for message_to_target {
     }
 }
 
-impl ToBytes for message_to_target {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for message_to_target {
+    fn into(self) -> Vec<u8> {
         self.data.clone()
     }
 }

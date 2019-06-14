@@ -1,5 +1,4 @@
 use bytes::{Buf, BufMut};
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -17,8 +16,8 @@ impl From<&[u8]> for soft_timer {
     }
 }
 
-impl ToBytes for soft_timer {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for soft_timer {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.handle);
         bytes

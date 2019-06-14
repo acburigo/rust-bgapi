@@ -2,7 +2,6 @@ use bytes::{Buf, BufMut};
 use error::Error;
 use gatt::AttOpcode;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -31,8 +30,8 @@ impl From<&[u8]> for characteristic {
     }
 }
 
-impl ToBytes for characteristic {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for characteristic {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -73,8 +72,8 @@ impl From<&[u8]> for characteristic_value {
     }
 }
 
-impl ToBytes for characteristic_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for characteristic_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -108,8 +107,8 @@ impl From<&[u8]> for descriptor {
     }
 }
 
-impl ToBytes for descriptor {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for descriptor {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.descriptor);
@@ -146,8 +145,8 @@ impl From<&[u8]> for descriptor_value {
     }
 }
 
-impl ToBytes for descriptor_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for descriptor_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.descriptor);
@@ -174,8 +173,8 @@ impl From<&[u8]> for mtu_exchanged {
     }
 }
 
-impl ToBytes for mtu_exchanged {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for mtu_exchanged {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.mtu);
@@ -200,8 +199,8 @@ impl From<&[u8]> for procedure_completed {
     }
 }
 
-impl ToBytes for procedure_completed {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for procedure_completed {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.result.clone() as u16);
@@ -232,8 +231,8 @@ impl From<&[u8]> for service {
     }
 }
 
-impl ToBytes for service {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for service {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);

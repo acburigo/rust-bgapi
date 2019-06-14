@@ -1,5 +1,4 @@
 use bytes::{Buf, BufMut};
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -17,8 +16,8 @@ impl From<&[u8]> for boot {
     }
 }
 
-impl ToBytes for boot {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for boot {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.version);
         bytes
@@ -40,8 +39,8 @@ impl From<&[u8]> for boot_failure {
     }
 }
 
-impl ToBytes for boot_failure {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for boot_failure {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.reason);
         bytes

@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -35,8 +34,8 @@ impl From<&[u8]> for attribute_value {
     }
 }
 
-impl ToBytes for attribute_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for attribute_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.attribute);
@@ -68,8 +67,8 @@ impl From<&[u8]> for characteristic_status {
     }
 }
 
-impl ToBytes for characteristic_status {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for characteristic_status {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -96,8 +95,8 @@ impl From<&[u8]> for execute_write_completed {
     }
 }
 
-impl ToBytes for execute_write_completed {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for execute_write_completed {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.result.clone() as u16);
@@ -126,8 +125,8 @@ impl From<&[u8]> for user_read_request {
     }
 }
 
-impl ToBytes for user_read_request {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for user_read_request {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -168,8 +167,8 @@ impl From<&[u8]> for user_write_request {
     }
 }
 
-impl ToBytes for user_write_request {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for user_write_request {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);

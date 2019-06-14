@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -23,8 +22,8 @@ impl From<&[u8]> for message_to_target {
     }
 }
 
-impl ToBytes for message_to_target {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for message_to_target {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend(self.data.iter());

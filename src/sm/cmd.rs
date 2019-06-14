@@ -1,6 +1,5 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -37,8 +36,8 @@ impl From<&[u8]> for bonding_confirm {
     }
 }
 
-impl ToBytes for bonding_confirm {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for bonding_confirm {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u8(self.confirm);
@@ -80,8 +79,8 @@ impl From<&[u8]> for configure {
     }
 }
 
-impl ToBytes for configure {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for configure {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.flags);
         bytes.put_u8(self.io_capabilities);
@@ -118,8 +117,8 @@ impl From<&[u8]> for delete_bonding {
     }
 }
 
-impl ToBytes for delete_bonding {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for delete_bonding {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.bonding);
         bytes
@@ -150,8 +149,8 @@ impl From<&[u8]> for delete_bondings {
     }
 }
 
-impl ToBytes for delete_bondings {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for delete_bondings {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -190,8 +189,8 @@ impl From<&[u8]> for enter_passkey {
     }
 }
 
-impl ToBytes for enter_passkey {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for enter_passkey {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_i32_le(self.passkey);
@@ -228,8 +227,8 @@ impl From<&[u8]> for increase_security {
     }
 }
 
-impl ToBytes for increase_security {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for increase_security {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes
@@ -260,8 +259,8 @@ impl From<&[u8]> for list_all_bondings {
     }
 }
 
-impl ToBytes for list_all_bondings {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for list_all_bondings {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -300,8 +299,8 @@ impl From<&[u8]> for passkey_confirm {
     }
 }
 
-impl ToBytes for passkey_confirm {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for passkey_confirm {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u8(self.confirm);
@@ -338,8 +337,8 @@ impl From<&[u8]> for set_bondable_mode {
     }
 }
 
-impl ToBytes for set_bondable_mode {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_bondable_mode {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.bondable);
         bytes
@@ -370,8 +369,8 @@ impl From<&[u8]> for set_debug_mode {
     }
 }
 
-impl ToBytes for set_debug_mode {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_debug_mode {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -407,8 +406,8 @@ impl From<&[u8]> for set_oob_data {
     }
 }
 
-impl ToBytes for set_oob_data {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_oob_data {
+    fn into(self) -> Vec<u8> {
         self.oob_data.clone()
     }
 }
@@ -442,8 +441,8 @@ impl From<&[u8]> for set_passkey {
     }
 }
 
-impl ToBytes for set_passkey {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_passkey {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_i32_le(self.passkey);
         bytes
@@ -481,8 +480,8 @@ impl From<&[u8]> for set_sc_remote_oob_data {
     }
 }
 
-impl ToBytes for set_sc_remote_oob_data {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_sc_remote_oob_data {
+    fn into(self) -> Vec<u8> {
         self.oob_data.clone()
     }
 }
@@ -521,8 +520,8 @@ impl From<&[u8]> for store_bonding_configuration {
     }
 }
 
-impl ToBytes for store_bonding_configuration {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for store_bonding_configuration {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.max_bonding_count);
         bytes.put_u8(self.policy_flags);
@@ -559,8 +558,8 @@ impl From<&[u8]> for use_sc_oob {
     }
 }
 
-impl ToBytes for use_sc_oob {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for use_sc_oob {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.enable);
         bytes

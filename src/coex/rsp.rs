@@ -3,8 +3,6 @@ use error::Error;
 use num_traits::FromPrimitive;
 use std::io::Cursor;
 
-use parser::ToBytes;
-
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct get_counters {
@@ -22,8 +20,8 @@ impl From<&[u8]> for get_counters {
     }
 }
 
-impl ToBytes for get_counters {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for get_counters {
+    fn into(self) -> Vec<u8> {
         let mut bytes: Vec<u8> = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend_from_slice(&self.counters);
@@ -46,8 +44,8 @@ impl From<&[u8]> for set_options {
     }
 }
 
-impl ToBytes for set_options {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_options {
+    fn into(self) -> Vec<u8> {
         let mut bytes: Vec<u8> = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

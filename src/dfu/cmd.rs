@@ -1,6 +1,5 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -32,8 +31,8 @@ impl From<&[u8]> for flash_set_address {
     }
 }
 
-impl ToBytes for flash_set_address {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for flash_set_address {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.address);
         bytes
@@ -68,8 +67,8 @@ impl From<&[u8]> for flash_upload {
     }
 }
 
-impl ToBytes for flash_upload {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for flash_upload {
+    fn into(self) -> Vec<u8> {
         self.data.clone()
     }
 }
@@ -98,8 +97,8 @@ impl From<&[u8]> for flash_upload_finish {
     }
 }
 
-impl ToBytes for flash_upload_finish {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for flash_upload_finish {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -133,8 +132,8 @@ impl From<&[u8]> for reset {
     }
 }
 
-impl ToBytes for reset {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for reset {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.dfu);
         bytes

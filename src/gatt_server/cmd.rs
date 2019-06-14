@@ -1,6 +1,5 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -36,8 +35,8 @@ impl From<&[u8]> for find_attribute {
     }
 }
 
-impl ToBytes for find_attribute {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for find_attribute {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.start);
         bytes.extend(self.atype.iter());
@@ -74,8 +73,8 @@ impl From<&[u8]> for read_attribute_type {
     }
 }
 
-impl ToBytes for read_attribute_type {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_attribute_type {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.attribute);
         bytes
@@ -113,8 +112,8 @@ impl From<&[u8]> for read_attribute_value {
     }
 }
 
-impl ToBytes for read_attribute_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_attribute_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.attribute);
         bytes.put_u16_le(self.offset);
@@ -165,8 +164,8 @@ impl From<&[u8]> for send_characteristic_notification {
     }
 }
 
-impl ToBytes for send_characteristic_notification {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for send_characteristic_notification {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -222,8 +221,8 @@ impl From<&[u8]> for send_user_read_response {
     }
 }
 
-impl ToBytes for send_user_read_response {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for send_user_read_response {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -270,8 +269,8 @@ impl From<&[u8]> for send_user_write_response {
     }
 }
 
-impl ToBytes for send_user_write_response {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for send_user_write_response {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
@@ -311,8 +310,8 @@ impl From<&[u8]> for set_capabilities {
     }
 }
 
-impl ToBytes for set_capabilities {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_capabilities {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.caps);
         bytes.put_u32_le(self.reserved);
@@ -363,8 +362,8 @@ impl From<&[u8]> for write_attribute_value {
     }
 }
 
-impl ToBytes for write_attribute_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for write_attribute_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.attribute);
         bytes.put_u16_le(self.offset);

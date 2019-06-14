@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for discover_characteristics {
     }
 }
 
-impl ToBytes for discover_characteristics {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for discover_characteristics {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -42,8 +41,8 @@ impl From<&[u8]> for discover_characteristics_by_uuid {
     }
 }
 
-impl ToBytes for discover_characteristics_by_uuid {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for discover_characteristics_by_uuid {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -65,8 +64,8 @@ impl From<&[u8]> for discover_descriptors {
     }
 }
 
-impl ToBytes for discover_descriptors {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for discover_descriptors {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -88,8 +87,8 @@ impl From<&[u8]> for discover_primary_services {
     }
 }
 
-impl ToBytes for discover_primary_services {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for discover_primary_services {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -111,8 +110,8 @@ impl From<&[u8]> for discover_primary_services_by_uuid {
     }
 }
 
-impl ToBytes for discover_primary_services_by_uuid {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for discover_primary_services_by_uuid {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -134,8 +133,8 @@ impl From<&[u8]> for execute_characteristic_value_write {
     }
 }
 
-impl ToBytes for execute_characteristic_value_write {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for execute_characteristic_value_write {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -157,8 +156,8 @@ impl From<&[u8]> for find_included_services {
     }
 }
 
-impl ToBytes for find_included_services {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for find_included_services {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -182,8 +181,8 @@ impl From<&[u8]> for prepare_characteristic_value_reliable_write {
     }
 }
 
-impl ToBytes for prepare_characteristic_value_reliable_write {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for prepare_characteristic_value_reliable_write {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.sent_len);
@@ -208,8 +207,8 @@ impl From<&[u8]> for prepare_characteristic_value_write {
     }
 }
 
-impl ToBytes for prepare_characteristic_value_write {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for prepare_characteristic_value_write {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.sent_len);
@@ -232,8 +231,8 @@ impl From<&[u8]> for read_characteristic_value {
     }
 }
 
-impl ToBytes for read_characteristic_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_characteristic_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -255,8 +254,8 @@ impl From<&[u8]> for read_characteristic_value_by_uuid {
     }
 }
 
-impl ToBytes for read_characteristic_value_by_uuid {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_characteristic_value_by_uuid {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -278,8 +277,8 @@ impl From<&[u8]> for read_characteristic_value_from_offset {
     }
 }
 
-impl ToBytes for read_characteristic_value_from_offset {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_characteristic_value_from_offset {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -301,8 +300,8 @@ impl From<&[u8]> for read_descriptor_value {
     }
 }
 
-impl ToBytes for read_descriptor_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_descriptor_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -324,8 +323,8 @@ impl From<&[u8]> for read_multiple_characteristic_values {
     }
 }
 
-impl ToBytes for read_multiple_characteristic_values {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for read_multiple_characteristic_values {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -347,8 +346,8 @@ impl From<&[u8]> for send_characteristic_confirmation {
     }
 }
 
-impl ToBytes for send_characteristic_confirmation {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for send_characteristic_confirmation {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -370,8 +369,8 @@ impl From<&[u8]> for set_characteristic_notification {
     }
 }
 
-impl ToBytes for set_characteristic_notification {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_characteristic_notification {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -395,8 +394,8 @@ impl From<&[u8]> for set_max_mtu {
     }
 }
 
-impl ToBytes for set_max_mtu {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_max_mtu {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.max_mtu);
@@ -419,8 +418,8 @@ impl From<&[u8]> for write_characteristic_value {
     }
 }
 
-impl ToBytes for write_characteristic_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for write_characteristic_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -444,8 +443,8 @@ impl From<&[u8]> for write_characteristic_value_without_response {
     }
 }
 
-impl ToBytes for write_characteristic_value_without_response {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for write_characteristic_value_without_response {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u16_le(self.sent_len);
@@ -468,8 +467,8 @@ impl From<&[u8]> for write_descriptor_value {
     }
 }
 
-impl ToBytes for write_descriptor_value {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for write_descriptor_value {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

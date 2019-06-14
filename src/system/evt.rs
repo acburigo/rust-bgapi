@@ -1,5 +1,4 @@
 use bytes::{Buf, BufMut};
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -12,8 +11,8 @@ impl From<&[u8]> for awake {
     }
 }
 
-impl ToBytes for awake {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for awake {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -45,8 +44,8 @@ impl From<&[u8]> for boot {
     }
 }
 
-impl ToBytes for boot {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for boot {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.major);
         bytes.put_u16_le(self.minor);
@@ -78,8 +77,8 @@ impl From<&[u8]> for error {
     }
 }
 
-impl ToBytes for error {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for error {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.reason);
         bytes.extend(self.data.iter());
@@ -102,8 +101,8 @@ impl From<&[u8]> for external_signal {
     }
 }
 
-impl ToBytes for external_signal {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for external_signal {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.extsignals);
         bytes
@@ -125,8 +124,8 @@ impl From<&[u8]> for hardware_error {
     }
 }
 
-impl ToBytes for hardware_error {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for hardware_error {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.status);
         bytes

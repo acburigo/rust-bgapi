@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use le_gap::AddressType;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for adv_timeout {
     }
 }
 
-impl ToBytes for adv_timeout {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for adv_timeout {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.handle);
         bytes
@@ -55,8 +54,8 @@ impl From<&[u8]> for scan_request {
     }
 }
 
-impl ToBytes for scan_request {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for scan_request {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.handle);
         bytes.extend_from_slice(&self.address);
@@ -103,8 +102,8 @@ impl From<&[u8]> for scan_response {
     }
 }
 
-impl ToBytes for scan_response {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for scan_response {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_i8(self.rssi);
         bytes.put_u8(self.packet_type);

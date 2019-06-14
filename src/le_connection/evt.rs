@@ -2,7 +2,6 @@ use bytes::{Buf, BufMut};
 use error::Error;
 use le_connection::Security;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -22,8 +21,8 @@ impl From<&[u8]> for closed {
     }
 }
 
-impl ToBytes for closed {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for closed {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.reason.clone() as u16);
         bytes.put_u8(self.connection);
@@ -60,8 +59,8 @@ impl From<&[u8]> for opened {
     }
 }
 
-impl ToBytes for opened {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for opened {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.extend_from_slice(&self.address);
         bytes.put_u8(self.address_type);
@@ -98,8 +97,8 @@ impl From<&[u8]> for parameters {
     }
 }
 
-impl ToBytes for parameters {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for parameters {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.interval);
@@ -128,8 +127,8 @@ impl From<&[u8]> for phy_status {
     }
 }
 
-impl ToBytes for phy_status {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for phy_status {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u8(self.phy);
@@ -156,8 +155,8 @@ impl From<&[u8]> for rssi {
     }
 }
 
-impl ToBytes for rssi {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for rssi {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u8(self.status);

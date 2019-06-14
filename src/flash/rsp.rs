@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for ps_erase {
     }
 }
 
-impl ToBytes for ps_erase {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for ps_erase {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -42,8 +41,8 @@ impl From<&[u8]> for ps_erase_all {
     }
 }
 
-impl ToBytes for ps_erase_all {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for ps_erase_all {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -69,8 +68,8 @@ impl From<&[u8]> for ps_load {
     }
 }
 
-impl ToBytes for ps_load {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for ps_load {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.extend(self.value.iter());
@@ -93,8 +92,8 @@ impl From<&[u8]> for ps_save {
     }
 }
 
-impl ToBytes for ps_save {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for ps_save {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 use test::{PacketType, Phy};
 
@@ -29,8 +28,8 @@ impl From<&[u8]> for dtm_end {
     }
 }
 
-impl ToBytes for dtm_end {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for dtm_end {
+    fn into(self) -> Vec<u8> {
         Vec::new()
     }
 }
@@ -66,8 +65,8 @@ impl From<&[u8]> for dtm_rx {
     }
 }
 
-impl ToBytes for dtm_rx {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for dtm_rx {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.channel);
         bytes.put_u8(self.phy.clone() as u8);
@@ -115,8 +114,8 @@ impl From<&[u8]> for dtm_tx {
     }
 }
 
-impl ToBytes for dtm_tx {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for dtm_tx {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.packet_type.clone() as u8);
         bytes.put_u8(self.length);

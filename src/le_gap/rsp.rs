@@ -1,7 +1,6 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -19,8 +18,8 @@ impl From<&[u8]> for bt5_set_adv_data {
     }
 }
 
-impl ToBytes for bt5_set_adv_data {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for bt5_set_adv_data {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -42,8 +41,8 @@ impl From<&[u8]> for clear_advertise_configuration {
     }
 }
 
-impl ToBytes for clear_advertise_configuration {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for clear_advertise_configuration {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -67,8 +66,8 @@ impl From<&[u8]> for connect {
     }
 }
 
-impl ToBytes for connect {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for connect {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes.put_u8(self.connection);
@@ -91,8 +90,8 @@ impl From<&[u8]> for end_procedure {
     }
 }
 
-impl ToBytes for end_procedure {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for end_procedure {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -114,8 +113,8 @@ impl From<&[u8]> for set_advertise_channel_map {
     }
 }
 
-impl ToBytes for set_advertise_channel_map {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_advertise_channel_map {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -137,8 +136,8 @@ impl From<&[u8]> for set_advertise_configuration {
     }
 }
 
-impl ToBytes for set_advertise_configuration {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_advertise_configuration {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -160,8 +159,8 @@ impl From<&[u8]> for set_advertise_phy {
     }
 }
 
-impl ToBytes for set_advertise_phy {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_advertise_phy {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -183,8 +182,8 @@ impl From<&[u8]> for set_advertise_report_scan_request {
     }
 }
 
-impl ToBytes for set_advertise_report_scan_request {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_advertise_report_scan_request {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -206,8 +205,8 @@ impl From<&[u8]> for set_advertise_timing {
     }
 }
 
-impl ToBytes for set_advertise_timing {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_advertise_timing {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -229,8 +228,8 @@ impl From<&[u8]> for set_advertise_tx_power {
     }
 }
 
-impl ToBytes for set_advertise_tx_power {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_advertise_tx_power {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -252,8 +251,8 @@ impl From<&[u8]> for set_conn_parameters {
     }
 }
 
-impl ToBytes for set_conn_parameters {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_conn_parameters {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -275,8 +274,8 @@ impl From<&[u8]> for set_data_channel_classification {
     }
 }
 
-impl ToBytes for set_data_channel_classification {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_data_channel_classification {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -298,8 +297,8 @@ impl From<&[u8]> for set_discovery_timing {
     }
 }
 
-impl ToBytes for set_discovery_timing {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_discovery_timing {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -321,8 +320,8 @@ impl From<&[u8]> for set_discovery_type {
     }
 }
 
-impl ToBytes for set_discovery_type {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_discovery_type {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -344,8 +343,8 @@ impl From<&[u8]> for set_privacy_mode {
     }
 }
 
-impl ToBytes for set_privacy_mode {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_privacy_mode {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -367,8 +366,8 @@ impl From<&[u8]> for start_advertising {
     }
 }
 
-impl ToBytes for start_advertising {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for start_advertising {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -390,8 +389,8 @@ impl From<&[u8]> for start_discovery {
     }
 }
 
-impl ToBytes for start_discovery {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for start_discovery {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes
@@ -413,8 +412,8 @@ impl From<&[u8]> for stop_advertising {
     }
 }
 
-impl ToBytes for stop_advertising {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for stop_advertising {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
         bytes

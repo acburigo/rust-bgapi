@@ -1,6 +1,5 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -43,8 +42,8 @@ impl From<&[u8]> for set_lazy_soft_timer {
     }
 }
 
-impl ToBytes for set_lazy_soft_timer {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_lazy_soft_timer {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.time);
         bytes.put_u32_le(self.slack);
@@ -91,8 +90,8 @@ impl From<&[u8]> for set_soft_timer {
     }
 }
 
-impl ToBytes for set_soft_timer {
-    fn to_bytes(&self) -> Vec<u8> {
+impl Into<Vec<u8>> for set_soft_timer {
+    fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u32_le(self.time);
         bytes.put_u8(self.handle);
