@@ -4,7 +4,6 @@ pub mod rsp;
 
 use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_derive::FromPrimitive;
-use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
@@ -15,7 +14,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x0e,
         } => Ok(MessagePayload::rsp_sm_bonding_confirm(
-            rsp::bonding_confirm::from_bytes(buffer),
+            rsp::bonding_confirm::from(buffer),
         )),
 
         MessageHeader {
@@ -23,9 +22,9 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             payload_length: 0x02,
             message_class: MessageClass::sm,
             message_id: 0x01,
-        } => Ok(MessagePayload::rsp_sm_configure(
-            rsp::configure::from_bytes(buffer),
-        )),
+        } => Ok(MessagePayload::rsp_sm_configure(rsp::configure::from(
+            buffer,
+        ))),
 
         MessageHeader {
             message_type: MessageType::command_response,
@@ -33,7 +32,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x06,
         } => Ok(MessagePayload::rsp_sm_delete_bonding(
-            rsp::delete_bonding::from_bytes(buffer),
+            rsp::delete_bonding::from(buffer),
         )),
 
         MessageHeader {
@@ -42,7 +41,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x07,
         } => Ok(MessagePayload::rsp_sm_delete_bondings(
-            rsp::delete_bondings::from_bytes(buffer),
+            rsp::delete_bondings::from(buffer),
         )),
 
         MessageHeader {
@@ -51,7 +50,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x08,
         } => Ok(MessagePayload::rsp_sm_enter_passkey(
-            rsp::enter_passkey::from_bytes(buffer),
+            rsp::enter_passkey::from(buffer),
         )),
 
         MessageHeader {
@@ -60,7 +59,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x04,
         } => Ok(MessagePayload::rsp_sm_increase_security(
-            rsp::increase_security::from_bytes(buffer),
+            rsp::increase_security::from(buffer),
         )),
 
         MessageHeader {
@@ -69,7 +68,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x0b,
         } => Ok(MessagePayload::rsp_sm_list_all_bondings(
-            rsp::list_all_bondings::from_bytes(buffer),
+            rsp::list_all_bondings::from(buffer),
         )),
 
         MessageHeader {
@@ -78,7 +77,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x09,
         } => Ok(MessagePayload::rsp_sm_passkey_confirm(
-            rsp::passkey_confirm::from_bytes(buffer),
+            rsp::passkey_confirm::from(buffer),
         )),
 
         MessageHeader {
@@ -87,7 +86,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x00,
         } => Ok(MessagePayload::rsp_sm_set_bondable_mode(
-            rsp::set_bondable_mode::from_bytes(buffer),
+            rsp::set_bondable_mode::from(buffer),
         )),
 
         MessageHeader {
@@ -96,7 +95,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x0f,
         } => Ok(MessagePayload::rsp_sm_set_debug_mode(
-            rsp::set_debug_mode::from_bytes(buffer),
+            rsp::set_debug_mode::from(buffer),
         )),
 
         MessageHeader {
@@ -105,7 +104,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x0a,
         } => Ok(MessagePayload::rsp_sm_set_oob_data(
-            rsp::set_oob_data::from_bytes(buffer),
+            rsp::set_oob_data::from(buffer),
         )),
 
         MessageHeader {
@@ -113,9 +112,9 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             payload_length: 0x02,
             message_class: MessageClass::sm,
             message_id: 0x10,
-        } => Ok(MessagePayload::rsp_sm_set_passkey(
-            rsp::set_passkey::from_bytes(buffer),
-        )),
+        } => Ok(MessagePayload::rsp_sm_set_passkey(rsp::set_passkey::from(
+            buffer,
+        ))),
 
         MessageHeader {
             message_type: MessageType::command_response,
@@ -123,7 +122,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x12,
         } => Ok(MessagePayload::rsp_sm_set_sc_remote_oob_data(
-            rsp::set_sc_remote_oob_data::from_bytes(buffer),
+            rsp::set_sc_remote_oob_data::from(buffer),
         )),
 
         MessageHeader {
@@ -132,7 +131,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x02,
         } => Ok(MessagePayload::rsp_sm_store_bonding_configuration(
-            rsp::store_bonding_configuration::from_bytes(buffer),
+            rsp::store_bonding_configuration::from(buffer),
         )),
 
         MessageHeader {
@@ -140,18 +139,16 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             payload_length: _,
             message_class: MessageClass::sm,
             message_id: 0x11,
-        } => Ok(MessagePayload::rsp_sm_use_sc_oob(
-            rsp::use_sc_oob::from_bytes(buffer),
-        )),
+        } => Ok(MessagePayload::rsp_sm_use_sc_oob(rsp::use_sc_oob::from(
+            buffer,
+        ))),
 
         MessageHeader {
             message_type: MessageType::event,
             payload_length: 0x02,
             message_class: MessageClass::sm,
             message_id: 0x03,
-        } => Ok(MessagePayload::evt_sm_bonded(evt::bonded::from_bytes(
-            buffer,
-        ))),
+        } => Ok(MessagePayload::evt_sm_bonded(evt::bonded::from(buffer))),
 
         MessageHeader {
             message_type: MessageType::event,
@@ -159,7 +156,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x04,
         } => Ok(MessagePayload::evt_sm_bonding_failed(
-            evt::bonding_failed::from_bytes(buffer),
+            evt::bonding_failed::from(buffer),
         )),
 
         MessageHeader {
@@ -168,7 +165,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x09,
         } => Ok(MessagePayload::evt_sm_confirm_bonding(
-            evt::confirm_bonding::from_bytes(buffer),
+            evt::confirm_bonding::from(buffer),
         )),
 
         MessageHeader {
@@ -177,7 +174,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x02,
         } => Ok(MessagePayload::evt_sm_confirm_passkey(
-            evt::confirm_passkey::from_bytes(buffer),
+            evt::confirm_passkey::from(buffer),
         )),
 
         MessageHeader {
@@ -186,7 +183,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x06,
         } => Ok(MessagePayload::evt_sm_list_all_bondings_complete(
-            evt::list_all_bondings_complete::from_bytes(buffer),
+            evt::list_all_bondings_complete::from(buffer),
         )),
 
         MessageHeader {
@@ -195,7 +192,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x05,
         } => Ok(MessagePayload::evt_sm_list_bonding_entry(
-            evt::list_bonding_entry::from_bytes(buffer),
+            evt::list_bonding_entry::from(buffer),
         )),
 
         MessageHeader {
@@ -204,7 +201,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_sm_passkey_display(
-            evt::passkey_display::from_bytes(buffer),
+            evt::passkey_display::from(buffer),
         )),
 
         MessageHeader {
@@ -213,7 +210,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::sm,
             message_id: 0x01,
         } => Ok(MessagePayload::evt_sm_passkey_request(
-            evt::passkey_request::from_bytes(buffer),
+            evt::passkey_request::from(buffer),
         )),
 
         _ => Err(Error::from(ErrorKind::InvalidData)),

@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -24,8 +24,8 @@ impl find_attribute {
     }
 }
 
-impl FromBytes for find_attribute {
-    fn from_bytes(data: &[u8]) -> find_attribute {
+impl From<&[u8]> for find_attribute {
+    fn from(data: &[u8]) -> find_attribute {
         let mut cursor = Cursor::new(data);
         let start = cursor.get_u16_le();
         let mut atype = Vec::new();
@@ -65,8 +65,8 @@ impl read_attribute_type {
     }
 }
 
-impl FromBytes for read_attribute_type {
-    fn from_bytes(data: &[u8]) -> read_attribute_type {
+impl From<&[u8]> for read_attribute_type {
+    fn from(data: &[u8]) -> read_attribute_type {
         let mut cursor = Cursor::new(data);
         read_attribute_type {
             attribute: cursor.get_u16_le(),
@@ -103,8 +103,8 @@ impl read_attribute_value {
     }
 }
 
-impl FromBytes for read_attribute_value {
-    fn from_bytes(data: &[u8]) -> read_attribute_value {
+impl From<&[u8]> for read_attribute_value {
+    fn from(data: &[u8]) -> read_attribute_value {
         let mut cursor = Cursor::new(data);
         read_attribute_value {
             attribute: cursor.get_u16_le(),
@@ -148,8 +148,8 @@ impl send_characteristic_notification {
     }
 }
 
-impl FromBytes for send_characteristic_notification {
-    fn from_bytes(data: &[u8]) -> send_characteristic_notification {
+impl From<&[u8]> for send_characteristic_notification {
+    fn from(data: &[u8]) -> send_characteristic_notification {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -203,8 +203,8 @@ impl send_user_read_response {
     }
 }
 
-impl FromBytes for send_user_read_response {
-    fn from_bytes(data: &[u8]) -> send_user_read_response {
+impl From<&[u8]> for send_user_read_response {
+    fn from(data: &[u8]) -> send_user_read_response {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -259,8 +259,8 @@ impl send_user_write_response {
     }
 }
 
-impl FromBytes for send_user_write_response {
-    fn from_bytes(data: &[u8]) -> send_user_write_response {
+impl From<&[u8]> for send_user_write_response {
+    fn from(data: &[u8]) -> send_user_write_response {
         let mut cursor = Cursor::new(data);
         send_user_write_response {
             connection: cursor.get_u8(),
@@ -301,8 +301,8 @@ impl set_capabilities {
     }
 }
 
-impl FromBytes for set_capabilities {
-    fn from_bytes(data: &[u8]) -> set_capabilities {
+impl From<&[u8]> for set_capabilities {
+    fn from(data: &[u8]) -> set_capabilities {
         let mut cursor = Cursor::new(data);
         set_capabilities {
             caps: cursor.get_u32_le(),
@@ -346,8 +346,8 @@ impl write_attribute_value {
     }
 }
 
-impl FromBytes for write_attribute_value {
-    fn from_bytes(data: &[u8]) -> write_attribute_value {
+impl From<&[u8]> for write_attribute_value {
+    fn from(data: &[u8]) -> write_attribute_value {
         let mut cursor = Cursor::new(data);
         let attribute = cursor.get_u16_le();
         let offset = cursor.get_u16_le();

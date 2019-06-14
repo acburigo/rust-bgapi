@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use error::Error;
 use le_connection::Security;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -12,8 +12,8 @@ pub struct closed {
     pub connection: u8,
 }
 
-impl FromBytes for closed {
-    fn from_bytes(data: &[u8]) -> closed {
+impl From<&[u8]> for closed {
+    fn from(data: &[u8]) -> closed {
         let mut cursor = Cursor::new(data);
         closed {
             reason: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -42,8 +42,8 @@ pub struct opened {
     pub advertiser: u8,
 }
 
-impl FromBytes for opened {
-    fn from_bytes(data: &[u8]) -> opened {
+impl From<&[u8]> for opened {
+    fn from(data: &[u8]) -> opened {
         let mut cursor = Cursor::new(data);
         let mut address: [u8; 6] = Default::default();
         cursor
@@ -84,8 +84,8 @@ pub struct parameters {
     pub txsize: u16,
 }
 
-impl FromBytes for parameters {
-    fn from_bytes(data: &[u8]) -> parameters {
+impl From<&[u8]> for parameters {
+    fn from(data: &[u8]) -> parameters {
         let mut cursor = Cursor::new(data);
         parameters {
             connection: cursor.get_u8(),
@@ -118,8 +118,8 @@ pub struct phy_status {
     pub phy: u8,
 }
 
-impl FromBytes for phy_status {
-    fn from_bytes(data: &[u8]) -> phy_status {
+impl From<&[u8]> for phy_status {
+    fn from(data: &[u8]) -> phy_status {
         let mut cursor = Cursor::new(data);
         phy_status {
             connection: cursor.get_u8(),
@@ -145,8 +145,8 @@ pub struct rssi {
     pub rssi: i8,
 }
 
-impl FromBytes for rssi {
-    fn from_bytes(data: &[u8]) -> rssi {
+impl From<&[u8]> for rssi {
+    fn from(data: &[u8]) -> rssi {
         let mut cursor = Cursor::new(data);
         rssi {
             connection: cursor.get_u8(),

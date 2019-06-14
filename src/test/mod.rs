@@ -4,7 +4,6 @@ pub mod rsp;
 
 use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_derive::FromPrimitive;
-use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
@@ -14,27 +13,21 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             payload_length: 0x02,
             message_class: MessageClass::test,
             message_id: 0x04,
-        } => Ok(MessagePayload::rsp_test_dtm_end(rsp::dtm_end::from_bytes(
-            buffer,
-        ))),
+        } => Ok(MessagePayload::rsp_test_dtm_end(rsp::dtm_end::from(buffer))),
 
         MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x02,
             message_class: MessageClass::test,
             message_id: 0x01,
-        } => Ok(MessagePayload::rsp_test_dtm_rx(rsp::dtm_rx::from_bytes(
-            buffer,
-        ))),
+        } => Ok(MessagePayload::rsp_test_dtm_rx(rsp::dtm_rx::from(buffer))),
 
         MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x02,
             message_class: MessageClass::test,
             message_id: 0x00,
-        } => Ok(MessagePayload::rsp_test_dtm_tx(rsp::dtm_tx::from_bytes(
-            buffer,
-        ))),
+        } => Ok(MessagePayload::rsp_test_dtm_tx(rsp::dtm_tx::from(buffer))),
 
         MessageHeader {
             message_type: MessageType::event,
@@ -42,7 +35,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::test,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_test_dtm_completed(
-            evt::dtm_completed::from_bytes(buffer),
+            evt::dtm_completed::from(buffer),
         )),
 
         _ => Err(Error::from(ErrorKind::InvalidData)),

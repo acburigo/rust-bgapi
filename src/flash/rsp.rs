@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -10,8 +10,8 @@ pub struct ps_erase {
     pub result: Error,
 }
 
-impl FromBytes for ps_erase {
-    fn from_bytes(data: &[u8]) -> ps_erase {
+impl From<&[u8]> for ps_erase {
+    fn from(data: &[u8]) -> ps_erase {
         let mut cursor = Cursor::new(data);
         ps_erase {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -33,8 +33,8 @@ pub struct ps_erase_all {
     pub result: Error,
 }
 
-impl FromBytes for ps_erase_all {
-    fn from_bytes(data: &[u8]) -> ps_erase_all {
+impl From<&[u8]> for ps_erase_all {
+    fn from(data: &[u8]) -> ps_erase_all {
         let mut cursor = Cursor::new(data);
         ps_erase_all {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -57,8 +57,8 @@ pub struct ps_load {
     pub value: Vec<u8>,
 }
 
-impl FromBytes for ps_load {
-    fn from_bytes(data: &[u8]) -> ps_load {
+impl From<&[u8]> for ps_load {
+    fn from(data: &[u8]) -> ps_load {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut value = Vec::new();
@@ -84,8 +84,8 @@ pub struct ps_save {
     pub result: Error,
 }
 
-impl FromBytes for ps_save {
-    fn from_bytes(data: &[u8]) -> ps_save {
+impl From<&[u8]> for ps_save {
+    fn from(data: &[u8]) -> ps_save {
         let mut cursor = Cursor::new(data);
         ps_save {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

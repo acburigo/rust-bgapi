@@ -1,4 +1,4 @@
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -7,8 +7,8 @@ pub struct message_to_host {
     pub data: Vec<u8>,
 }
 
-impl FromBytes for message_to_host {
-    fn from_bytes(data: &[u8]) -> message_to_host {
+impl From<&[u8]> for message_to_host {
+    fn from(data: &[u8]) -> message_to_host {
         let mut cursor = Cursor::new(data);
         let mut data = Vec::new();
         cursor

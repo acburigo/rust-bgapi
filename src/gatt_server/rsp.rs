@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -11,8 +11,8 @@ pub struct find_attribute {
     pub attribute: u16,
 }
 
-impl FromBytes for find_attribute {
-    fn from_bytes(data: &[u8]) -> find_attribute {
+impl From<&[u8]> for find_attribute {
+    fn from(data: &[u8]) -> find_attribute {
         let mut cursor = Cursor::new(data);
         find_attribute {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -37,8 +37,8 @@ pub struct read_attribute_type {
     pub atype: Vec<u8>,
 }
 
-impl FromBytes for read_attribute_type {
-    fn from_bytes(data: &[u8]) -> read_attribute_type {
+impl From<&[u8]> for read_attribute_type {
+    fn from(data: &[u8]) -> read_attribute_type {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut atype = Vec::new();
@@ -65,8 +65,8 @@ pub struct read_attribute_value {
     pub value: Vec<u8>,
 }
 
-impl FromBytes for read_attribute_value {
-    fn from_bytes(data: &[u8]) -> read_attribute_value {
+impl From<&[u8]> for read_attribute_value {
+    fn from(data: &[u8]) -> read_attribute_value {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut value = Vec::new();
@@ -93,8 +93,8 @@ pub struct send_characteristic_notification {
     pub sent_len: u16,
 }
 
-impl FromBytes for send_characteristic_notification {
-    fn from_bytes(data: &[u8]) -> send_characteristic_notification {
+impl From<&[u8]> for send_characteristic_notification {
+    fn from(data: &[u8]) -> send_characteristic_notification {
         let mut cursor = Cursor::new(data);
         send_characteristic_notification {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -119,8 +119,8 @@ pub struct send_user_read_response {
     pub sent_len: u16,
 }
 
-impl FromBytes for send_user_read_response {
-    fn from_bytes(data: &[u8]) -> send_user_read_response {
+impl From<&[u8]> for send_user_read_response {
+    fn from(data: &[u8]) -> send_user_read_response {
         let mut cursor = Cursor::new(data);
         send_user_read_response {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -144,8 +144,8 @@ pub struct send_user_write_response {
     pub result: Error,
 }
 
-impl FromBytes for send_user_write_response {
-    fn from_bytes(data: &[u8]) -> send_user_write_response {
+impl From<&[u8]> for send_user_write_response {
+    fn from(data: &[u8]) -> send_user_write_response {
         let mut cursor = Cursor::new(data);
         send_user_write_response {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -167,8 +167,8 @@ pub struct set_capabilities {
     pub result: Error,
 }
 
-impl FromBytes for set_capabilities {
-    fn from_bytes(data: &[u8]) -> set_capabilities {
+impl From<&[u8]> for set_capabilities {
+    fn from(data: &[u8]) -> set_capabilities {
         let mut cursor = Cursor::new(data);
         set_capabilities {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -190,8 +190,8 @@ pub struct write_attribute_value {
     pub result: Error,
 }
 
-impl FromBytes for write_attribute_value {
-    fn from_bytes(data: &[u8]) -> write_attribute_value {
+impl From<&[u8]> for write_attribute_value {
+    fn from(data: &[u8]) -> write_attribute_value {
         let mut cursor = Cursor::new(data);
         write_attribute_value {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

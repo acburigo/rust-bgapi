@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -27,8 +27,8 @@ impl bonding_confirm {
     }
 }
 
-impl FromBytes for bonding_confirm {
-    fn from_bytes(data: &[u8]) -> bonding_confirm {
+impl From<&[u8]> for bonding_confirm {
+    fn from(data: &[u8]) -> bonding_confirm {
         let mut cursor = Cursor::new(data);
         bonding_confirm {
             connection: cursor.get_u8(),
@@ -70,8 +70,8 @@ impl configure {
     }
 }
 
-impl FromBytes for configure {
-    fn from_bytes(data: &[u8]) -> configure {
+impl From<&[u8]> for configure {
+    fn from(data: &[u8]) -> configure {
         let mut cursor = Cursor::new(data);
         configure {
             flags: cursor.get_u8(),
@@ -109,8 +109,8 @@ impl delete_bonding {
     }
 }
 
-impl FromBytes for delete_bonding {
-    fn from_bytes(data: &[u8]) -> delete_bonding {
+impl From<&[u8]> for delete_bonding {
+    fn from(data: &[u8]) -> delete_bonding {
         let mut cursor = Cursor::new(data);
         delete_bonding {
             bonding: cursor.get_u8(),
@@ -144,8 +144,8 @@ impl delete_bondings {
     }
 }
 
-impl FromBytes for delete_bondings {
-    fn from_bytes(_: &[u8]) -> delete_bondings {
+impl From<&[u8]> for delete_bondings {
+    fn from(_: &[u8]) -> delete_bondings {
         delete_bondings {}
     }
 }
@@ -180,8 +180,8 @@ impl enter_passkey {
     }
 }
 
-impl FromBytes for enter_passkey {
-    fn from_bytes(data: &[u8]) -> enter_passkey {
+impl From<&[u8]> for enter_passkey {
+    fn from(data: &[u8]) -> enter_passkey {
         let mut cursor = Cursor::new(data);
         enter_passkey {
             connection: cursor.get_u8(),
@@ -219,8 +219,8 @@ impl increase_security {
     }
 }
 
-impl FromBytes for increase_security {
-    fn from_bytes(data: &[u8]) -> increase_security {
+impl From<&[u8]> for increase_security {
+    fn from(data: &[u8]) -> increase_security {
         let mut cursor = Cursor::new(data);
         increase_security {
             connection: cursor.get_u8(),
@@ -254,8 +254,8 @@ impl list_all_bondings {
     }
 }
 
-impl FromBytes for list_all_bondings {
-    fn from_bytes(_: &[u8]) -> list_all_bondings {
+impl From<&[u8]> for list_all_bondings {
+    fn from(_: &[u8]) -> list_all_bondings {
         list_all_bondings {}
     }
 }
@@ -290,8 +290,8 @@ impl passkey_confirm {
     }
 }
 
-impl FromBytes for passkey_confirm {
-    fn from_bytes(data: &[u8]) -> passkey_confirm {
+impl From<&[u8]> for passkey_confirm {
+    fn from(data: &[u8]) -> passkey_confirm {
         let mut cursor = Cursor::new(data);
         passkey_confirm {
             connection: cursor.get_u8(),
@@ -329,8 +329,8 @@ impl set_bondable_mode {
     }
 }
 
-impl FromBytes for set_bondable_mode {
-    fn from_bytes(data: &[u8]) -> set_bondable_mode {
+impl From<&[u8]> for set_bondable_mode {
+    fn from(data: &[u8]) -> set_bondable_mode {
         let mut cursor = Cursor::new(data);
         set_bondable_mode {
             bondable: cursor.get_u8(),
@@ -364,8 +364,8 @@ impl set_debug_mode {
     }
 }
 
-impl FromBytes for set_debug_mode {
-    fn from_bytes(_: &[u8]) -> set_debug_mode {
+impl From<&[u8]> for set_debug_mode {
+    fn from(_: &[u8]) -> set_debug_mode {
         set_debug_mode {}
     }
 }
@@ -396,8 +396,8 @@ impl set_oob_data {
     }
 }
 
-impl FromBytes for set_oob_data {
-    fn from_bytes(data: &[u8]) -> set_oob_data {
+impl From<&[u8]> for set_oob_data {
+    fn from(data: &[u8]) -> set_oob_data {
         let mut cursor = Cursor::new(data);
         let mut oob_data = Vec::new();
         cursor
@@ -433,8 +433,8 @@ impl set_passkey {
     }
 }
 
-impl FromBytes for set_passkey {
-    fn from_bytes(data: &[u8]) -> set_passkey {
+impl From<&[u8]> for set_passkey {
+    fn from(data: &[u8]) -> set_passkey {
         let mut cursor = Cursor::new(data);
         set_passkey {
             passkey: cursor.get_i32_le(),
@@ -470,8 +470,8 @@ impl set_sc_remote_oob_data {
     }
 }
 
-impl FromBytes for set_sc_remote_oob_data {
-    fn from_bytes(data: &[u8]) -> set_sc_remote_oob_data {
+impl From<&[u8]> for set_sc_remote_oob_data {
+    fn from(data: &[u8]) -> set_sc_remote_oob_data {
         let mut cursor = Cursor::new(data);
         let mut oob_data = Vec::new();
         cursor
@@ -511,8 +511,8 @@ impl store_bonding_configuration {
     }
 }
 
-impl FromBytes for store_bonding_configuration {
-    fn from_bytes(data: &[u8]) -> store_bonding_configuration {
+impl From<&[u8]> for store_bonding_configuration {
+    fn from(data: &[u8]) -> store_bonding_configuration {
         let mut cursor = Cursor::new(data);
         store_bonding_configuration {
             max_bonding_count: cursor.get_u8(),
@@ -550,8 +550,8 @@ impl use_sc_oob {
     }
 }
 
-impl FromBytes for use_sc_oob {
-    fn from_bytes(data: &[u8]) -> use_sc_oob {
+impl From<&[u8]> for use_sc_oob {
+    fn from(data: &[u8]) -> use_sc_oob {
         let mut cursor = Cursor::new(data);
         use_sc_oob {
             enable: cursor.get_u8(),

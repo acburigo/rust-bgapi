@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use error::Error;
 use gatt::AttOpcode;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -14,8 +14,8 @@ pub struct characteristic {
     pub uuid: [u8; 16],
 }
 
-impl FromBytes for characteristic {
-    fn from_bytes(data: &[u8]) -> characteristic {
+impl From<&[u8]> for characteristic {
+    fn from(data: &[u8]) -> characteristic {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -52,8 +52,8 @@ pub struct characteristic_value {
     pub value: Vec<u8>,
 }
 
-impl FromBytes for characteristic_value {
-    fn from_bytes(data: &[u8]) -> characteristic_value {
+impl From<&[u8]> for characteristic_value {
+    fn from(data: &[u8]) -> characteristic_value {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -93,8 +93,8 @@ pub struct descriptor {
     pub uuid: [u8; 16],
 }
 
-impl FromBytes for descriptor {
-    fn from_bytes(data: &[u8]) -> descriptor {
+impl From<&[u8]> for descriptor {
+    fn from(data: &[u8]) -> descriptor {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let descriptor = cursor.get_u16_le();
@@ -127,8 +127,8 @@ pub struct descriptor_value {
     pub value: Vec<u8>,
 }
 
-impl FromBytes for descriptor_value {
-    fn from_bytes(data: &[u8]) -> descriptor_value {
+impl From<&[u8]> for descriptor_value {
+    fn from(data: &[u8]) -> descriptor_value {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let descriptor = cursor.get_u16_le();
@@ -164,8 +164,8 @@ pub struct mtu_exchanged {
     pub mtu: u16,
 }
 
-impl FromBytes for mtu_exchanged {
-    fn from_bytes(data: &[u8]) -> mtu_exchanged {
+impl From<&[u8]> for mtu_exchanged {
+    fn from(data: &[u8]) -> mtu_exchanged {
         let mut cursor = Cursor::new(data);
         mtu_exchanged {
             connection: cursor.get_u8(),
@@ -190,8 +190,8 @@ pub struct procedure_completed {
     pub result: Error,
 }
 
-impl FromBytes for procedure_completed {
-    fn from_bytes(data: &[u8]) -> procedure_completed {
+impl From<&[u8]> for procedure_completed {
+    fn from(data: &[u8]) -> procedure_completed {
         let mut cursor = Cursor::new(data);
         procedure_completed {
             connection: cursor.get_u8(),
@@ -217,8 +217,8 @@ pub struct service {
     pub uuid: [u8; 16],
 }
 
-impl FromBytes for service {
-    fn from_bytes(data: &[u8]) -> service {
+impl From<&[u8]> for service {
+    fn from(data: &[u8]) -> service {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();

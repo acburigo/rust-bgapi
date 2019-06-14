@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -10,8 +10,8 @@ pub struct close {
     pub result: Error,
 }
 
-impl FromBytes for close {
-    fn from_bytes(data: &[u8]) -> close {
+impl From<&[u8]> for close {
+    fn from(data: &[u8]) -> close {
         let mut cursor = Cursor::new(data);
         close {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -33,8 +33,8 @@ pub struct disable_slave_latency {
     pub result: Error,
 }
 
-impl FromBytes for disable_slave_latency {
-    fn from_bytes(data: &[u8]) -> disable_slave_latency {
+impl From<&[u8]> for disable_slave_latency {
+    fn from(data: &[u8]) -> disable_slave_latency {
         let mut cursor = Cursor::new(data);
         disable_slave_latency {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -56,8 +56,8 @@ pub struct get_rssi {
     pub result: Error,
 }
 
-impl FromBytes for get_rssi {
-    fn from_bytes(data: &[u8]) -> get_rssi {
+impl From<&[u8]> for get_rssi {
+    fn from(data: &[u8]) -> get_rssi {
         let mut cursor = Cursor::new(data);
         get_rssi {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -79,8 +79,8 @@ pub struct set_parameters {
     pub result: Error,
 }
 
-impl FromBytes for set_parameters {
-    fn from_bytes(data: &[u8]) -> set_parameters {
+impl From<&[u8]> for set_parameters {
+    fn from(data: &[u8]) -> set_parameters {
         let mut cursor = Cursor::new(data);
         set_parameters {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -102,8 +102,8 @@ pub struct set_phy {
     pub result: Error,
 }
 
-impl FromBytes for set_phy {
-    fn from_bytes(data: &[u8]) -> set_phy {
+impl From<&[u8]> for set_phy {
+    fn from(data: &[u8]) -> set_phy {
         let mut cursor = Cursor::new(data);
         set_phy {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

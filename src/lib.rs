@@ -37,10 +37,9 @@ mod tests {
     #[test]
     fn message_header_from_bytes() {
         use message::{MessageClass, MessageHeader, MessageType};
-        use parser::FromBytes;
 
         let data = [0x20, 0x02, 0x01, 0x00];
-        let header = MessageHeader::from_bytes(&data);
+        let header = MessageHeader::from(&data[..]);
         let expected_header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x02,
@@ -69,11 +68,10 @@ mod tests {
     #[test]
     fn rsp_system_hello_from_bytes() {
         use error;
-        use parser::FromBytes;
         use system::rsp::hello;
 
         let data = [0x00, 0x00];
-        let actual = hello::from_bytes(&data);
+        let actual = hello::from(&data[..]);
         let expected = hello {
             result: error::Error::success,
         };

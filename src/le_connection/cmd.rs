@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -23,8 +23,8 @@ impl close {
     }
 }
 
-impl FromBytes for close {
-    fn from_bytes(data: &[u8]) -> close {
+impl From<&[u8]> for close {
+    fn from(data: &[u8]) -> close {
         let mut cursor = Cursor::new(data);
         close {
             connection: cursor.get_u8(),
@@ -64,8 +64,8 @@ impl disable_slave_latency {
     }
 }
 
-impl FromBytes for disable_slave_latency {
-    fn from_bytes(data: &[u8]) -> disable_slave_latency {
+impl From<&[u8]> for disable_slave_latency {
+    fn from(data: &[u8]) -> disable_slave_latency {
         let mut cursor = Cursor::new(data);
         disable_slave_latency {
             connection: cursor.get_u8(),
@@ -103,8 +103,8 @@ impl get_rssi {
     }
 }
 
-impl FromBytes for get_rssi {
-    fn from_bytes(data: &[u8]) -> get_rssi {
+impl From<&[u8]> for get_rssi {
+    fn from(data: &[u8]) -> get_rssi {
         let mut cursor = Cursor::new(data);
         get_rssi {
             connection: cursor.get_u8(),
@@ -156,8 +156,8 @@ impl set_parameters {
     }
 }
 
-impl FromBytes for set_parameters {
-    fn from_bytes(data: &[u8]) -> set_parameters {
+impl From<&[u8]> for set_parameters {
+    fn from(data: &[u8]) -> set_parameters {
         let mut cursor = Cursor::new(data);
         set_parameters {
             connection: cursor.get_u8(),
@@ -202,8 +202,8 @@ impl set_phy {
     }
 }
 
-impl FromBytes for set_phy {
-    fn from_bytes(data: &[u8]) -> set_phy {
+impl From<&[u8]> for set_phy {
+    fn from(data: &[u8]) -> set_phy {
         let mut cursor = Cursor::new(data);
         set_phy {
             connection: cursor.get_u8(),

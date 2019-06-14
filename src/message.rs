@@ -9,7 +9,7 @@ use le_connection;
 use le_gap;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use sm;
 use system;
 use test;
@@ -584,8 +584,8 @@ impl MessageHeader {
     }
 }
 
-impl FromBytes for MessageHeader {
-    fn from_bytes(data: &[u8]) -> MessageHeader {
+impl From<&[u8]> for MessageHeader {
+    fn from(data: &[u8]) -> MessageHeader {
         MessageHeader {
             message_type: FromPrimitive::from_u8(data[0]).unwrap(),
             payload_length: data[1],

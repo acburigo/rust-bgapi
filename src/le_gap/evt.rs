@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use le_gap::AddressType;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -10,8 +10,8 @@ pub struct adv_timeout {
     pub handle: u8,
 }
 
-impl FromBytes for adv_timeout {
-    fn from_bytes(data: &[u8]) -> adv_timeout {
+impl From<&[u8]> for adv_timeout {
+    fn from(data: &[u8]) -> adv_timeout {
         let mut cursor = Cursor::new(data);
         adv_timeout {
             handle: cursor.get_u8(),
@@ -36,8 +36,8 @@ pub struct scan_request {
     pub bonding: u8,
 }
 
-impl FromBytes for scan_request {
-    fn from_bytes(data: &[u8]) -> scan_request {
+impl From<&[u8]> for scan_request {
+    fn from(data: &[u8]) -> scan_request {
         let mut cursor = Cursor::new(data);
         let handle = cursor.get_u8();
         let mut address: [u8; 6] = Default::default();
@@ -77,8 +77,8 @@ pub struct scan_response {
     pub data: Vec<u8>,
 }
 
-impl FromBytes for scan_response {
-    fn from_bytes(data: &[u8]) -> scan_response {
+impl From<&[u8]> for scan_response {
+    fn from(data: &[u8]) -> scan_response {
         let mut cursor = Cursor::new(data);
         let rssi = cursor.get_i8();
         let packet_type = cursor.get_u8();

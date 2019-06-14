@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -21,8 +21,8 @@ impl get_bt_address {
     }
 }
 
-impl FromBytes for get_bt_address {
-    fn from_bytes(_: &[u8]) -> get_bt_address {
+impl From<&[u8]> for get_bt_address {
+    fn from(_: &[u8]) -> get_bt_address {
         get_bt_address {}
     }
 }
@@ -53,8 +53,8 @@ impl get_counters {
     }
 }
 
-impl FromBytes for get_counters {
-    fn from_bytes(data: &[u8]) -> get_counters {
+impl From<&[u8]> for get_counters {
+    fn from(data: &[u8]) -> get_counters {
         let mut cursor = Cursor::new(data);
         get_counters {
             reset: cursor.get_u8(),
@@ -90,8 +90,8 @@ impl get_random_data {
     }
 }
 
-impl FromBytes for get_random_data {
-    fn from_bytes(data: &[u8]) -> get_random_data {
+impl From<&[u8]> for get_random_data {
+    fn from(data: &[u8]) -> get_random_data {
         let mut cursor = Cursor::new(data);
         get_random_data {
             length: cursor.get_u8(),
@@ -127,8 +127,8 @@ impl halt {
     }
 }
 
-impl FromBytes for halt {
-    fn from_bytes(data: &[u8]) -> halt {
+impl From<&[u8]> for halt {
+    fn from(data: &[u8]) -> halt {
         let mut cursor = Cursor::new(data);
         halt {
             halt: cursor.get_u8(),
@@ -162,8 +162,8 @@ impl hello {
     }
 }
 
-impl FromBytes for hello {
-    fn from_bytes(_: &[u8]) -> hello {
+impl From<&[u8]> for hello {
+    fn from(_: &[u8]) -> hello {
         hello {}
     }
 }
@@ -194,8 +194,8 @@ impl reset {
     }
 }
 
-impl FromBytes for reset {
-    fn from_bytes(data: &[u8]) -> reset {
+impl From<&[u8]> for reset {
+    fn from(data: &[u8]) -> reset {
         let mut cursor = Cursor::new(data);
         reset {
             dfu: cursor.get_u8(),
@@ -231,8 +231,8 @@ impl set_bt_address {
     }
 }
 
-impl FromBytes for set_bt_address {
-    fn from_bytes(data: &[u8]) -> set_bt_address {
+impl From<&[u8]> for set_bt_address {
+    fn from(data: &[u8]) -> set_bt_address {
         let mut cursor = Cursor::new(data);
         let mut address: [u8; 6] = Default::default();
         cursor
@@ -271,8 +271,8 @@ impl set_device_name {
     }
 }
 
-impl FromBytes for set_device_name {
-    fn from_bytes(data: &[u8]) -> set_device_name {
+impl From<&[u8]> for set_device_name {
+    fn from(data: &[u8]) -> set_device_name {
         let mut cursor = Cursor::new(data);
         let dtype = cursor.get_u8();
         let mut name = Vec::new();
@@ -312,8 +312,8 @@ impl set_tx_power {
     }
 }
 
-impl FromBytes for set_tx_power {
-    fn from_bytes(data: &[u8]) -> set_tx_power {
+impl From<&[u8]> for set_tx_power {
+    fn from(data: &[u8]) -> set_tx_power {
         let mut cursor = Cursor::new(data);
         set_tx_power {
             power: cursor.get_i16_le(),

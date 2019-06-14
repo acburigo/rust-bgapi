@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -10,8 +10,8 @@ pub struct bt5_set_adv_data {
     pub result: Error,
 }
 
-impl FromBytes for bt5_set_adv_data {
-    fn from_bytes(data: &[u8]) -> bt5_set_adv_data {
+impl From<&[u8]> for bt5_set_adv_data {
+    fn from(data: &[u8]) -> bt5_set_adv_data {
         let mut cursor = Cursor::new(data);
         bt5_set_adv_data {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -33,8 +33,8 @@ pub struct clear_advertise_configuration {
     pub result: Error,
 }
 
-impl FromBytes for clear_advertise_configuration {
-    fn from_bytes(data: &[u8]) -> clear_advertise_configuration {
+impl From<&[u8]> for clear_advertise_configuration {
+    fn from(data: &[u8]) -> clear_advertise_configuration {
         let mut cursor = Cursor::new(data);
         clear_advertise_configuration {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -57,8 +57,8 @@ pub struct connect {
     pub connection: u8,
 }
 
-impl FromBytes for connect {
-    fn from_bytes(data: &[u8]) -> connect {
+impl From<&[u8]> for connect {
+    fn from(data: &[u8]) -> connect {
         let mut cursor = Cursor::new(data);
         connect {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -82,8 +82,8 @@ pub struct end_procedure {
     pub result: Error,
 }
 
-impl FromBytes for end_procedure {
-    fn from_bytes(data: &[u8]) -> end_procedure {
+impl From<&[u8]> for end_procedure {
+    fn from(data: &[u8]) -> end_procedure {
         let mut cursor = Cursor::new(data);
         end_procedure {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -105,8 +105,8 @@ pub struct set_advertise_channel_map {
     pub result: Error,
 }
 
-impl FromBytes for set_advertise_channel_map {
-    fn from_bytes(data: &[u8]) -> set_advertise_channel_map {
+impl From<&[u8]> for set_advertise_channel_map {
+    fn from(data: &[u8]) -> set_advertise_channel_map {
         let mut cursor = Cursor::new(data);
         set_advertise_channel_map {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -128,8 +128,8 @@ pub struct set_advertise_configuration {
     pub result: Error,
 }
 
-impl FromBytes for set_advertise_configuration {
-    fn from_bytes(data: &[u8]) -> set_advertise_configuration {
+impl From<&[u8]> for set_advertise_configuration {
+    fn from(data: &[u8]) -> set_advertise_configuration {
         let mut cursor = Cursor::new(data);
         set_advertise_configuration {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -151,8 +151,8 @@ pub struct set_advertise_phy {
     pub result: Error,
 }
 
-impl FromBytes for set_advertise_phy {
-    fn from_bytes(data: &[u8]) -> set_advertise_phy {
+impl From<&[u8]> for set_advertise_phy {
+    fn from(data: &[u8]) -> set_advertise_phy {
         let mut cursor = Cursor::new(data);
         set_advertise_phy {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -174,8 +174,8 @@ pub struct set_advertise_report_scan_request {
     pub result: Error,
 }
 
-impl FromBytes for set_advertise_report_scan_request {
-    fn from_bytes(data: &[u8]) -> set_advertise_report_scan_request {
+impl From<&[u8]> for set_advertise_report_scan_request {
+    fn from(data: &[u8]) -> set_advertise_report_scan_request {
         let mut cursor = Cursor::new(data);
         set_advertise_report_scan_request {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -197,8 +197,8 @@ pub struct set_advertise_timing {
     pub result: Error,
 }
 
-impl FromBytes for set_advertise_timing {
-    fn from_bytes(data: &[u8]) -> set_advertise_timing {
+impl From<&[u8]> for set_advertise_timing {
+    fn from(data: &[u8]) -> set_advertise_timing {
         let mut cursor = Cursor::new(data);
         set_advertise_timing {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -220,8 +220,8 @@ pub struct set_advertise_tx_power {
     pub result: Error,
 }
 
-impl FromBytes for set_advertise_tx_power {
-    fn from_bytes(data: &[u8]) -> set_advertise_tx_power {
+impl From<&[u8]> for set_advertise_tx_power {
+    fn from(data: &[u8]) -> set_advertise_tx_power {
         let mut cursor = Cursor::new(data);
         set_advertise_tx_power {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -243,8 +243,8 @@ pub struct set_conn_parameters {
     pub result: Error,
 }
 
-impl FromBytes for set_conn_parameters {
-    fn from_bytes(data: &[u8]) -> set_conn_parameters {
+impl From<&[u8]> for set_conn_parameters {
+    fn from(data: &[u8]) -> set_conn_parameters {
         let mut cursor = Cursor::new(data);
         set_conn_parameters {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -266,8 +266,8 @@ pub struct set_data_channel_classification {
     pub result: Error,
 }
 
-impl FromBytes for set_data_channel_classification {
-    fn from_bytes(data: &[u8]) -> set_data_channel_classification {
+impl From<&[u8]> for set_data_channel_classification {
+    fn from(data: &[u8]) -> set_data_channel_classification {
         let mut cursor = Cursor::new(data);
         set_data_channel_classification {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -289,8 +289,8 @@ pub struct set_discovery_timing {
     pub result: Error,
 }
 
-impl FromBytes for set_discovery_timing {
-    fn from_bytes(data: &[u8]) -> set_discovery_timing {
+impl From<&[u8]> for set_discovery_timing {
+    fn from(data: &[u8]) -> set_discovery_timing {
         let mut cursor = Cursor::new(data);
         set_discovery_timing {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -312,8 +312,8 @@ pub struct set_discovery_type {
     pub result: Error,
 }
 
-impl FromBytes for set_discovery_type {
-    fn from_bytes(data: &[u8]) -> set_discovery_type {
+impl From<&[u8]> for set_discovery_type {
+    fn from(data: &[u8]) -> set_discovery_type {
         let mut cursor = Cursor::new(data);
         set_discovery_type {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -335,8 +335,8 @@ pub struct set_privacy_mode {
     pub result: Error,
 }
 
-impl FromBytes for set_privacy_mode {
-    fn from_bytes(data: &[u8]) -> set_privacy_mode {
+impl From<&[u8]> for set_privacy_mode {
+    fn from(data: &[u8]) -> set_privacy_mode {
         let mut cursor = Cursor::new(data);
         set_privacy_mode {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -358,8 +358,8 @@ pub struct start_advertising {
     pub result: Error,
 }
 
-impl FromBytes for start_advertising {
-    fn from_bytes(data: &[u8]) -> start_advertising {
+impl From<&[u8]> for start_advertising {
+    fn from(data: &[u8]) -> start_advertising {
         let mut cursor = Cursor::new(data);
         start_advertising {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -381,8 +381,8 @@ pub struct start_discovery {
     pub result: Error,
 }
 
-impl FromBytes for start_discovery {
-    fn from_bytes(data: &[u8]) -> start_discovery {
+impl From<&[u8]> for start_discovery {
+    fn from(data: &[u8]) -> start_discovery {
         let mut cursor = Cursor::new(data);
         start_discovery {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -404,8 +404,8 @@ pub struct stop_advertising {
     pub result: Error,
 }
 
-impl FromBytes for stop_advertising {
-    fn from_bytes(data: &[u8]) -> stop_advertising {
+impl From<&[u8]> for stop_advertising {
+    fn from(data: &[u8]) -> stop_advertising {
         let mut cursor = Cursor::new(data);
         stop_advertising {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

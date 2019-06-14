@@ -4,7 +4,6 @@ pub mod rsp;
 
 use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_derive::FromPrimitive;
-use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
@@ -15,7 +14,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x03,
         } => Ok(MessagePayload::rsp_gatt_discover_characteristics(
-            rsp::discover_characteristics::from_bytes(buffer),
+            rsp::discover_characteristics::from(buffer),
         )),
 
         MessageHeader {
@@ -24,7 +23,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x04,
         } => Ok(MessagePayload::rsp_gatt_discover_characteristics_by_uuid(
-            rsp::discover_characteristics_by_uuid::from_bytes(buffer),
+            rsp::discover_characteristics_by_uuid::from(buffer),
         )),
 
         MessageHeader {
@@ -33,7 +32,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x06,
         } => Ok(MessagePayload::rsp_gatt_discover_descriptors(
-            rsp::discover_descriptors::from_bytes(buffer),
+            rsp::discover_descriptors::from(buffer),
         )),
 
         MessageHeader {
@@ -42,7 +41,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x01,
         } => Ok(MessagePayload::rsp_gatt_discover_primary_services(
-            rsp::discover_primary_services::from_bytes(buffer),
+            rsp::discover_primary_services::from(buffer),
         )),
 
         MessageHeader {
@@ -51,7 +50,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x02,
         } => Ok(MessagePayload::rsp_gatt_discover_primary_services_by_uuid(
-            rsp::discover_primary_services_by_uuid::from_bytes(buffer),
+            rsp::discover_primary_services_by_uuid::from(buffer),
         )),
 
         MessageHeader {
@@ -60,7 +59,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x0c,
         } => Ok(MessagePayload::rsp_gatt_execute_characteristic_value_write(
-            rsp::execute_characteristic_value_write::from_bytes(buffer),
+            rsp::execute_characteristic_value_write::from(buffer),
         )),
 
         MessageHeader {
@@ -69,7 +68,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x10,
         } => Ok(MessagePayload::rsp_gatt_find_included_services(
-            rsp::find_included_services::from_bytes(buffer),
+            rsp::find_included_services::from(buffer),
         )),
 
         MessageHeader {
@@ -79,7 +78,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_id: 0x13,
         } => Ok(
             MessagePayload::rsp_gatt_prepare_characteristic_value_reliable_write(
-                rsp::prepare_characteristic_value_reliable_write::from_bytes(buffer),
+                rsp::prepare_characteristic_value_reliable_write::from(buffer),
             ),
         ),
 
@@ -89,7 +88,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x0b,
         } => Ok(MessagePayload::rsp_gatt_prepare_characteristic_value_write(
-            rsp::prepare_characteristic_value_write::from_bytes(buffer),
+            rsp::prepare_characteristic_value_write::from(buffer),
         )),
 
         MessageHeader {
@@ -98,7 +97,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x07,
         } => Ok(MessagePayload::rsp_gatt_read_characteristic_value(
-            rsp::read_characteristic_value::from_bytes(buffer),
+            rsp::read_characteristic_value::from(buffer),
         )),
 
         MessageHeader {
@@ -107,7 +106,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x08,
         } => Ok(MessagePayload::rsp_gatt_read_characteristic_value_by_uuid(
-            rsp::read_characteristic_value_by_uuid::from_bytes(buffer),
+            rsp::read_characteristic_value_by_uuid::from(buffer),
         )),
 
         MessageHeader {
@@ -117,7 +116,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_id: 0x12,
         } => Ok(
             MessagePayload::rsp_gatt_read_characteristic_value_from_offset(
-                rsp::read_characteristic_value_from_offset::from_bytes(buffer),
+                rsp::read_characteristic_value_from_offset::from(buffer),
             ),
         ),
 
@@ -127,7 +126,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x0e,
         } => Ok(MessagePayload::rsp_gatt_read_descriptor_value(
-            rsp::read_descriptor_value::from_bytes(buffer),
+            rsp::read_descriptor_value::from(buffer),
         )),
 
         MessageHeader {
@@ -137,7 +136,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_id: 0x11,
         } => Ok(
             MessagePayload::rsp_gatt_read_multiple_characteristic_values(
-                rsp::read_multiple_characteristic_values::from_bytes(buffer),
+                rsp::read_multiple_characteristic_values::from(buffer),
             ),
         ),
 
@@ -147,7 +146,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x0d,
         } => Ok(MessagePayload::rsp_gatt_send_characteristic_confirmation(
-            rsp::send_characteristic_confirmation::from_bytes(buffer),
+            rsp::send_characteristic_confirmation::from(buffer),
         )),
 
         MessageHeader {
@@ -156,7 +155,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x05,
         } => Ok(MessagePayload::rsp_gatt_set_characteristic_notification(
-            rsp::set_characteristic_notification::from_bytes(buffer),
+            rsp::set_characteristic_notification::from(buffer),
         )),
 
         MessageHeader {
@@ -165,7 +164,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x00,
         } => Ok(MessagePayload::rsp_gatt_set_max_mtu(
-            rsp::set_max_mtu::from_bytes(buffer),
+            rsp::set_max_mtu::from(buffer),
         )),
 
         MessageHeader {
@@ -174,7 +173,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x09,
         } => Ok(MessagePayload::rsp_gatt_write_characteristic_value(
-            rsp::write_characteristic_value::from_bytes(buffer),
+            rsp::write_characteristic_value::from(buffer),
         )),
 
         MessageHeader {
@@ -184,7 +183,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_id: 0x0a,
         } => Ok(
             MessagePayload::rsp_gatt_write_characteristic_value_without_response(
-                rsp::write_characteristic_value_without_response::from_bytes(buffer),
+                rsp::write_characteristic_value_without_response::from(buffer),
             ),
         ),
 
@@ -194,7 +193,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x0f,
         } => Ok(MessagePayload::rsp_gatt_write_descriptor_value(
-            rsp::write_descriptor_value::from_bytes(buffer),
+            rsp::write_descriptor_value::from(buffer),
         )),
 
         MessageHeader {
@@ -203,7 +202,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x02,
         } => Ok(MessagePayload::evt_gatt_characteristic(
-            evt::characteristic::from_bytes(buffer),
+            evt::characteristic::from(buffer),
         )),
 
         MessageHeader {
@@ -212,7 +211,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x04,
         } => Ok(MessagePayload::evt_gatt_characteristic_value(
-            evt::characteristic_value::from_bytes(buffer),
+            evt::characteristic_value::from(buffer),
         )),
 
         MessageHeader {
@@ -220,9 +219,9 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             payload_length: _,
             message_class: MessageClass::gatt,
             message_id: 0x03,
-        } => Ok(MessagePayload::evt_gatt_descriptor(
-            evt::descriptor::from_bytes(buffer),
-        )),
+        } => Ok(MessagePayload::evt_gatt_descriptor(evt::descriptor::from(
+            buffer,
+        ))),
 
         MessageHeader {
             message_type: MessageType::event,
@@ -230,7 +229,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x05,
         } => Ok(MessagePayload::evt_gatt_descriptor_value(
-            evt::descriptor_value::from_bytes(buffer),
+            evt::descriptor_value::from(buffer),
         )),
 
         MessageHeader {
@@ -239,7 +238,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_gatt_mtu_exchanged(
-            evt::mtu_exchanged::from_bytes(buffer),
+            evt::mtu_exchanged::from(buffer),
         )),
 
         MessageHeader {
@@ -248,7 +247,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt,
             message_id: 0x06,
         } => Ok(MessagePayload::evt_gatt_procedure_completed(
-            evt::procedure_completed::from_bytes(buffer),
+            evt::procedure_completed::from(buffer),
         )),
 
         _ => Err(Error::from(ErrorKind::InvalidData)),

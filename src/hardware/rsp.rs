@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -10,8 +10,8 @@ pub struct set_lazy_soft_timer {
     pub result: Error,
 }
 
-impl FromBytes for set_lazy_soft_timer {
-    fn from_bytes(data: &[u8]) -> set_lazy_soft_timer {
+impl From<&[u8]> for set_lazy_soft_timer {
+    fn from(data: &[u8]) -> set_lazy_soft_timer {
         let mut cursor = Cursor::new(data);
         set_lazy_soft_timer {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -33,8 +33,8 @@ pub struct set_soft_timer {
     pub result: Error,
 }
 
-impl FromBytes for set_soft_timer {
-    fn from_bytes(data: &[u8]) -> set_soft_timer {
+impl From<&[u8]> for set_soft_timer {
+    fn from(data: &[u8]) -> set_soft_timer {
         let mut cursor = Cursor::new(data);
         set_soft_timer {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

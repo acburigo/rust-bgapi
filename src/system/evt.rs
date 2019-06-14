@@ -1,13 +1,13 @@
 use bytes::{Buf, BufMut};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
 pub struct awake {}
 
-impl FromBytes for awake {
-    fn from_bytes(_: &[u8]) -> awake {
+impl From<&[u8]> for awake {
+    fn from(_: &[u8]) -> awake {
         awake {}
     }
 }
@@ -30,8 +30,8 @@ pub struct boot {
     pub hash: u32,
 }
 
-impl FromBytes for boot {
-    fn from_bytes(data: &[u8]) -> boot {
+impl From<&[u8]> for boot {
+    fn from(data: &[u8]) -> boot {
         let mut cursor = Cursor::new(data);
         boot {
             major: cursor.get_u16_le(),
@@ -66,8 +66,8 @@ pub struct error {
     pub data: Vec<u8>,
 }
 
-impl FromBytes for error {
-    fn from_bytes(data: &[u8]) -> error {
+impl From<&[u8]> for error {
+    fn from(data: &[u8]) -> error {
         let mut cursor = Cursor::new(data);
         let reason = cursor.get_u16_le();
         let mut data = Vec::new();
@@ -93,8 +93,8 @@ pub struct external_signal {
     pub extsignals: u32,
 }
 
-impl FromBytes for external_signal {
-    fn from_bytes(data: &[u8]) -> external_signal {
+impl From<&[u8]> for external_signal {
+    fn from(data: &[u8]) -> external_signal {
         let mut cursor = Cursor::new(data);
         external_signal {
             extsignals: cursor.get_u32_le(),
@@ -116,8 +116,8 @@ pub struct hardware_error {
     pub status: u16,
 }
 
-impl FromBytes for hardware_error {
-    fn from_bytes(data: &[u8]) -> hardware_error {
+impl From<&[u8]> for hardware_error {
+    fn from(data: &[u8]) -> hardware_error {
         let mut cursor = Cursor::new(data);
         hardware_error {
             status: cursor.get_u16_le(),

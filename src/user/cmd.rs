@@ -1,5 +1,5 @@
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -22,8 +22,8 @@ impl message_to_target {
     }
 }
 
-impl FromBytes for message_to_target {
-    fn from_bytes(data: &[u8]) -> message_to_target {
+impl From<&[u8]> for message_to_target {
+    fn from(data: &[u8]) -> message_to_target {
         let mut cursor = Cursor::new(data);
         let mut data = Vec::new();
         cursor

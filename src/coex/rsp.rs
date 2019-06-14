@@ -3,7 +3,7 @@ use error::Error;
 use num_traits::FromPrimitive;
 use std::io::Cursor;
 
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 
 #[allow(non_camel_case_types)]
 #[derive(PartialEq, PartialOrd)]
@@ -12,8 +12,8 @@ pub struct get_counters {
     pub counters: Box<[u8]>,
 }
 
-impl FromBytes for get_counters {
-    fn from_bytes(data: &[u8]) -> get_counters {
+impl From<&[u8]> for get_counters {
+    fn from(data: &[u8]) -> get_counters {
         let mut cursor = Cursor::new(data);
         get_counters {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
@@ -37,8 +37,8 @@ pub struct set_options {
     pub result: Error,
 }
 
-impl FromBytes for set_options {
-    fn from_bytes(data: &[u8]) -> set_options {
+impl From<&[u8]> for set_options {
+    fn from(data: &[u8]) -> set_options {
         let mut cursor = Cursor::new(data);
         set_options {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

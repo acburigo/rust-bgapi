@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -14,8 +14,8 @@ pub struct attribute_value {
     pub value: Vec<u8>,
 }
 
-impl FromBytes for attribute_value {
-    fn from_bytes(data: &[u8]) -> attribute_value {
+impl From<&[u8]> for attribute_value {
+    fn from(data: &[u8]) -> attribute_value {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let attribute = cursor.get_u16_le();
@@ -56,8 +56,8 @@ pub struct characteristic_status {
     pub client_config_flags: u16,
 }
 
-impl FromBytes for characteristic_status {
-    fn from_bytes(data: &[u8]) -> characteristic_status {
+impl From<&[u8]> for characteristic_status {
+    fn from(data: &[u8]) -> characteristic_status {
         let mut cursor = Cursor::new(data);
         characteristic_status {
             connection: cursor.get_u8(),
@@ -86,8 +86,8 @@ pub struct execute_write_completed {
     pub result: Error,
 }
 
-impl FromBytes for execute_write_completed {
-    fn from_bytes(data: &[u8]) -> execute_write_completed {
+impl From<&[u8]> for execute_write_completed {
+    fn from(data: &[u8]) -> execute_write_completed {
         let mut cursor = Cursor::new(data);
         execute_write_completed {
             connection: cursor.get_u8(),
@@ -114,8 +114,8 @@ pub struct user_read_request {
     pub offset: u16,
 }
 
-impl FromBytes for user_read_request {
-    fn from_bytes(data: &[u8]) -> user_read_request {
+impl From<&[u8]> for user_read_request {
+    fn from(data: &[u8]) -> user_read_request {
         let mut cursor = Cursor::new(data);
         user_read_request {
             connection: cursor.get_u8(),
@@ -147,8 +147,8 @@ pub struct user_write_request {
     pub value: Vec<u8>,
 }
 
-impl FromBytes for user_write_request {
-    fn from_bytes(data: &[u8]) -> user_write_request {
+impl From<&[u8]> for user_write_request {
+    fn from(data: &[u8]) -> user_write_request {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();

@@ -1,5 +1,5 @@
 use bytes::{Buf, BufMut};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -9,8 +9,8 @@ pub struct bonded {
     pub bonding: u8,
 }
 
-impl FromBytes for bonded {
-    fn from_bytes(data: &[u8]) -> bonded {
+impl From<&[u8]> for bonded {
+    fn from(data: &[u8]) -> bonded {
         let mut cursor = Cursor::new(data);
         bonded {
             connection: cursor.get_u8(),
@@ -35,8 +35,8 @@ pub struct bonding_failed {
     pub reason: u16,
 }
 
-impl FromBytes for bonding_failed {
-    fn from_bytes(data: &[u8]) -> bonding_failed {
+impl From<&[u8]> for bonding_failed {
+    fn from(data: &[u8]) -> bonding_failed {
         let mut cursor = Cursor::new(data);
         bonding_failed {
             connection: cursor.get_u8(),
@@ -61,8 +61,8 @@ pub struct confirm_bonding {
     pub bonding_handle: i8,
 }
 
-impl FromBytes for confirm_bonding {
-    fn from_bytes(data: &[u8]) -> confirm_bonding {
+impl From<&[u8]> for confirm_bonding {
+    fn from(data: &[u8]) -> confirm_bonding {
         let mut cursor = Cursor::new(data);
         confirm_bonding {
             connection: cursor.get_u8(),
@@ -87,8 +87,8 @@ pub struct confirm_passkey {
     pub passkey: u32,
 }
 
-impl FromBytes for confirm_passkey {
-    fn from_bytes(data: &[u8]) -> confirm_passkey {
+impl From<&[u8]> for confirm_passkey {
+    fn from(data: &[u8]) -> confirm_passkey {
         let mut cursor = Cursor::new(data);
         confirm_passkey {
             connection: cursor.get_u8(),
@@ -110,8 +110,8 @@ impl ToBytes for confirm_passkey {
 #[derive(PartialEq, PartialOrd)]
 pub struct list_all_bondings_complete {}
 
-impl FromBytes for list_all_bondings_complete {
-    fn from_bytes(_: &[u8]) -> list_all_bondings_complete {
+impl From<&[u8]> for list_all_bondings_complete {
+    fn from(_: &[u8]) -> list_all_bondings_complete {
         list_all_bondings_complete {}
     }
 }
@@ -130,8 +130,8 @@ pub struct list_bonding_entry {
     pub address_type: u8,
 }
 
-impl FromBytes for list_bonding_entry {
-    fn from_bytes(data: &[u8]) -> list_bonding_entry {
+impl From<&[u8]> for list_bonding_entry {
+    fn from(data: &[u8]) -> list_bonding_entry {
         let mut cursor = Cursor::new(data);
         let bonding = cursor.get_u8();
         let mut address: [u8; 6] = Default::default();
@@ -164,8 +164,8 @@ pub struct passkey_display {
     pub passkey: u32,
 }
 
-impl FromBytes for passkey_display {
-    fn from_bytes(data: &[u8]) -> passkey_display {
+impl From<&[u8]> for passkey_display {
+    fn from(data: &[u8]) -> passkey_display {
         let mut cursor = Cursor::new(data);
         passkey_display {
             connection: cursor.get_u8(),
@@ -189,8 +189,8 @@ pub struct passkey_request {
     pub connection: u8,
 }
 
-impl FromBytes for passkey_request {
-    fn from_bytes(data: &[u8]) -> passkey_request {
+impl From<&[u8]> for passkey_request {
+    fn from(data: &[u8]) -> passkey_request {
         let mut cursor = Cursor::new(data);
         passkey_request {
             connection: cursor.get_u8(),

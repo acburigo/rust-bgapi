@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 use test::{PacketType, Phy};
 
@@ -23,8 +23,8 @@ impl dtm_end {
     }
 }
 
-impl FromBytes for dtm_end {
-    fn from_bytes(_: &[u8]) -> dtm_end {
+impl From<&[u8]> for dtm_end {
+    fn from(_: &[u8]) -> dtm_end {
         dtm_end {}
     }
 }
@@ -56,8 +56,8 @@ impl dtm_rx {
     }
 }
 
-impl FromBytes for dtm_rx {
-    fn from_bytes(data: &[u8]) -> dtm_rx {
+impl From<&[u8]> for dtm_rx {
+    fn from(data: &[u8]) -> dtm_rx {
         let mut cursor = Cursor::new(data);
         dtm_rx {
             channel: cursor.get_u8(),
@@ -103,8 +103,8 @@ impl dtm_tx {
     }
 }
 
-impl FromBytes for dtm_tx {
-    fn from_bytes(data: &[u8]) -> dtm_tx {
+impl From<&[u8]> for dtm_tx {
+    fn from(data: &[u8]) -> dtm_tx {
         let mut cursor = Cursor::new(data);
         dtm_tx {
             packet_type: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),

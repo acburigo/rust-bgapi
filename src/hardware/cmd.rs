@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -31,8 +31,8 @@ impl set_lazy_soft_timer {
     }
 }
 
-impl FromBytes for set_lazy_soft_timer {
-    fn from_bytes(data: &[u8]) -> set_lazy_soft_timer {
+impl From<&[u8]> for set_lazy_soft_timer {
+    fn from(data: &[u8]) -> set_lazy_soft_timer {
         let mut cursor = Cursor::new(data);
         set_lazy_soft_timer {
             time: cursor.get_u32_le(),
@@ -80,8 +80,8 @@ impl set_soft_timer {
     }
 }
 
-impl FromBytes for set_soft_timer {
-    fn from_bytes(data: &[u8]) -> set_soft_timer {
+impl From<&[u8]> for set_soft_timer {
+    fn from(data: &[u8]) -> set_soft_timer {
         let mut cursor = Cursor::new(data);
         set_soft_timer {
             time: cursor.get_u32_le(),

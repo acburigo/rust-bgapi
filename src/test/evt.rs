@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -11,8 +11,8 @@ pub struct dtm_completed {
     pub number_of_packets: u16,
 }
 
-impl FromBytes for dtm_completed {
-    fn from_bytes(data: &[u8]) -> dtm_completed {
+impl From<&[u8]> for dtm_completed {
+    fn from(data: &[u8]) -> dtm_completed {
         let mut cursor = Cursor::new(data);
         dtm_completed {
             result: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),

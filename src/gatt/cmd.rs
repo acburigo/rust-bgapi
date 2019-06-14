@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -27,8 +27,8 @@ impl discover_characteristics {
     }
 }
 
-impl FromBytes for discover_characteristics {
-    fn from_bytes(data: &[u8]) -> discover_characteristics {
+impl From<&[u8]> for discover_characteristics {
+    fn from(data: &[u8]) -> discover_characteristics {
         let mut cursor = Cursor::new(data);
         discover_characteristics {
             connection: cursor.get_u8(),
@@ -72,8 +72,8 @@ impl discover_characteristics_by_uuid {
     }
 }
 
-impl FromBytes for discover_characteristics_by_uuid {
-    fn from_bytes(data: &[u8]) -> discover_characteristics_by_uuid {
+impl From<&[u8]> for discover_characteristics_by_uuid {
+    fn from(data: &[u8]) -> discover_characteristics_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
@@ -121,8 +121,8 @@ impl discover_descriptors {
     }
 }
 
-impl FromBytes for discover_descriptors {
-    fn from_bytes(data: &[u8]) -> discover_descriptors {
+impl From<&[u8]> for discover_descriptors {
+    fn from(data: &[u8]) -> discover_descriptors {
         let mut cursor = Cursor::new(data);
         discover_descriptors {
             connection: cursor.get_u8(),
@@ -160,8 +160,8 @@ impl discover_primary_services {
     }
 }
 
-impl FromBytes for discover_primary_services {
-    fn from_bytes(data: &[u8]) -> discover_primary_services {
+impl From<&[u8]> for discover_primary_services {
+    fn from(data: &[u8]) -> discover_primary_services {
         let mut cursor = Cursor::new(data);
         discover_primary_services {
             connection: cursor.get_u8(),
@@ -198,8 +198,8 @@ impl discover_primary_services_by_uuid {
     }
 }
 
-impl FromBytes for discover_primary_services_by_uuid {
-    fn from_bytes(data: &[u8]) -> discover_primary_services_by_uuid {
+impl From<&[u8]> for discover_primary_services_by_uuid {
+    fn from(data: &[u8]) -> discover_primary_services_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let mut uuid: [u8; 16] = Default::default();
@@ -238,8 +238,8 @@ impl execute_characteristic_value_write {
     }
 }
 
-impl FromBytes for execute_characteristic_value_write {
-    fn from_bytes(data: &[u8]) -> execute_characteristic_value_write {
+impl From<&[u8]> for execute_characteristic_value_write {
+    fn from(data: &[u8]) -> execute_characteristic_value_write {
         let mut cursor = Cursor::new(data);
         execute_characteristic_value_write {
             connection: cursor.get_u8(),
@@ -281,8 +281,8 @@ impl find_included_services {
     }
 }
 
-impl FromBytes for find_included_services {
-    fn from_bytes(data: &[u8]) -> find_included_services {
+impl From<&[u8]> for find_included_services {
+    fn from(data: &[u8]) -> find_included_services {
         let mut cursor = Cursor::new(data);
         find_included_services {
             connection: cursor.get_u8(),
@@ -328,8 +328,8 @@ impl prepare_characteristic_value_reliable_write {
     }
 }
 
-impl FromBytes for prepare_characteristic_value_reliable_write {
-    fn from_bytes(data: &[u8]) -> prepare_characteristic_value_reliable_write {
+impl From<&[u8]> for prepare_characteristic_value_reliable_write {
+    fn from(data: &[u8]) -> prepare_characteristic_value_reliable_write {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -386,8 +386,8 @@ impl prepare_characteristic_value_write {
     }
 }
 
-impl FromBytes for prepare_characteristic_value_write {
-    fn from_bytes(data: &[u8]) -> prepare_characteristic_value_write {
+impl From<&[u8]> for prepare_characteristic_value_write {
+    fn from(data: &[u8]) -> prepare_characteristic_value_write {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -440,8 +440,8 @@ impl read_characteristic_value {
     }
 }
 
-impl FromBytes for read_characteristic_value {
-    fn from_bytes(data: &[u8]) -> read_characteristic_value {
+impl From<&[u8]> for read_characteristic_value {
+    fn from(data: &[u8]) -> read_characteristic_value {
         let mut cursor = Cursor::new(data);
         read_characteristic_value {
             connection: cursor.get_u8(),
@@ -485,8 +485,8 @@ impl read_characteristic_value_by_uuid {
     }
 }
 
-impl FromBytes for read_characteristic_value_by_uuid {
-    fn from_bytes(data: &[u8]) -> read_characteristic_value_by_uuid {
+impl From<&[u8]> for read_characteristic_value_by_uuid {
+    fn from(data: &[u8]) -> read_characteristic_value_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
@@ -538,8 +538,8 @@ impl read_characteristic_value_from_offset {
     }
 }
 
-impl FromBytes for read_characteristic_value_from_offset {
-    fn from_bytes(data: &[u8]) -> read_characteristic_value_from_offset {
+impl From<&[u8]> for read_characteristic_value_from_offset {
+    fn from(data: &[u8]) -> read_characteristic_value_from_offset {
         let mut cursor = Cursor::new(data);
         read_characteristic_value_from_offset {
             connection: cursor.get_u8(),
@@ -585,8 +585,8 @@ impl read_descriptor_value {
     }
 }
 
-impl FromBytes for read_descriptor_value {
-    fn from_bytes(data: &[u8]) -> read_descriptor_value {
+impl From<&[u8]> for read_descriptor_value {
+    fn from(data: &[u8]) -> read_descriptor_value {
         let mut cursor = Cursor::new(data);
         read_descriptor_value {
             connection: cursor.get_u8(),
@@ -628,8 +628,8 @@ impl read_multiple_characteristic_values {
     }
 }
 
-impl FromBytes for read_multiple_characteristic_values {
-    fn from_bytes(data: &[u8]) -> read_multiple_characteristic_values {
+impl From<&[u8]> for read_multiple_characteristic_values {
+    fn from(data: &[u8]) -> read_multiple_characteristic_values {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let mut characteristic_list = Vec::new();
@@ -674,8 +674,8 @@ impl send_characteristic_confirmation {
     }
 }
 
-impl FromBytes for send_characteristic_confirmation {
-    fn from_bytes(data: &[u8]) -> send_characteristic_confirmation {
+impl From<&[u8]> for send_characteristic_confirmation {
+    fn from(data: &[u8]) -> send_characteristic_confirmation {
         let mut cursor = Cursor::new(data);
         send_characteristic_confirmation {
             connection: cursor.get_u8(),
@@ -717,8 +717,8 @@ impl set_characteristic_notification {
     }
 }
 
-impl FromBytes for set_characteristic_notification {
-    fn from_bytes(data: &[u8]) -> set_characteristic_notification {
+impl From<&[u8]> for set_characteristic_notification {
+    fn from(data: &[u8]) -> set_characteristic_notification {
         let mut cursor = Cursor::new(data);
         set_characteristic_notification {
             connection: cursor.get_u8(),
@@ -758,8 +758,8 @@ impl set_max_mtu {
     }
 }
 
-impl FromBytes for set_max_mtu {
-    fn from_bytes(data: &[u8]) -> set_max_mtu {
+impl From<&[u8]> for set_max_mtu {
+    fn from(data: &[u8]) -> set_max_mtu {
         let mut cursor = Cursor::new(data);
         set_max_mtu {
             max_mtu: cursor.get_u16_le(),
@@ -801,8 +801,8 @@ impl write_characteristic_value {
     }
 }
 
-impl FromBytes for write_characteristic_value {
-    fn from_bytes(data: &[u8]) -> write_characteristic_value {
+impl From<&[u8]> for write_characteristic_value {
+    fn from(data: &[u8]) -> write_characteristic_value {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -854,8 +854,8 @@ impl write_characteristic_value_without_response {
     }
 }
 
-impl FromBytes for write_characteristic_value_without_response {
-    fn from_bytes(data: &[u8]) -> write_characteristic_value_without_response {
+impl From<&[u8]> for write_characteristic_value_without_response {
+    fn from(data: &[u8]) -> write_characteristic_value_without_response {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
@@ -907,8 +907,8 @@ impl write_descriptor_value {
     }
 }
 
-impl FromBytes for write_descriptor_value {
-    fn from_bytes(data: &[u8]) -> write_descriptor_value {
+impl From<&[u8]> for write_descriptor_value {
+    fn from(data: &[u8]) -> write_descriptor_value {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let descriptor = cursor.get_u16_le();

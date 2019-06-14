@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -23,8 +23,8 @@ impl flash_set_address {
     }
 }
 
-impl FromBytes for flash_set_address {
-    fn from_bytes(data: &[u8]) -> flash_set_address {
+impl From<&[u8]> for flash_set_address {
+    fn from(data: &[u8]) -> flash_set_address {
         let mut cursor = Cursor::new(data);
         flash_set_address {
             address: cursor.get_u32_le(),
@@ -60,8 +60,8 @@ impl flash_upload {
     }
 }
 
-impl FromBytes for flash_upload {
-    fn from_bytes(data: &[u8]) -> flash_upload {
+impl From<&[u8]> for flash_upload {
+    fn from(data: &[u8]) -> flash_upload {
         flash_upload {
             data: data.to_vec(),
         }
@@ -92,8 +92,8 @@ impl flash_upload_finish {
     }
 }
 
-impl FromBytes for flash_upload_finish {
-    fn from_bytes(_: &[u8]) -> flash_upload_finish {
+impl From<&[u8]> for flash_upload_finish {
+    fn from(_: &[u8]) -> flash_upload_finish {
         flash_upload_finish {}
     }
 }
@@ -124,8 +124,8 @@ impl reset {
     }
 }
 
-impl FromBytes for reset {
-    fn from_bytes(data: &[u8]) -> reset {
+impl From<&[u8]> for reset {
+    fn from(data: &[u8]) -> reset {
         let mut cursor = Cursor::new(data);
         reset {
             dfu: cursor.get_u8(),

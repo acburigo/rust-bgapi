@@ -1,5 +1,5 @@
 use bytes::{Buf, BufMut};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -8,8 +8,8 @@ pub struct soft_timer {
     pub handle: u8,
 }
 
-impl FromBytes for soft_timer {
-    fn from_bytes(data: &[u8]) -> soft_timer {
+impl From<&[u8]> for soft_timer {
+    fn from(data: &[u8]) -> soft_timer {
         let mut cursor = Cursor::new(data);
         soft_timer {
             handle: cursor.get_u8(),

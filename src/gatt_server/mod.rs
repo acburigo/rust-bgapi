@@ -3,7 +3,6 @@ pub mod evt;
 pub mod rsp;
 
 use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
@@ -14,7 +13,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x06,
         } => Ok(MessagePayload::rsp_gatt_server_find_attribute(
-            rsp::find_attribute::from_bytes(buffer),
+            rsp::find_attribute::from(buffer),
         )),
 
         MessageHeader {
@@ -23,7 +22,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x01,
         } => Ok(MessagePayload::rsp_gatt_server_read_attribute_type(
-            rsp::read_attribute_type::from_bytes(buffer),
+            rsp::read_attribute_type::from(buffer),
         )),
 
         MessageHeader {
@@ -32,7 +31,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x00,
         } => Ok(MessagePayload::rsp_gatt_server_read_attribute_value(
-            rsp::read_attribute_value::from_bytes(buffer),
+            rsp::read_attribute_value::from(buffer),
         )),
 
         MessageHeader {
@@ -42,7 +41,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_id: 0x05,
         } => Ok(
             MessagePayload::rsp_gatt_server_send_characteristic_notification(
-                rsp::send_characteristic_notification::from_bytes(buffer),
+                rsp::send_characteristic_notification::from(buffer),
             ),
         ),
 
@@ -52,7 +51,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x03,
         } => Ok(MessagePayload::rsp_gatt_server_send_user_read_response(
-            rsp::send_user_read_response::from_bytes(buffer),
+            rsp::send_user_read_response::from(buffer),
         )),
 
         MessageHeader {
@@ -61,7 +60,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x04,
         } => Ok(MessagePayload::rsp_gatt_server_send_user_write_response(
-            rsp::send_user_write_response::from_bytes(buffer),
+            rsp::send_user_write_response::from(buffer),
         )),
 
         MessageHeader {
@@ -70,7 +69,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x08,
         } => Ok(MessagePayload::rsp_gatt_server_set_capabilities(
-            rsp::set_capabilities::from_bytes(buffer),
+            rsp::set_capabilities::from(buffer),
         )),
 
         MessageHeader {
@@ -79,7 +78,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x02,
         } => Ok(MessagePayload::rsp_gatt_server_write_attribute_value(
-            rsp::write_attribute_value::from_bytes(buffer),
+            rsp::write_attribute_value::from(buffer),
         )),
 
         MessageHeader {
@@ -88,7 +87,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_gatt_server_attribute_value(
-            evt::attribute_value::from_bytes(buffer),
+            evt::attribute_value::from(buffer),
         )),
 
         MessageHeader {
@@ -97,7 +96,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x03,
         } => Ok(MessagePayload::evt_gatt_server_characteristic_status(
-            evt::characteristic_status::from_bytes(buffer),
+            evt::characteristic_status::from(buffer),
         )),
 
         MessageHeader {
@@ -106,7 +105,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x04,
         } => Ok(MessagePayload::evt_gatt_server_execute_write_completed(
-            evt::execute_write_completed::from_bytes(buffer),
+            evt::execute_write_completed::from(buffer),
         )),
 
         MessageHeader {
@@ -115,7 +114,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x01,
         } => Ok(MessagePayload::evt_gatt_server_user_read_request(
-            evt::user_read_request::from_bytes(buffer),
+            evt::user_read_request::from(buffer),
         )),
 
         MessageHeader {
@@ -124,7 +123,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::gatt_server,
             message_id: 0x02,
         } => Ok(MessagePayload::evt_gatt_server_user_write_request(
-            evt::user_write_request::from_bytes(buffer),
+            evt::user_write_request::from(buffer),
         )),
 
         _ => Err(Error::from(ErrorKind::InvalidData)),

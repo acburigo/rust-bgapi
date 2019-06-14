@@ -21,10 +21,6 @@ pub trait ToBytes {
     fn to_bytes(&self) -> Vec<u8>;
 }
 
-pub trait FromBytes {
-    fn from_bytes(&[u8]) -> Self;
-}
-
 pub fn parse_next_message(stream: &Stream) -> Result<Message, Error> {
     let mut buffer = Vec::new();
 
@@ -32,7 +28,7 @@ pub fn parse_next_message(stream: &Stream) -> Result<Message, Error> {
         buffer.push(stream.next()?);
     }
 
-    let header = MessageHeader::from_bytes(buffer.as_slice());
+    let header = MessageHeader::from(buffer.as_slice());
 
     buffer.clear();
 

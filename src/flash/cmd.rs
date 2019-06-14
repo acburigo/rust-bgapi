@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -23,8 +23,8 @@ impl ps_erase {
     }
 }
 
-impl FromBytes for ps_erase {
-    fn from_bytes(data: &[u8]) -> ps_erase {
+impl From<&[u8]> for ps_erase {
+    fn from(data: &[u8]) -> ps_erase {
         let mut cursor = Cursor::new(data);
         ps_erase {
             key: cursor.get_u16_le(),
@@ -58,8 +58,8 @@ impl ps_erase_all {
     }
 }
 
-impl FromBytes for ps_erase_all {
-    fn from_bytes(_: &[u8]) -> ps_erase_all {
+impl From<&[u8]> for ps_erase_all {
+    fn from(_: &[u8]) -> ps_erase_all {
         ps_erase_all {}
     }
 }
@@ -90,8 +90,8 @@ impl ps_load {
     }
 }
 
-impl FromBytes for ps_load {
-    fn from_bytes(data: &[u8]) -> ps_load {
+impl From<&[u8]> for ps_load {
+    fn from(data: &[u8]) -> ps_load {
         let mut cursor = Cursor::new(data);
         ps_load {
             key: cursor.get_u16_le(),
@@ -128,8 +128,8 @@ impl ps_save {
     }
 }
 
-impl FromBytes for ps_save {
-    fn from_bytes(data: &[u8]) -> ps_save {
+impl From<&[u8]> for ps_save {
+    fn from(data: &[u8]) -> ps_save {
         let mut cursor = Cursor::new(data);
         let key = cursor.get_u16_le();
         let mut value = Vec::new();

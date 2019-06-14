@@ -3,7 +3,6 @@ pub mod evt;
 pub mod rsp;
 
 use message::{MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::FromBytes;
 use std::io::{Error, ErrorKind};
 
 pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Error> {
@@ -14,7 +13,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::hardware,
             message_id: 0x0c,
         } => Ok(MessagePayload::rsp_hardware_set_lazy_soft_timer(
-            rsp::set_lazy_soft_timer::from_bytes(buffer),
+            rsp::set_lazy_soft_timer::from(buffer),
         )),
 
         MessageHeader {
@@ -23,7 +22,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::hardware,
             message_id: 0x00,
         } => Ok(MessagePayload::rsp_hardware_set_soft_timer(
-            rsp::set_soft_timer::from_bytes(buffer),
+            rsp::set_soft_timer::from(buffer),
         )),
 
         MessageHeader {
@@ -32,7 +31,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             message_class: MessageClass::hardware,
             message_id: 0x00,
         } => Ok(MessagePayload::evt_hardware_soft_timer(
-            evt::soft_timer::from_bytes(buffer),
+            evt::soft_timer::from(buffer),
         )),
 
         _ => Err(Error::from(ErrorKind::InvalidData)),

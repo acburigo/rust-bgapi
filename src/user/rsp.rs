@@ -1,7 +1,7 @@
 use bytes::{Buf, BufMut};
 use error::Error;
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -11,8 +11,8 @@ pub struct message_to_target {
     pub data: Vec<u8>,
 }
 
-impl FromBytes for message_to_target {
-    fn from_bytes(data: &[u8]) -> message_to_target {
+impl From<&[u8]> for message_to_target {
+    fn from(data: &[u8]) -> message_to_target {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut data = Vec::new();

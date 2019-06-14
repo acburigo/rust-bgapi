@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use le_gap::{AddressType, ConnectableMode, DiscoverMode, DiscoverableMode, PhyType};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
 use num_traits::FromPrimitive;
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -31,8 +31,8 @@ impl bt5_set_adv_data {
     }
 }
 
-impl FromBytes for bt5_set_adv_data {
-    fn from_bytes(data: &[u8]) -> bt5_set_adv_data {
+impl From<&[u8]> for bt5_set_adv_data {
+    fn from(data: &[u8]) -> bt5_set_adv_data {
         let mut cursor = Cursor::new(data);
         let handle = cursor.get_u8();
         let scan_rsp = cursor.get_u8();
@@ -82,8 +82,8 @@ impl clear_advertise_configuration {
     }
 }
 
-impl FromBytes for clear_advertise_configuration {
-    fn from_bytes(data: &[u8]) -> clear_advertise_configuration {
+impl From<&[u8]> for clear_advertise_configuration {
+    fn from(data: &[u8]) -> clear_advertise_configuration {
         let mut cursor = Cursor::new(data);
         clear_advertise_configuration {
             handle: cursor.get_u8(),
@@ -127,8 +127,8 @@ impl connect {
     }
 }
 
-impl FromBytes for connect {
-    fn from_bytes(data: &[u8]) -> connect {
+impl From<&[u8]> for connect {
+    fn from(data: &[u8]) -> connect {
         let mut cursor = Cursor::new(data);
         let mut address: [u8; 6] = Default::default();
         cursor
@@ -170,8 +170,8 @@ impl end_procedure {
     }
 }
 
-impl FromBytes for end_procedure {
-    fn from_bytes(_: &[u8]) -> end_procedure {
+impl From<&[u8]> for end_procedure {
+    fn from(_: &[u8]) -> end_procedure {
         end_procedure {}
     }
 }
@@ -206,8 +206,8 @@ impl set_advertise_channel_map {
     }
 }
 
-impl FromBytes for set_advertise_channel_map {
-    fn from_bytes(data: &[u8]) -> set_advertise_channel_map {
+impl From<&[u8]> for set_advertise_channel_map {
+    fn from(data: &[u8]) -> set_advertise_channel_map {
         let mut cursor = Cursor::new(data);
         set_advertise_channel_map {
             handle: cursor.get_u8(),
@@ -249,8 +249,8 @@ impl set_advertise_configuration {
     }
 }
 
-impl FromBytes for set_advertise_configuration {
-    fn from_bytes(data: &[u8]) -> set_advertise_configuration {
+impl From<&[u8]> for set_advertise_configuration {
+    fn from(data: &[u8]) -> set_advertise_configuration {
         let mut cursor = Cursor::new(data);
         set_advertise_configuration {
             handle: cursor.get_u8(),
@@ -294,8 +294,8 @@ impl set_advertise_phy {
     }
 }
 
-impl FromBytes for set_advertise_phy {
-    fn from_bytes(data: &[u8]) -> set_advertise_phy {
+impl From<&[u8]> for set_advertise_phy {
+    fn from(data: &[u8]) -> set_advertise_phy {
         let mut cursor = Cursor::new(data);
         set_advertise_phy {
             handle: cursor.get_u8(),
@@ -339,8 +339,8 @@ impl set_advertise_report_scan_request {
     }
 }
 
-impl FromBytes for set_advertise_report_scan_request {
-    fn from_bytes(data: &[u8]) -> set_advertise_report_scan_request {
+impl From<&[u8]> for set_advertise_report_scan_request {
+    fn from(data: &[u8]) -> set_advertise_report_scan_request {
         let mut cursor = Cursor::new(data);
         set_advertise_report_scan_request {
             handle: cursor.get_u8(),
@@ -394,8 +394,8 @@ impl set_advertise_timing {
     }
 }
 
-impl FromBytes for set_advertise_timing {
-    fn from_bytes(data: &[u8]) -> set_advertise_timing {
+impl From<&[u8]> for set_advertise_timing {
+    fn from(data: &[u8]) -> set_advertise_timing {
         let mut cursor = Cursor::new(data);
         set_advertise_timing {
             handle: cursor.get_u8(),
@@ -440,8 +440,8 @@ impl set_advertise_tx_power {
     }
 }
 
-impl FromBytes for set_advertise_tx_power {
-    fn from_bytes(data: &[u8]) -> set_advertise_tx_power {
+impl From<&[u8]> for set_advertise_tx_power {
+    fn from(data: &[u8]) -> set_advertise_tx_power {
         let mut cursor = Cursor::new(data);
         set_advertise_tx_power {
             handle: cursor.get_u8(),
@@ -487,8 +487,8 @@ impl set_conn_parameters {
     }
 }
 
-impl FromBytes for set_conn_parameters {
-    fn from_bytes(data: &[u8]) -> set_conn_parameters {
+impl From<&[u8]> for set_conn_parameters {
+    fn from(data: &[u8]) -> set_conn_parameters {
         let mut cursor = Cursor::new(data);
         set_conn_parameters {
             min_interval: cursor.get_u16_le(),
@@ -530,8 +530,8 @@ impl set_data_channel_classification {
     }
 }
 
-impl FromBytes for set_data_channel_classification {
-    fn from_bytes(data: &[u8]) -> set_data_channel_classification {
+impl From<&[u8]> for set_data_channel_classification {
+    fn from(data: &[u8]) -> set_data_channel_classification {
         let mut cursor = Cursor::new(data);
         let mut channel_map: [u8; 5] = Default::default();
         cursor
@@ -575,8 +575,8 @@ impl set_discovery_timing {
     }
 }
 
-impl FromBytes for set_discovery_timing {
-    fn from_bytes(data: &[u8]) -> set_discovery_timing {
+impl From<&[u8]> for set_discovery_timing {
+    fn from(data: &[u8]) -> set_discovery_timing {
         let mut cursor = Cursor::new(data);
         set_discovery_timing {
             phys: cursor.get_u8(),
@@ -617,8 +617,8 @@ impl set_discovery_type {
     }
 }
 
-impl FromBytes for set_discovery_type {
-    fn from_bytes(data: &[u8]) -> set_discovery_type {
+impl From<&[u8]> for set_discovery_type {
+    fn from(data: &[u8]) -> set_discovery_type {
         let mut cursor = Cursor::new(data);
         set_discovery_type {
             phys: cursor.get_u8(),
@@ -657,8 +657,8 @@ impl set_privacy_mode {
     }
 }
 
-impl FromBytes for set_privacy_mode {
-    fn from_bytes(data: &[u8]) -> set_privacy_mode {
+impl From<&[u8]> for set_privacy_mode {
+    fn from(data: &[u8]) -> set_privacy_mode {
         let mut cursor = Cursor::new(data);
         set_privacy_mode {
             privacy: cursor.get_u8(),
@@ -702,8 +702,8 @@ impl start_advertising {
     }
 }
 
-impl FromBytes for start_advertising {
-    fn from_bytes(data: &[u8]) -> start_advertising {
+impl From<&[u8]> for start_advertising {
+    fn from(data: &[u8]) -> start_advertising {
         let mut cursor = Cursor::new(data);
         start_advertising {
             handle: cursor.get_u8(),
@@ -744,8 +744,8 @@ impl start_discovery {
     }
 }
 
-impl FromBytes for start_discovery {
-    fn from_bytes(data: &[u8]) -> start_discovery {
+impl From<&[u8]> for start_discovery {
+    fn from(data: &[u8]) -> start_discovery {
         let mut cursor = Cursor::new(data);
         start_discovery {
             scanning_phy: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
@@ -783,8 +783,8 @@ impl stop_advertising {
     }
 }
 
-impl FromBytes for stop_advertising {
-    fn from_bytes(data: &[u8]) -> stop_advertising {
+impl From<&[u8]> for stop_advertising {
+    fn from(data: &[u8]) -> stop_advertising {
         let mut cursor = Cursor::new(data);
         stop_advertising {
             handle: cursor.get_u8(),

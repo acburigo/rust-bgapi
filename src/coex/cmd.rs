@@ -1,6 +1,6 @@
 use bytes::{Buf, BufMut};
 use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -23,8 +23,8 @@ impl get_counters {
     }
 }
 
-impl FromBytes for get_counters {
-    fn from_bytes(data: &[u8]) -> get_counters {
+impl From<&[u8]> for get_counters {
+    fn from(data: &[u8]) -> get_counters {
         let mut cursor = Cursor::new(data);
         get_counters {
             reset: cursor.get_u8(),
@@ -61,8 +61,8 @@ impl set_options {
     }
 }
 
-impl FromBytes for set_options {
-    fn from_bytes(data: &[u8]) -> set_options {
+impl From<&[u8]> for set_options {
+    fn from(data: &[u8]) -> set_options {
         let mut cursor = Cursor::new(data);
         set_options {
             mask: cursor.get_u32_le(),

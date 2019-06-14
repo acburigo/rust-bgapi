@@ -1,5 +1,5 @@
 use bytes::{Buf, BufMut};
-use parser::{FromBytes, ToBytes};
+use parser::ToBytes;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
@@ -8,8 +8,8 @@ pub struct boot {
     pub version: u32,
 }
 
-impl FromBytes for boot {
-    fn from_bytes(data: &[u8]) -> boot {
+impl From<&[u8]> for boot {
+    fn from(data: &[u8]) -> boot {
         let mut cursor = Cursor::new(data);
         boot {
             version: cursor.get_u32_le(),
@@ -31,8 +31,8 @@ pub struct boot_failure {
     pub reason: u16,
 }
 
-impl FromBytes for boot_failure {
-    fn from_bytes(data: &[u8]) -> boot_failure {
+impl From<&[u8]> for boot_failure {
+    fn from(data: &[u8]) -> boot_failure {
         let mut cursor = Cursor::new(data);
         boot_failure {
             reason: cursor.get_u16_le(),
