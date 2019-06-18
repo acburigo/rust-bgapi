@@ -217,13 +217,14 @@ pub struct set_bt_address {
 }
 
 impl set_bt_address {
-    pub fn new(address: [u8; 6]) -> Message {
+    pub fn new(mut address: [u8; 6]) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: address.len() as u8,
             message_class: MessageClass::system,
             message_id: 0x04,
         };
+        address.reverse();
         let payload = set_bt_address { address };
         let payload = MessagePayload::cmd_system_set_bt_address(payload);
         Message { header, payload }
@@ -237,6 +238,7 @@ impl From<&[u8]> for set_bt_address {
         cursor
             .read_exact(&mut address)
             .expect("Failed to read bytes.");
+        address.reverse();
         set_bt_address { address }
     }
 }
@@ -244,7 +246,7 @@ impl From<&[u8]> for set_bt_address {
 impl Into<Vec<u8>> for set_bt_address {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.extend_from_slice(&self.address);
+        bytes.extend(self.address.iter().rev());
         bytes
     }
 }

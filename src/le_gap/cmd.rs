@@ -109,13 +109,18 @@ pub struct connect {
 }
 
 impl connect {
-    pub fn new(address: [u8; 6], address_type: AddressType, initiating_phy: PhyType) -> Message {
+    pub fn new(
+        mut address: [u8; 6],
+        address_type: AddressType,
+        initiating_phy: PhyType,
+    ) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x08,
             message_class: MessageClass::le_gap,
             message_id: 0x1a,
         };
+        address.reverse();
         let payload = connect {
             address,
             address_type,
@@ -133,6 +138,7 @@ impl From<&[u8]> for connect {
         cursor
             .read_exact(&mut address)
             .expect("Failed to read bytes.");
+        address.reverse();
         connect {
             address,
             address_type: FromPrimitive::from_u8(cursor.get_u8()).unwrap(),
@@ -144,7 +150,7 @@ impl From<&[u8]> for connect {
 impl Into<Vec<u8>> for connect {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.extend_from_slice(&self.address);
+        bytes.extend(self.address.iter().rev());
         bytes.put_u8(self.address_type.clone() as u8);
         bytes.put_u8(self.initiating_phy.clone() as u8);
         bytes

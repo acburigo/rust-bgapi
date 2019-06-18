@@ -137,6 +137,7 @@ impl From<&[u8]> for list_bonding_entry {
         cursor
             .read_exact(&mut address)
             .expect("Failed to read bytes.");
+        address.reverse();
         let address_type = cursor.get_u8();
         list_bonding_entry {
             bonding,
@@ -150,7 +151,7 @@ impl Into<Vec<u8>> for list_bonding_entry {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.bonding);
-        bytes.extend_from_slice(&self.address);
+        bytes.extend(self.address.iter().rev());
         bytes.put_u8(self.address_type);
         bytes
     }

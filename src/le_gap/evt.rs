@@ -43,6 +43,7 @@ impl From<&[u8]> for scan_request {
         cursor
             .read_exact(&mut address)
             .expect("Failed to read bytes.");
+        address.reverse();
         let address_type = FromPrimitive::from_u8(cursor.get_u8()).unwrap();
         let bonding = cursor.get_u8();
         scan_request {
@@ -58,7 +59,7 @@ impl Into<Vec<u8>> for scan_request {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.handle);
-        bytes.extend_from_slice(&self.address);
+        bytes.extend(self.address.iter().rev());
         bytes.put_u8(self.address_type.clone() as u8);
         bytes.put_u8(self.bonding);
         bytes
@@ -85,6 +86,7 @@ impl From<&[u8]> for scan_response {
         cursor
             .read_exact(&mut address)
             .expect("Failed to read bytes.");
+        address.reverse();
         let address_type = FromPrimitive::from_u8(cursor.get_u8()).unwrap();
         let bonding = cursor.get_u8();
         let mut data = Vec::new();
@@ -107,7 +109,7 @@ impl Into<Vec<u8>> for scan_response {
         let mut bytes = Vec::new();
         bytes.put_i8(self.rssi);
         bytes.put_u8(self.packet_type);
-        bytes.extend_from_slice(&self.address);
+        bytes.extend(self.address.iter().rev());
         bytes.put_u8(self.address_type.clone() as u8);
         bytes.put_u8(self.bonding);
         bytes.extend(self.data.iter());

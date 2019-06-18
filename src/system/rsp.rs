@@ -16,6 +16,7 @@ impl From<&[u8]> for get_bt_address {
         cursor
             .read_exact(&mut address)
             .expect("Failed to read bytes.");
+        address.reverse();
         get_bt_address { address }
     }
 }
@@ -23,7 +24,7 @@ impl From<&[u8]> for get_bt_address {
 impl Into<Vec<u8>> for get_bt_address {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.extend_from_slice(&self.address);
+        bytes.extend(self.address.iter().rev());
         bytes
     }
 }
