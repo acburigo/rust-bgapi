@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct dtm_end {
     pub result: Error,
 }
@@ -27,7 +27,7 @@ impl Into<Vec<u8>> for dtm_end {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct dtm_rx {
     pub result: Error,
 }
@@ -50,7 +50,7 @@ impl Into<Vec<u8>> for dtm_rx {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct dtm_tx {
     pub result: Error,
 }

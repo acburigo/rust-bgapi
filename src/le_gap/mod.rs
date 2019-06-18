@@ -205,7 +205,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum AddressType {
     public = 0,          // Public address
     random = 1,          // Random address
@@ -214,14 +214,14 @@ pub enum AddressType {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum AdvAddressType {
     identity_address = 0, // Use public or static device address, or identity address if privacy mode is enabled
     non_resolvable = 1, // Use non resolvable address type, advertising mode must also be non-connectable
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum ConnectableMode {
     non_connectable = 0,           // Non-connectable non-scannable.
     directed_connectable = 1,      // Directed connectable (RESERVED, DO NOT USE)
@@ -231,7 +231,7 @@ pub enum ConnectableMode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum DiscoverMode {
     limited = 0,     // Discover only limited discoverable devices
     generic = 1,     // Discover limited and generic discoverable devices
@@ -239,7 +239,7 @@ pub enum DiscoverMode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum DiscoverableMode {
     non_discoverable = 0,     // Not discoverable
     limited_discoverable = 1, // Discoverable using both limited and general discovery procedures
@@ -249,7 +249,7 @@ pub enum DiscoverableMode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum PhyType {
     phy_1m = 1,    // LE 1M PHY
     phy_2m = 2,    // LE 2M PHY

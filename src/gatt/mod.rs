@@ -255,7 +255,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd, Clone, FromPrimitive)]
+#[derive(Debug, PartialEq, PartialOrd, Clone, FromPrimitive)]
 pub enum AttOpcode {
     read_by_type_request = 8,       // Read by type request
     read_by_type_response = 9,      // Read by type response
@@ -277,6 +277,7 @@ pub enum AttOpcode {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Debug)]
 pub enum ClientConfigFlag {
     disable = 0,      // Disable notifications and indications
     notification = 1, // Notification
@@ -284,6 +285,7 @@ pub enum ClientConfigFlag {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Debug)]
 pub enum execute_write_flag {
     cancel = 0, // Cancel all queued writes
     commit = 1, // Commit all queued writes

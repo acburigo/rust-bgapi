@@ -29,6 +29,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Debug)]
 pub enum Option {
     enable = 256,         // Enable coexistence feature
     tx_abort = 1024,      // Abort transmission if grant is denied

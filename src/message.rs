@@ -14,7 +14,7 @@ use system;
 use test;
 use user;
 
-#[derive(PartialEq, PartialOrd, Clone)]
+#[derive(Debug, PartialEq, PartialOrd, Clone)]
 pub struct Message {
     pub header: MessageHeader,
     pub payload: MessagePayload,
@@ -29,18 +29,16 @@ impl Into<Vec<u8>> for Message {
     }
 }
 
-#[derive(PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, FromPrimitive)]
 #[repr(u8)]
 pub enum MessageType {
     command_response = 0x20,
     event = 0xa0,
 }
 
-#[derive(PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, FromPrimitive)]
 #[repr(u8)]
 pub enum MessageClass {
     coex = 0x20,
@@ -58,7 +56,7 @@ pub enum MessageClass {
     user = 0xff,
 }
 
-#[derive(PartialEq, PartialOrd, Clone)]
+#[derive(Debug, PartialEq, PartialOrd, Clone)]
 pub struct MessageHeader {
     pub message_type: MessageType,
     pub payload_length: u8,
@@ -67,7 +65,7 @@ pub struct MessageHeader {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd, Clone)]
+#[derive(Debug, PartialEq, PartialOrd, Clone)]
 pub enum MessagePayload {
     // coex
     cmd_coex_get_counters(coex::cmd::get_counters),

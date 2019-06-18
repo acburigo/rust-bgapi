@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_lazy_soft_timer {
     pub time: u32,
     pub slack: u32,
@@ -54,7 +54,7 @@ impl Into<Vec<u8>> for set_lazy_soft_timer {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_soft_timer {
     pub time: u32,
     pub handle: u8,

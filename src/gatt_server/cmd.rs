@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct find_attribute {
     pub start: u16,
     pub atype: Vec<u8>,
@@ -45,7 +45,7 @@ impl Into<Vec<u8>> for find_attribute {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_attribute_type {
     pub attribute: u16,
 }
@@ -82,7 +82,7 @@ impl Into<Vec<u8>> for read_attribute_type {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_attribute_value {
     pub attribute: u16,
     pub offset: u16,
@@ -122,7 +122,7 @@ impl Into<Vec<u8>> for read_attribute_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct send_characteristic_notification {
     pub connection: u8,
     pub characteristic: u16,
@@ -175,7 +175,7 @@ impl Into<Vec<u8>> for send_characteristic_notification {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct send_user_read_response {
     pub connection: u8,
     pub characteristic: u16,
@@ -233,7 +233,7 @@ impl Into<Vec<u8>> for send_user_read_response {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct send_user_write_response {
     pub connection: u8,
     pub characteristic: u16,
@@ -280,7 +280,7 @@ impl Into<Vec<u8>> for send_user_write_response {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_capabilities {
     pub caps: u32,
     pub reserved: u32,
@@ -320,7 +320,7 @@ impl Into<Vec<u8>> for set_capabilities {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct write_attribute_value {
     pub attribute: u16,
     pub offset: u16,

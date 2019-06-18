@@ -43,7 +43,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum PacketType {
     pkt_prbs9 = 0,              // PRBS9 packet payload
     pkt_11110000 = 1,           // 11110000 packet payload
@@ -58,7 +58,7 @@ pub enum PacketType {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum Phy {
     phy_1m = 1,   // 1M PHY
     phy_2m = 2,   // 2M PHY

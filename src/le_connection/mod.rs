@@ -103,7 +103,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd, Clone, FromPrimitive)]
+#[derive(Debug, PartialEq, PartialOrd, Clone, FromPrimitive)]
 pub enum Security {
     mode1_level1 = 0, // No security
     mode1_level2 = 1, // Unauthenticated pairing with encryption

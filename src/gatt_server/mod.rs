@@ -131,6 +131,7 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Debug)]
 pub enum CharacteristicStatusFlag {
     client_config = 1, // Characteristic client configuration has been changed.
     confirmation = 2,  // Characteristic confirmation has been received.

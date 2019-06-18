@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct flash_set_address {
     pub address: u32,
 }
@@ -40,7 +40,7 @@ impl Into<Vec<u8>> for flash_set_address {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct flash_upload {
     pub data: Vec<u8>,
 }
@@ -74,7 +74,7 @@ impl Into<Vec<u8>> for flash_upload {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct flash_upload_finish {}
 
 impl flash_upload_finish {
@@ -104,7 +104,7 @@ impl Into<Vec<u8>> for flash_upload_finish {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct reset {
     pub dfu: u8,
 }

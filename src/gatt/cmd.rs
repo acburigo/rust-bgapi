@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct discover_characteristics {
     pub connection: u8,
     pub service: u32,
@@ -46,7 +46,7 @@ impl Into<Vec<u8>> for discover_characteristics {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct discover_characteristics_by_uuid {
     pub connection: u8,
     pub service: u32,
@@ -97,7 +97,7 @@ impl Into<Vec<u8>> for discover_characteristics_by_uuid {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct discover_descriptors {
     pub connection: u8,
     pub characteristic: u16,
@@ -140,7 +140,7 @@ impl Into<Vec<u8>> for discover_descriptors {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct discover_primary_services {
     pub connection: u8,
 }
@@ -177,7 +177,7 @@ impl Into<Vec<u8>> for discover_primary_services {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct discover_primary_services_by_uuid {
     pub connection: u8,
     pub uuid: [u8; 16],
@@ -217,7 +217,7 @@ impl Into<Vec<u8>> for discover_primary_services_by_uuid {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct execute_characteristic_value_write {
     pub connection: u8,
     pub flags: u8,
@@ -257,7 +257,7 @@ impl Into<Vec<u8>> for execute_characteristic_value_write {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct find_included_services {
     pub connection: u8,
     pub service: u32,
@@ -300,7 +300,7 @@ impl Into<Vec<u8>> for find_included_services {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct prepare_characteristic_value_reliable_write {
     pub connection: u8,
     pub characteristic: u16,
@@ -358,7 +358,7 @@ impl Into<Vec<u8>> for prepare_characteristic_value_reliable_write {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct prepare_characteristic_value_write {
     pub connection: u8,
     pub characteristic: u16,
@@ -416,7 +416,7 @@ impl Into<Vec<u8>> for prepare_characteristic_value_write {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_characteristic_value {
     pub connection: u8,
     pub characteristic: u16,
@@ -459,7 +459,7 @@ impl Into<Vec<u8>> for read_characteristic_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_characteristic_value_by_uuid {
     pub connection: u8,
     pub service: u32,
@@ -510,7 +510,7 @@ impl Into<Vec<u8>> for read_characteristic_value_by_uuid {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_characteristic_value_from_offset {
     pub connection: u8,
     pub characteristic: u16,
@@ -561,7 +561,7 @@ impl Into<Vec<u8>> for read_characteristic_value_from_offset {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_descriptor_value {
     pub connection: u8,
     pub descriptor: u16,
@@ -604,7 +604,7 @@ impl Into<Vec<u8>> for read_descriptor_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct read_multiple_characteristic_values {
     pub connection: u8,
     pub characteristic_list: Vec<u16>,
@@ -654,7 +654,7 @@ impl Into<Vec<u8>> for read_multiple_characteristic_values {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct send_characteristic_confirmation {
     pub connection: u8,
 }
@@ -691,7 +691,7 @@ impl Into<Vec<u8>> for send_characteristic_confirmation {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_characteristic_notification {
     pub connection: u8,
     pub characteristic: u16,
@@ -738,7 +738,7 @@ impl Into<Vec<u8>> for set_characteristic_notification {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_max_mtu {
     pub max_mtu: u16,
 }
@@ -775,7 +775,7 @@ impl Into<Vec<u8>> for set_max_mtu {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct write_characteristic_value {
     pub connection: u8,
     pub characteristic: u16,
@@ -828,7 +828,7 @@ impl Into<Vec<u8>> for write_characteristic_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct write_characteristic_value_without_response {
     pub connection: u8,
     pub characteristic: u16,
@@ -881,7 +881,7 @@ impl Into<Vec<u8>> for write_characteristic_value_without_response {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct write_descriptor_value {
     pub connection: u8,
     pub descriptor: u16,

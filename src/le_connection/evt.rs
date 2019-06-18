@@ -5,7 +5,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct closed {
     pub reason: Error,
     pub connection: u8,
@@ -31,7 +31,7 @@ impl Into<Vec<u8>> for closed {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct opened {
     pub address: [u8; 6],
     pub address_type: u8,
@@ -74,7 +74,7 @@ impl Into<Vec<u8>> for opened {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct parameters {
     pub connection: u8,
     pub interval: u16,
@@ -112,7 +112,7 @@ impl Into<Vec<u8>> for parameters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct phy_status {
     pub connection: u8,
     pub phy: u8,
@@ -138,7 +138,7 @@ impl Into<Vec<u8>> for phy_status {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct rssi {
     pub connection: u8,
     pub status: u8,

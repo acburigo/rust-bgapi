@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct dtm_completed {
     pub result: Error,
     pub number_of_packets: u16,

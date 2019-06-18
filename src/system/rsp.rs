@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct get_bt_address {
     pub address: [u8; 6],
 }
@@ -30,7 +30,7 @@ impl Into<Vec<u8>> for get_bt_address {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct get_counters {
     pub result: Error,
     pub tx_packets: u16,
@@ -65,7 +65,7 @@ impl Into<Vec<u8>> for get_counters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct get_random_data {
     pub result: Error,
     pub data: Vec<u8>,
@@ -93,7 +93,7 @@ impl Into<Vec<u8>> for get_random_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct halt {
     pub result: Error,
 }
@@ -116,7 +116,7 @@ impl Into<Vec<u8>> for halt {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct hello {
     pub result: Error,
 }
@@ -139,7 +139,7 @@ impl Into<Vec<u8>> for hello {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_bt_address {
     pub result: Error,
 }
@@ -162,7 +162,7 @@ impl Into<Vec<u8>> for set_bt_address {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_device_name {
     pub result: Error,
 }
@@ -185,7 +185,7 @@ impl Into<Vec<u8>> for set_device_name {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct set_tx_power {
     pub set_power: i16,
 }

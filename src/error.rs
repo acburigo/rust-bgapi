@@ -1,7 +1,7 @@
 use num_derive::FromPrimitive;
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, FromPrimitive, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, FromPrimitive, PartialEq, PartialOrd)]
 pub enum Error {
     success = 0x0000,
 

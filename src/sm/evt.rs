@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct bonded {
     pub connection: u8,
     pub bonding: u8,
@@ -28,7 +28,7 @@ impl Into<Vec<u8>> for bonded {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct bonding_failed {
     pub connection: u8,
     pub reason: u16,
@@ -54,7 +54,7 @@ impl Into<Vec<u8>> for bonding_failed {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct confirm_bonding {
     pub connection: u8,
     pub bonding_handle: i8,
@@ -80,7 +80,7 @@ impl Into<Vec<u8>> for confirm_bonding {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct confirm_passkey {
     pub connection: u8,
     pub passkey: u32,
@@ -106,7 +106,7 @@ impl Into<Vec<u8>> for confirm_passkey {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct list_all_bondings_complete {}
 
 impl From<&[u8]> for list_all_bondings_complete {
@@ -122,7 +122,7 @@ impl Into<Vec<u8>> for list_all_bondings_complete {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct list_bonding_entry {
     pub bonding: u8,
     pub address: [u8; 6],
@@ -158,7 +158,7 @@ impl Into<Vec<u8>> for list_bonding_entry {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct passkey_display {
     pub connection: u8,
     pub passkey: u32,
@@ -184,7 +184,7 @@ impl Into<Vec<u8>> for passkey_display {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct passkey_request {
     pub connection: u8,
 }

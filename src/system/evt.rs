@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct awake {}
 
 impl From<&[u8]> for awake {
@@ -18,7 +18,7 @@ impl Into<Vec<u8>> for awake {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct boot {
     pub major: u16,
     pub minor: u16,
@@ -59,7 +59,7 @@ impl Into<Vec<u8>> for boot {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct error {
     pub reason: u16,
     pub data: Vec<u8>,
@@ -87,7 +87,7 @@ impl Into<Vec<u8>> for error {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct external_signal {
     pub extsignals: u32,
 }
@@ -110,7 +110,7 @@ impl Into<Vec<u8>> for external_signal {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct hardware_error {
     pub status: u16,
 }
