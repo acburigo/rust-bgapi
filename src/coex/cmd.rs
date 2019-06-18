@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_counters {
     pub reset: u8,
 }
@@ -40,7 +40,7 @@ impl Into<Vec<u8>> for get_counters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_options {
     pub mask: u32,
     pub options: u32,

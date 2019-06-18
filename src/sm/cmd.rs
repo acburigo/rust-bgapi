@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct bonding_confirm {
     pub connection: u8,
     pub confirm: u8,
@@ -46,7 +46,7 @@ impl Into<Vec<u8>> for bonding_confirm {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct configure {
     pub flags: u8,
     pub io_capabilities: u8,
@@ -89,7 +89,7 @@ impl Into<Vec<u8>> for configure {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct delete_bonding {
     pub bonding: u8,
 }
@@ -126,7 +126,7 @@ impl Into<Vec<u8>> for delete_bonding {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct delete_bondings {}
 
 impl delete_bondings {
@@ -156,7 +156,7 @@ impl Into<Vec<u8>> for delete_bondings {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct enter_passkey {
     pub connection: u8,
     pub passkey: i32,
@@ -199,7 +199,7 @@ impl Into<Vec<u8>> for enter_passkey {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct increase_security {
     pub connection: u8,
 }
@@ -236,7 +236,7 @@ impl Into<Vec<u8>> for increase_security {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct list_all_bondings {}
 
 impl list_all_bondings {
@@ -266,7 +266,7 @@ impl Into<Vec<u8>> for list_all_bondings {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct passkey_confirm {
     pub connection: u8,
     pub confirm: u8,
@@ -309,7 +309,7 @@ impl Into<Vec<u8>> for passkey_confirm {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_bondable_mode {
     pub bondable: u8,
 }
@@ -346,7 +346,7 @@ impl Into<Vec<u8>> for set_bondable_mode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_debug_mode {}
 
 impl set_debug_mode {
@@ -376,7 +376,7 @@ impl Into<Vec<u8>> for set_debug_mode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_oob_data {
     pub oob_data: Vec<u8>,
 }
@@ -413,7 +413,7 @@ impl Into<Vec<u8>> for set_oob_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_passkey {
     pub passkey: i32,
 }
@@ -450,7 +450,7 @@ impl Into<Vec<u8>> for set_passkey {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_sc_remote_oob_data {
     pub oob_data: Vec<u8>,
 }
@@ -487,7 +487,7 @@ impl Into<Vec<u8>> for set_sc_remote_oob_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct store_bonding_configuration {
     pub max_bonding_count: u8,
     pub policy_flags: u8,
@@ -530,7 +530,7 @@ impl Into<Vec<u8>> for store_bonding_configuration {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct use_sc_oob {
     pub enable: u8,
 }

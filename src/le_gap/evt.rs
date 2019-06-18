@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct adv_timeout {
     pub handle: u8,
 }
@@ -27,7 +27,7 @@ impl Into<Vec<u8>> for adv_timeout {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct scan_request {
     pub handle: u8,
     pub address: [u8; 6],
@@ -67,7 +67,7 @@ impl Into<Vec<u8>> for scan_request {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct scan_response {
     pub rssi: i8,
     pub packet_type: u8,

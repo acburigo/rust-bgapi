@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_erase {
     pub result: Error,
 }
@@ -27,7 +27,7 @@ impl Into<Vec<u8>> for ps_erase {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_erase_all {
     pub result: Error,
 }
@@ -50,7 +50,7 @@ impl Into<Vec<u8>> for ps_erase_all {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_load {
     pub result: Error,
     pub value: Vec<u8>,
@@ -78,7 +78,7 @@ impl Into<Vec<u8>> for ps_load {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_save {
     pub result: Error,
 }

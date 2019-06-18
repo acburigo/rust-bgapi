@@ -5,7 +5,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct bt5_set_adv_data {
     pub handle: u8,
     pub scan_rsp: u8,
@@ -58,7 +58,7 @@ impl Into<Vec<u8>> for bt5_set_adv_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct clear_advertise_configuration {
     pub handle: u8,
     pub configurations: u32,
@@ -101,7 +101,7 @@ impl Into<Vec<u8>> for clear_advertise_configuration {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct connect {
     pub address: [u8; 6],
     pub address_type: AddressType,
@@ -158,7 +158,7 @@ impl Into<Vec<u8>> for connect {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct end_procedure {}
 
 impl end_procedure {
@@ -188,7 +188,7 @@ impl Into<Vec<u8>> for end_procedure {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_advertise_channel_map {
     pub handle: u8,
     pub channel_map: u8,
@@ -231,7 +231,7 @@ impl Into<Vec<u8>> for set_advertise_channel_map {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_advertise_configuration {
     pub handle: u8,
     pub configurations: u32,
@@ -274,7 +274,7 @@ impl Into<Vec<u8>> for set_advertise_configuration {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_advertise_phy {
     pub handle: u8,
     pub primary_phy: PhyType,
@@ -321,7 +321,7 @@ impl Into<Vec<u8>> for set_advertise_phy {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_advertise_report_scan_request {
     pub handle: u8,
     pub report_scan_req: u8,
@@ -364,7 +364,7 @@ impl Into<Vec<u8>> for set_advertise_report_scan_request {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_advertise_timing {
     pub handle: u8,
     pub interval_min: u32,
@@ -425,7 +425,7 @@ impl Into<Vec<u8>> for set_advertise_timing {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_advertise_tx_power {
     pub handle: u8,
     pub power: i16,
@@ -465,7 +465,7 @@ impl Into<Vec<u8>> for set_advertise_tx_power {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_conn_parameters {
     pub min_interval: u16,
     pub max_interval: u16,
@@ -516,7 +516,7 @@ impl Into<Vec<u8>> for set_conn_parameters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_data_channel_classification {
     pub channel_map: [u8; 5],
 }
@@ -555,7 +555,7 @@ impl Into<Vec<u8>> for set_data_channel_classification {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_discovery_timing {
     pub phys: u8,
     pub scan_interval: u16,
@@ -602,7 +602,7 @@ impl Into<Vec<u8>> for set_discovery_timing {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_discovery_type {
     pub phys: u8,
     pub scan_type: u8,
@@ -642,7 +642,7 @@ impl Into<Vec<u8>> for set_discovery_type {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_privacy_mode {
     pub privacy: u8,
     pub interval: u8,
@@ -682,7 +682,7 @@ impl Into<Vec<u8>> for set_privacy_mode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct start_advertising {
     pub handle: u8,
     pub discover: DiscoverableMode,
@@ -729,7 +729,7 @@ impl Into<Vec<u8>> for start_advertising {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct start_discovery {
     pub scanning_phy: PhyType,
     pub mode: DiscoverMode,
@@ -769,7 +769,7 @@ impl Into<Vec<u8>> for start_discovery {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct stop_advertising {
     pub handle: u8,
 }

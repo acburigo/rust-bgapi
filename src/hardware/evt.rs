@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct soft_timer {
     pub handle: u8,
 }

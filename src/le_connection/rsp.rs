@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct close {
     pub result: Error,
 }
@@ -27,7 +27,7 @@ impl Into<Vec<u8>> for close {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct disable_slave_latency {
     pub result: Error,
 }
@@ -50,7 +50,7 @@ impl Into<Vec<u8>> for disable_slave_latency {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_rssi {
     pub result: Error,
 }
@@ -73,7 +73,7 @@ impl Into<Vec<u8>> for get_rssi {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_parameters {
     pub result: Error,
 }
@@ -96,7 +96,7 @@ impl Into<Vec<u8>> for set_parameters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_phy {
     pub result: Error,
 }

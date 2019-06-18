@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_erase {
     pub key: u16,
 }
@@ -40,7 +40,7 @@ impl Into<Vec<u8>> for ps_erase {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_erase_all {}
 
 impl ps_erase_all {
@@ -70,7 +70,7 @@ impl Into<Vec<u8>> for ps_erase_all {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_load {
     pub key: u16,
 }
@@ -107,7 +107,7 @@ impl Into<Vec<u8>> for ps_load {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct ps_save {
     pub key: u16,
     pub value: Vec<u8>,

@@ -5,7 +5,7 @@ use std::io::Cursor;
 use test::{PacketType, Phy};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct dtm_end {}
 
 impl dtm_end {
@@ -35,7 +35,7 @@ impl Into<Vec<u8>> for dtm_end {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct dtm_rx {
     pub channel: u8,
     pub phy: Phy,
@@ -75,7 +75,7 @@ impl Into<Vec<u8>> for dtm_rx {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct dtm_tx {
     pub packet_type: PacketType,
     pub length: u8,

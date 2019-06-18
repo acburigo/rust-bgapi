@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_bt_address {}
 
 impl get_bt_address {
@@ -33,7 +33,7 @@ impl Into<Vec<u8>> for get_bt_address {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_counters {
     pub reset: u8,
 }
@@ -70,7 +70,7 @@ impl Into<Vec<u8>> for get_counters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_random_data {
     pub length: u8,
 }
@@ -107,7 +107,7 @@ impl Into<Vec<u8>> for get_random_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct halt {
     pub halt: u8,
 }
@@ -144,7 +144,7 @@ impl Into<Vec<u8>> for halt {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct hello {}
 
 impl hello {
@@ -174,7 +174,7 @@ impl Into<Vec<u8>> for hello {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct reset {
     pub dfu: u8,
 }
@@ -211,7 +211,7 @@ impl Into<Vec<u8>> for reset {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_bt_address {
     pub address: [u8; 6],
 }
@@ -252,7 +252,7 @@ impl Into<Vec<u8>> for set_bt_address {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_device_name {
     pub dtype: u8,
     pub name: Vec<u8>,
@@ -294,7 +294,7 @@ impl Into<Vec<u8>> for set_device_name {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_tx_power {
     pub power: i16,
 }

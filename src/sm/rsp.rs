@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct bonding_confirm {
     pub result: Error,
 }
@@ -27,7 +27,7 @@ impl Into<Vec<u8>> for bonding_confirm {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct configure {
     pub result: Error,
 }
@@ -50,7 +50,7 @@ impl Into<Vec<u8>> for configure {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct delete_bonding {
     pub result: Error,
 }
@@ -73,7 +73,7 @@ impl Into<Vec<u8>> for delete_bonding {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct delete_bondings {
     pub result: Error,
 }
@@ -96,7 +96,7 @@ impl Into<Vec<u8>> for delete_bondings {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct enter_passkey {
     pub result: Error,
 }
@@ -119,7 +119,7 @@ impl Into<Vec<u8>> for enter_passkey {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct increase_security {
     pub result: Error,
 }
@@ -142,7 +142,7 @@ impl Into<Vec<u8>> for increase_security {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct list_all_bondings {
     pub result: Error,
 }
@@ -165,7 +165,7 @@ impl Into<Vec<u8>> for list_all_bondings {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct passkey_confirm {
     pub result: Error,
 }
@@ -188,7 +188,7 @@ impl Into<Vec<u8>> for passkey_confirm {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_bondable_mode {
     pub result: Error,
 }
@@ -211,7 +211,7 @@ impl Into<Vec<u8>> for set_bondable_mode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_debug_mode {
     pub result: Error,
 }
@@ -234,7 +234,7 @@ impl Into<Vec<u8>> for set_debug_mode {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_oob_data {
     pub result: Error,
 }
@@ -257,7 +257,7 @@ impl Into<Vec<u8>> for set_oob_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_passkey {
     pub result: Error,
 }
@@ -280,7 +280,7 @@ impl Into<Vec<u8>> for set_passkey {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_sc_remote_oob_data {
     pub result: Error,
 }
@@ -303,7 +303,7 @@ impl Into<Vec<u8>> for set_sc_remote_oob_data {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct store_bonding_configuration {
     pub result: Error,
 }
@@ -326,7 +326,7 @@ impl Into<Vec<u8>> for store_bonding_configuration {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct use_sc_oob {
     pub result: Error,
     pub oob_data: [u8; 32],

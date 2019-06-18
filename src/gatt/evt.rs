@@ -5,7 +5,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct characteristic {
     pub connection: u8,
     pub characteristic: u16,
@@ -42,7 +42,7 @@ impl Into<Vec<u8>> for characteristic {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct characteristic_value {
     pub connection: u8,
     pub characteristic: u16,
@@ -85,7 +85,7 @@ impl Into<Vec<u8>> for characteristic_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct descriptor {
     pub connection: u8,
     pub descriptor: u16,
@@ -118,7 +118,7 @@ impl Into<Vec<u8>> for descriptor {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct descriptor_value {
     pub connection: u8,
     pub descriptor: u16,
@@ -157,7 +157,7 @@ impl Into<Vec<u8>> for descriptor_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct mtu_exchanged {
     pub connection: u8,
     pub mtu: u16,
@@ -183,7 +183,7 @@ impl Into<Vec<u8>> for mtu_exchanged {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct procedure_completed {
     pub connection: u8,
     pub result: Error,
@@ -209,7 +209,7 @@ impl Into<Vec<u8>> for procedure_completed {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct service {
     pub connection: u8,
     pub service: u32,

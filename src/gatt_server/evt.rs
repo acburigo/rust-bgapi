@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct attribute_value {
     pub connection: u8,
     pub attribute: u16,
@@ -47,7 +47,7 @@ impl Into<Vec<u8>> for attribute_value {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct characteristic_status {
     pub connection: u8,
     pub characteristic: u16,
@@ -79,7 +79,7 @@ impl Into<Vec<u8>> for characteristic_status {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct execute_write_completed {
     pub connection: u8,
     pub result: Error,
@@ -105,7 +105,7 @@ impl Into<Vec<u8>> for execute_write_completed {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct user_read_request {
     pub connection: u8,
     pub characteristic: u16,
@@ -137,7 +137,7 @@ impl Into<Vec<u8>> for user_read_request {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct user_write_request {
     pub connection: u8,
     pub characteristic: u16,

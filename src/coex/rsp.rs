@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_counters {
     pub result: Error,
     pub counters: Box<[u8]>,
@@ -30,7 +30,7 @@ impl Into<Vec<u8>> for get_counters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_options {
     pub result: Error,
 }

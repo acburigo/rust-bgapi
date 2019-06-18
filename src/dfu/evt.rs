@@ -2,7 +2,7 @@ use bytes::{Buf, BufMut};
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct boot {
     pub version: u32,
 }
@@ -25,7 +25,7 @@ impl Into<Vec<u8>> for boot {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct boot_failure {
     pub reason: u16,
 }

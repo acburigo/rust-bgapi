@@ -4,7 +4,7 @@ use num_traits::FromPrimitive;
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct flash_set_address {
     pub result: Error,
 }
@@ -27,7 +27,7 @@ impl Into<Vec<u8>> for flash_set_address {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct flash_upload {
     pub result: Error,
 }
@@ -50,7 +50,7 @@ impl Into<Vec<u8>> for flash_upload {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct flash_upload_finish {
     pub result: Error,
 }

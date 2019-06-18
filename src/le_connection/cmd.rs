@@ -3,7 +3,7 @@ use message::{Message, MessageClass, MessageHeader, MessagePayload, MessageType}
 use std::io::Cursor;
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct close {
     pub connection: u8,
 }
@@ -40,7 +40,7 @@ impl Into<Vec<u8>> for close {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct disable_slave_latency {
     pub connection: u8,
     pub disable: u8,
@@ -83,7 +83,7 @@ impl Into<Vec<u8>> for disable_slave_latency {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct get_rssi {
     pub connection: u8,
 }
@@ -120,7 +120,7 @@ impl Into<Vec<u8>> for get_rssi {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_parameters {
     pub connection: u8,
     pub min_interval: u16,
@@ -181,7 +181,7 @@ impl Into<Vec<u8>> for set_parameters {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, PartialOrd)]
+#[derive(Clone, PartialEq, PartialOrd)]
 pub struct set_phy {
     pub connection: u8,
     pub phy: u8,
