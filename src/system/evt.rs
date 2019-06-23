@@ -1,4 +1,6 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -61,14 +63,14 @@ impl Into<Vec<u8>> for boot {
 #[allow(non_camel_case_types)]
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct error {
-    pub reason: u16,
+    pub reason: Error,
     pub data: Vec<u8>,
 }
 
 impl From<&[u8]> for error {
     fn from(data: &[u8]) -> error {
         let mut cursor = Cursor::new(data);
-        let reason = cursor.get_u16_le();
+        let reason = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut data = Vec::new();
         cursor
             .read_to_end(&mut data)
@@ -80,7 +82,7 @@ impl From<&[u8]> for error {
 impl Into<Vec<u8>> for error {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
-        bytes.put_u16_le(self.reason);
+        bytes.put_u16_le(self.reason.clone() as u16);
         bytes.extend(self.data.iter());
         bytes
     }

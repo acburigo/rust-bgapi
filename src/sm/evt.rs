@@ -1,4 +1,6 @@
 use bytes::{Buf, BufMut};
+use error::Error;
+use num_traits::FromPrimitive;
 use std::io::{Cursor, Read};
 
 #[allow(non_camel_case_types)]
@@ -31,7 +33,7 @@ impl Into<Vec<u8>> for bonded {
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct bonding_failed {
     pub connection: u8,
-    pub reason: u16,
+    pub reason: Error,
 }
 
 impl From<&[u8]> for bonding_failed {
@@ -39,7 +41,7 @@ impl From<&[u8]> for bonding_failed {
         let mut cursor = Cursor::new(data);
         bonding_failed {
             connection: cursor.get_u8(),
-            reason: cursor.get_u16_le(),
+            reason: FromPrimitive::from_u16(cursor.get_u16_le()).unwrap(),
         }
     }
 }
@@ -48,7 +50,7 @@ impl Into<Vec<u8>> for bonding_failed {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
-        bytes.put_u16_le(self.reason);
+        bytes.put_u16_le(self.reason.clone() as u16);
         bytes
     }
 }
