@@ -109,18 +109,13 @@ pub struct connect {
 }
 
 impl connect {
-    pub fn new(
-        mut address: [u8; 6],
-        address_type: AddressType,
-        initiating_phy: PhyType,
-    ) -> Message {
+    pub fn new(address: [u8; 6], address_type: AddressType, initiating_phy: PhyType) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x08,
             message_class: MessageClass::le_gap,
             message_id: 0x1a,
         };
-        address.reverse();
         let payload = connect {
             address,
             address_type,

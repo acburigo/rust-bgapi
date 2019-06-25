@@ -217,14 +217,13 @@ pub struct set_bt_address {
 }
 
 impl set_bt_address {
-    pub fn new(mut address: [u8; 6]) -> Message {
+    pub fn new(address: [u8; 6]) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: address.len() as u8,
             message_class: MessageClass::system,
             message_id: 0x04,
         };
-        address.reverse();
         let payload = set_bt_address { address };
         let payload = MessagePayload::cmd_system_set_bt_address(payload);
         Message { header, payload }
