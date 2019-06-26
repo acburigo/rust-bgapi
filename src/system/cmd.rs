@@ -261,7 +261,7 @@ impl set_device_name {
     pub fn new(dtype: u8, name: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x01 + (name.len() as u8),
+            payload_length: 0x01 + (1 + name.len() as u8),
             message_class: MessageClass::system,
             message_id: 0x0d,
         };
@@ -276,6 +276,7 @@ impl From<&[u8]> for set_device_name {
         let mut cursor = Cursor::new(data);
         let dtype = cursor.get_u8();
         let mut name = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut name)
             .expect("Failed to read bytes.");
@@ -287,6 +288,7 @@ impl Into<Vec<u8>> for set_device_name {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.dtype);
+        bytes.put_u8(self.name.len() as u8);
         bytes.extend(self.name.iter());
         bytes
     }

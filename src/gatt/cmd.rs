@@ -57,7 +57,7 @@ impl discover_characteristics_by_uuid {
     pub fn new(connection: u8, service: u32, uuid: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x05 + (uuid.len() as u8),
+            payload_length: 0x05 + (1 + uuid.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x04,
         };
@@ -77,9 +77,11 @@ impl From<&[u8]> for discover_characteristics_by_uuid {
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
         let mut uuid: Vec<u8> = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut uuid)
             .expect("Failed to read bytes.");
+        uuid.reverse();
         discover_characteristics_by_uuid {
             connection,
             service,
@@ -93,7 +95,8 @@ impl Into<Vec<u8>> for discover_characteristics_by_uuid {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);
-        bytes.extend(self.uuid.iter());
+        bytes.put_u8(self.uuid.len() as u8);
+        bytes.extend(self.uuid.iter().rev());
         bytes
     }
 }
@@ -189,7 +192,7 @@ impl discover_primary_services_by_uuid {
     pub fn new(connection: u8, uuid: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x01 + (uuid.len() as u8),
+            payload_length: 0x01 + (1 + uuid.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x02,
         };
@@ -204,9 +207,11 @@ impl From<&[u8]> for discover_primary_services_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let mut uuid: Vec<u8> = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut uuid)
             .expect("Failed to read bytes.");
+        uuid.reverse();
         discover_primary_services_by_uuid { connection, uuid }
     }
 }
@@ -215,7 +220,8 @@ impl Into<Vec<u8>> for discover_primary_services_by_uuid {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
-        bytes.extend(self.uuid.iter());
+        bytes.put_u8(self.uuid.len() as u8);
+        bytes.extend(self.uuid.iter().rev());
         bytes
     }
 }
@@ -316,7 +322,7 @@ impl prepare_characteristic_value_reliable_write {
     pub fn new(connection: u8, characteristic: u16, offset: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x05 + (value.len() as u8),
+            payload_length: 0x05 + (1 + value.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x13,
         };
@@ -338,6 +344,7 @@ impl From<&[u8]> for prepare_characteristic_value_reliable_write {
         let characteristic = cursor.get_u16_le();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -356,6 +363,7 @@ impl Into<Vec<u8>> for prepare_characteristic_value_reliable_write {
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -374,7 +382,7 @@ impl prepare_characteristic_value_write {
     pub fn new(connection: u8, characteristic: u16, offset: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x05 + (value.len() as u8),
+            payload_length: 0x05 + (1 + value.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x0b,
         };
@@ -396,6 +404,7 @@ impl From<&[u8]> for prepare_characteristic_value_write {
         let characteristic = cursor.get_u16_le();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -414,6 +423,7 @@ impl Into<Vec<u8>> for prepare_characteristic_value_write {
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -474,7 +484,7 @@ impl read_characteristic_value_by_uuid {
     pub fn new(connection: u8, service: u32, uuid: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x05 + (uuid.len() as u8),
+            payload_length: 0x05 + (1 + uuid.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x08,
         };
@@ -494,9 +504,11 @@ impl From<&[u8]> for read_characteristic_value_by_uuid {
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
         let mut uuid: Vec<u8> = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut uuid)
             .expect("Failed to read bytes.");
+        uuid.reverse();
         read_characteristic_value_by_uuid {
             connection,
             service,
@@ -510,7 +522,8 @@ impl Into<Vec<u8>> for read_characteristic_value_by_uuid {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);
-        bytes.extend(self.uuid.iter());
+        bytes.put_u8(self.uuid.len() as u8);
+        bytes.extend(self.uuid.iter().rev());
         bytes
     }
 }
@@ -792,7 +805,7 @@ impl write_characteristic_value {
     pub fn new(connection: u8, characteristic: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x03 + (value.len() as u8),
+            payload_length: 0x03 + (1 + value.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x09,
         };
@@ -812,6 +825,7 @@ impl From<&[u8]> for write_characteristic_value {
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -828,6 +842,7 @@ impl Into<Vec<u8>> for write_characteristic_value {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -845,7 +860,7 @@ impl write_characteristic_value_without_response {
     pub fn new(connection: u8, characteristic: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x03 + (value.len() as u8),
+            payload_length: 0x03 + (1 + value.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x0a,
         };
@@ -865,6 +880,7 @@ impl From<&[u8]> for write_characteristic_value_without_response {
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -881,6 +897,7 @@ impl Into<Vec<u8>> for write_characteristic_value_without_response {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -898,7 +915,7 @@ impl write_descriptor_value {
     pub fn new(connection: u8, descriptor: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x03 + (value.len() as u8),
+            payload_length: 0x03 + (1 + value.len() as u8),
             message_class: MessageClass::gatt,
             message_id: 0x0f,
         };
@@ -918,6 +935,7 @@ impl From<&[u8]> for write_descriptor_value {
         let connection = cursor.get_u8();
         let descriptor = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -934,6 +952,7 @@ impl Into<Vec<u8>> for write_descriptor_value {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.descriptor);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }

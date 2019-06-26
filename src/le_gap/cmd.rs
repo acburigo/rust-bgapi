@@ -16,7 +16,7 @@ impl bt5_set_adv_data {
     pub fn new(handle: u8, scan_rsp: u8, adv_data: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x03,
+            payload_length: 0x03 + (1 + adv_data.len() as u8),
             message_class: MessageClass::le_gap,
             message_id: 0x0c,
         };
@@ -36,6 +36,7 @@ impl From<&[u8]> for bt5_set_adv_data {
         let handle = cursor.get_u8();
         let scan_rsp = cursor.get_u8();
         let mut adv_data = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut adv_data)
             .expect("Failed to read bytes.");
@@ -52,6 +53,7 @@ impl Into<Vec<u8>> for bt5_set_adv_data {
         let mut bytes = Vec::new();
         bytes.put_u8(self.handle);
         bytes.put_u8(self.scan_rsp);
+        bytes.put_u8(self.adv_data.len() as u8);
         bytes.extend(self.adv_data.iter());
         bytes
     }

@@ -41,6 +41,7 @@ impl From<&[u8]> for read_attribute_type {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut atype = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut atype)
             .expect("Failed to read bytes.");
@@ -52,6 +53,7 @@ impl Into<Vec<u8>> for read_attribute_type {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
+        bytes.put_u8(self.atype.len() as u8);
         bytes.extend(self.atype.iter());
         bytes
     }
@@ -69,6 +71,7 @@ impl From<&[u8]> for read_attribute_value {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -80,6 +83,7 @@ impl Into<Vec<u8>> for read_attribute_value {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }

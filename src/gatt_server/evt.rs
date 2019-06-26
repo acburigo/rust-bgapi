@@ -21,6 +21,7 @@ impl From<&[u8]> for attribute_value {
         let att_opcode = cursor.get_u8();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -41,6 +42,7 @@ impl Into<Vec<u8>> for attribute_value {
         bytes.put_u16_le(self.attribute);
         bytes.put_u8(self.att_opcode);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -154,6 +156,7 @@ impl From<&[u8]> for user_write_request {
         let att_opcode = cursor.get_u8();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -174,6 +177,7 @@ impl Into<Vec<u8>> for user_write_request {
         bytes.put_u16_le(self.characteristic);
         bytes.put_u8(self.att_opcode);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }

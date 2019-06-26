@@ -61,6 +61,7 @@ impl From<&[u8]> for ps_load {
         let mut cursor = Cursor::new(data);
         let result = FromPrimitive::from_u16(cursor.get_u16_le()).unwrap();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -72,6 +73,7 @@ impl Into<Vec<u8>> for ps_load {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.result.clone() as u16);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }

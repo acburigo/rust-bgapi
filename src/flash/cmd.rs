@@ -117,7 +117,7 @@ impl ps_save {
     pub fn new(key: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x02 + (value.len() as u8),
+            payload_length: 0x02 + (1 + value.len() as u8),
             message_class: MessageClass::flash,
             message_id: 0x02,
         };
@@ -132,6 +132,7 @@ impl From<&[u8]> for ps_save {
         let mut cursor = Cursor::new(data);
         let key = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -143,6 +144,7 @@ impl Into<Vec<u8>> for ps_save {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.key);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }

@@ -90,6 +90,7 @@ impl From<&[u8]> for scan_response {
         let address_type = FromPrimitive::from_u8(cursor.get_u8()).unwrap();
         let bonding = cursor.get_u8();
         let mut data = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut data)
             .expect("Failed to read bytes.");
@@ -112,6 +113,7 @@ impl Into<Vec<u8>> for scan_response {
         bytes.extend(self.address.iter().rev());
         bytes.put_u8(self.address_type.clone() as u8);
         bytes.put_u8(self.bonding);
+        bytes.put_u8(self.data.len() as u8);
         bytes.extend(self.data.iter());
         bytes
     }

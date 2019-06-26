@@ -13,7 +13,7 @@ impl find_attribute {
     pub fn new(start: u16, atype: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x02 + (atype.len() as u8),
+            payload_length: 0x02 + (1 + atype.len() as u8),
             message_class: MessageClass::gatt_server,
             message_id: 0x06,
         };
@@ -28,6 +28,7 @@ impl From<&[u8]> for find_attribute {
         let mut cursor = Cursor::new(data);
         let start = cursor.get_u16_le();
         let mut atype = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut atype)
             .expect("Failed to read bytes.");
@@ -39,6 +40,7 @@ impl Into<Vec<u8>> for find_attribute {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.start);
+        bytes.put_u8(self.atype.len() as u8);
         bytes.extend(self.atype.iter());
         bytes
     }
@@ -133,7 +135,7 @@ impl send_characteristic_notification {
     pub fn new(connection: u8, characteristic: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x03 + (value.len() as u8),
+            payload_length: 0x03 + (1 + value.len() as u8),
             message_class: MessageClass::gatt_server,
             message_id: 0x05,
         };
@@ -153,6 +155,7 @@ impl From<&[u8]> for send_characteristic_notification {
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -169,6 +172,7 @@ impl Into<Vec<u8>> for send_characteristic_notification {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -187,7 +191,7 @@ impl send_user_read_response {
     pub fn new(connection: u8, characteristic: u16, att_errorcode: u8, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x04 + (value.len() as u8),
+            payload_length: 0x04 + (1 + value.len() as u8),
             message_class: MessageClass::gatt_server,
             message_id: 0x03,
         };
@@ -209,6 +213,7 @@ impl From<&[u8]> for send_user_read_response {
         let characteristic = cursor.get_u16_le();
         let att_errorcode = cursor.get_u8();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -227,6 +232,7 @@ impl Into<Vec<u8>> for send_user_read_response {
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
         bytes.put_u8(self.att_errorcode);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -331,7 +337,7 @@ impl write_attribute_value {
     pub fn new(attribute: u16, offset: u16, value: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
-            payload_length: 0x04 + (value.len() as u8),
+            payload_length: 0x04 + (1 + value.len() as u8),
             message_class: MessageClass::gatt_server,
             message_id: 0x02,
         };
@@ -351,6 +357,7 @@ impl From<&[u8]> for write_attribute_value {
         let attribute = cursor.get_u16_le();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -367,6 +374,7 @@ impl Into<Vec<u8>> for write_attribute_value {
         let mut bytes = Vec::new();
         bytes.put_u16_le(self.attribute);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }

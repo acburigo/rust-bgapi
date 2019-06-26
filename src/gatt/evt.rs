@@ -20,9 +20,11 @@ impl From<&[u8]> for characteristic {
         let characteristic = cursor.get_u16_le();
         let properties = cursor.get_u8();
         let mut uuid: Vec<u8> = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut uuid)
             .expect("Failed to read bytes.");
+        uuid.reverse();
         characteristic {
             connection,
             characteristic,
@@ -38,7 +40,8 @@ impl Into<Vec<u8>> for characteristic {
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
         bytes.put_u8(self.properties);
-        bytes.extend(self.uuid.iter());
+        bytes.put_u8(self.uuid.len() as u8);
+        bytes.extend(self.uuid.iter().rev());
         bytes
     }
 }
@@ -61,6 +64,7 @@ impl From<&[u8]> for characteristic_value {
         let att_opcode = FromPrimitive::from_u8(cursor.get_u8()).unwrap();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -81,6 +85,7 @@ impl Into<Vec<u8>> for characteristic_value {
         bytes.put_u16_le(self.characteristic);
         bytes.put_u8(self.att_opcode.clone() as u8);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -100,9 +105,11 @@ impl From<&[u8]> for descriptor {
         let connection = cursor.get_u8();
         let descriptor = cursor.get_u16_le();
         let mut uuid: Vec<u8> = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut uuid)
             .expect("Failed to read bytes.");
+        uuid.reverse();
         descriptor {
             connection,
             descriptor,
@@ -116,7 +123,8 @@ impl Into<Vec<u8>> for descriptor {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.descriptor);
-        bytes.extend(self.uuid.iter());
+        bytes.put_u8(self.uuid.len() as u8);
+        bytes.extend(self.uuid.iter().rev());
         bytes
     }
 }
@@ -137,6 +145,7 @@ impl From<&[u8]> for descriptor_value {
         let descriptor = cursor.get_u16_le();
         let offset = cursor.get_u16_le();
         let mut value = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut value)
             .expect("Failed to read bytes.");
@@ -155,6 +164,7 @@ impl Into<Vec<u8>> for descriptor_value {
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.descriptor);
         bytes.put_u16_le(self.offset);
+        bytes.put_u8(self.value.len() as u8);
         bytes.extend(self.value.iter());
         bytes
     }
@@ -226,9 +236,11 @@ impl From<&[u8]> for service {
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
         let mut uuid: Vec<u8> = Vec::new();
+        cursor.get_u8();
         cursor
             .read_to_end(&mut uuid)
             .expect("Failed to read bytes.");
+        uuid.reverse();
         service {
             connection,
             service,
@@ -242,7 +254,8 @@ impl Into<Vec<u8>> for service {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);
-        bytes.extend(self.uuid.iter());
+        bytes.put_u8(self.uuid.len() as u8);
+        bytes.extend(self.uuid.iter().rev());
         bytes
     }
 }
