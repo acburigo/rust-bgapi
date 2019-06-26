@@ -10,7 +10,7 @@ pub struct characteristic {
     pub connection: u8,
     pub characteristic: u16,
     pub properties: u8,
-    pub uuid: [u8; 16],
+    pub uuid: Vec<u8>,
 }
 
 impl From<&[u8]> for characteristic {
@@ -19,8 +19,10 @@ impl From<&[u8]> for characteristic {
         let connection = cursor.get_u8();
         let characteristic = cursor.get_u16_le();
         let properties = cursor.get_u8();
-        let mut uuid: [u8; 16] = Default::default();
-        cursor.read_exact(&mut uuid).expect("Failed to read bytes.");
+        let mut uuid: Vec<u8> = Vec::new();
+        cursor
+            .read_to_end(&mut uuid)
+            .expect("Failed to read bytes.");
         characteristic {
             connection,
             characteristic,
@@ -36,7 +38,7 @@ impl Into<Vec<u8>> for characteristic {
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.characteristic);
         bytes.put_u8(self.properties);
-        bytes.extend_from_slice(&self.uuid);
+        bytes.extend(self.uuid.iter());
         bytes
     }
 }
@@ -89,7 +91,7 @@ impl Into<Vec<u8>> for characteristic_value {
 pub struct descriptor {
     pub connection: u8,
     pub descriptor: u16,
-    pub uuid: [u8; 16],
+    pub uuid: Vec<u8>,
 }
 
 impl From<&[u8]> for descriptor {
@@ -97,8 +99,10 @@ impl From<&[u8]> for descriptor {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let descriptor = cursor.get_u16_le();
-        let mut uuid: [u8; 16] = Default::default();
-        cursor.read_exact(&mut uuid).expect("Failed to read bytes.");
+        let mut uuid: Vec<u8> = Vec::new();
+        cursor
+            .read_to_end(&mut uuid)
+            .expect("Failed to read bytes.");
         descriptor {
             connection,
             descriptor,
@@ -112,7 +116,7 @@ impl Into<Vec<u8>> for descriptor {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u16_le(self.descriptor);
-        bytes.extend_from_slice(&self.uuid);
+        bytes.extend(self.uuid.iter());
         bytes
     }
 }
@@ -213,7 +217,7 @@ impl Into<Vec<u8>> for procedure_completed {
 pub struct service {
     pub connection: u8,
     pub service: u32,
-    pub uuid: [u8; 16],
+    pub uuid: Vec<u8>,
 }
 
 impl From<&[u8]> for service {
@@ -221,8 +225,10 @@ impl From<&[u8]> for service {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
-        let mut uuid: [u8; 16] = Default::default();
-        cursor.read_exact(&mut uuid).expect("Failed to read bytes.");
+        let mut uuid: Vec<u8> = Vec::new();
+        cursor
+            .read_to_end(&mut uuid)
+            .expect("Failed to read bytes.");
         service {
             connection,
             service,
@@ -236,7 +242,7 @@ impl Into<Vec<u8>> for service {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);
-        bytes.extend_from_slice(&self.uuid);
+        bytes.extend(self.uuid.iter());
         bytes
     }
 }

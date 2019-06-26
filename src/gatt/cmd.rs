@@ -50,11 +50,11 @@ impl Into<Vec<u8>> for discover_characteristics {
 pub struct discover_characteristics_by_uuid {
     pub connection: u8,
     pub service: u32,
-    pub uuid: [u8; 16],
+    pub uuid: Vec<u8>,
 }
 
 impl discover_characteristics_by_uuid {
-    pub fn new(connection: u8, service: u32, uuid: [u8; 16]) -> Message {
+    pub fn new(connection: u8, service: u32, uuid: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x05 + (uuid.len() as u8),
@@ -76,8 +76,10 @@ impl From<&[u8]> for discover_characteristics_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
-        let mut uuid: [u8; 16] = Default::default();
-        cursor.read_exact(&mut uuid).expect("Failed to read bytes.");
+        let mut uuid: Vec<u8> = Vec::new();
+        cursor
+            .read_to_end(&mut uuid)
+            .expect("Failed to read bytes.");
         discover_characteristics_by_uuid {
             connection,
             service,
@@ -91,7 +93,7 @@ impl Into<Vec<u8>> for discover_characteristics_by_uuid {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);
-        bytes.extend_from_slice(&self.uuid);
+        bytes.extend(self.uuid.iter());
         bytes
     }
 }
@@ -180,11 +182,11 @@ impl Into<Vec<u8>> for discover_primary_services {
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct discover_primary_services_by_uuid {
     pub connection: u8,
-    pub uuid: [u8; 16],
+    pub uuid: Vec<u8>,
 }
 
 impl discover_primary_services_by_uuid {
-    pub fn new(connection: u8, uuid: [u8; 16]) -> Message {
+    pub fn new(connection: u8, uuid: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x01 + (uuid.len() as u8),
@@ -201,8 +203,10 @@ impl From<&[u8]> for discover_primary_services_by_uuid {
     fn from(data: &[u8]) -> discover_primary_services_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
-        let mut uuid: [u8; 16] = Default::default();
-        cursor.read_exact(&mut uuid).expect("Failed to read bytes.");
+        let mut uuid: Vec<u8> = Vec::new();
+        cursor
+            .read_to_end(&mut uuid)
+            .expect("Failed to read bytes.");
         discover_primary_services_by_uuid { connection, uuid }
     }
 }
@@ -211,7 +215,7 @@ impl Into<Vec<u8>> for discover_primary_services_by_uuid {
     fn into(self) -> Vec<u8> {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
-        bytes.extend_from_slice(&self.uuid);
+        bytes.extend(self.uuid.iter());
         bytes
     }
 }
@@ -463,11 +467,11 @@ impl Into<Vec<u8>> for read_characteristic_value {
 pub struct read_characteristic_value_by_uuid {
     pub connection: u8,
     pub service: u32,
-    pub uuid: [u8; 16],
+    pub uuid: Vec<u8>,
 }
 
 impl read_characteristic_value_by_uuid {
-    pub fn new(connection: u8, service: u32, uuid: [u8; 16]) -> Message {
+    pub fn new(connection: u8, service: u32, uuid: Vec<u8>) -> Message {
         let header = MessageHeader {
             message_type: MessageType::command_response,
             payload_length: 0x05 + (uuid.len() as u8),
@@ -489,8 +493,10 @@ impl From<&[u8]> for read_characteristic_value_by_uuid {
         let mut cursor = Cursor::new(data);
         let connection = cursor.get_u8();
         let service = cursor.get_u32_le();
-        let mut uuid: [u8; 16] = Default::default();
-        cursor.read_exact(&mut uuid).expect("Failed to read bytes.");
+        let mut uuid: Vec<u8> = Vec::new();
+        cursor
+            .read_to_end(&mut uuid)
+            .expect("Failed to read bytes.");
         read_characteristic_value_by_uuid {
             connection,
             service,
@@ -504,7 +510,7 @@ impl Into<Vec<u8>> for read_characteristic_value_by_uuid {
         let mut bytes = Vec::new();
         bytes.put_u8(self.connection);
         bytes.put_u32_le(self.service);
-        bytes.extend_from_slice(&self.uuid);
+        bytes.extend(self.uuid.iter());
         bytes
     }
 }
