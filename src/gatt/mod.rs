@@ -250,6 +250,13 @@ pub fn parse(header: &MessageHeader, buffer: &[u8]) -> Result<MessagePayload, Er
             evt::procedure_completed::from(buffer),
         )),
 
+        MessageHeader {
+            message_type: MessageType::event,
+            payload_length: _,
+            message_class: MessageClass::gatt,
+            message_id: 0x01,
+        } => Ok(MessagePayload::evt_gatt_service(evt::service::from(buffer))),
+
         _ => Err(Error::from(ErrorKind::InvalidData)),
     }
 }
